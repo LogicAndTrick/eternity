@@ -1,0 +1,308 @@
+﻿SpriteSheet
+{
+    Name: Terrain1
+    Group: Terrain
+    Resource: Terrain.png
+    SpriteWidth: 24
+    SpriteHeight: 24
+    SheetWidth: 16
+    SheetHeight: 16
+    // E,W,N,S = Edges; 1,2,3,4 = Corners (1 = TopLeft, 2 = TopRight, 3 = BottomLeft, 4 = BottomRight); A,B,C,D = Edges (Top, Left, Right, Bottom)
+    SpriteOrder: Plain1 Plain2 Plain3 Plain4 Plain5 Plain6 Plain7 Plain8 Plain9 Plain10 Plain11 Plain12 Plain13 Plain14 Plain15 . // Plains
+    SpriteOrder: SeaLandNS SeaLandEW SeaLandES SeaLandWS SeaLandEN SeaLandWN SeaLandEWS SeaLandEWN SeaLandENS SeaLandWNS SeaLandS SeaLandN SeaLandE SeaLandW . . // Sea/Land 1
+    SpriteOrder: SeaLand4 SeaLand3 SeaLand34 SeaLand13 SeaLand234 SeaLand134 SeaLandEWNS SeaLand1234 SeaLandW4 SeaLandE3 SeaLandW2 SeaLandN4 SeaLandN3 SeaLandN34 SeaLandWN4 SeaLandEN3 // Sea/Land 2
+    SpriteOrder: SeaLand2 SeaLand1 SeaLand24 SeaLand12 SeaLand124 SeaLand123 SeaLand14 SeaLand23 SeaLandW2 SeaLandE1 SeaLandE13 SeaLandS2 SeaLandS1 SeaLandS12 SeaLandWS2 SeaLandES1 // Sea/Land 3
+    SpriteOrder: ShoalE4 ShoalW4 ShoalE14 ShoalS3 ShoalS23 ShoalS2 ShoalES ShoalWS ShoalES12 ShoalWS13 ShoalES2 ShoalWS3 ShoalES1 ShoalWS1 ShoalE ShoalS // Shoals 1
+    SpriteOrder: ShoalE1 ShoalW1 ShoalW14 ShoalN3 ShoalN23 ShoalN2 ShoalEN ShoalWN ShoalEN24 ShoalWN34 ShoalEN2 ShoalWN3 ShoalEN4 ShoalWN4 ShoalN ShoalW // Shoals 2
+    SpriteOrder: RiverNS RiverES RiverWS RiverEWN RiverENS RiverEWNS SeaRiverS SeaRiverW SeaRiverN SeaRiverE . ShoalNone ShoalS ShoalN ShoalE ShoalW // Rivers 1, Shoals 3
+    SpriteOrder: RiverEN RiverEW RiverWN RiverEWS RiverWNS RiverS RiverE RiverW RiverN RiverNone . . . . . . // Rivers 2, Sea/Land 4/Unused?
+    SpriteOrder: RoughSea1 RoughSea2 RoughSea3 RoughSea4 RoughSea5 Reef1 Reef2 Reef3 Reef4 Wood1 Wood2 Wood3 Wood4 Ruins1 Ruins2 Ruins3 // Rough, Reef, Woods, Ruins
+    SpriteOrder: Sea1 Sea2 Sea3 Sea4 Sea5 Wasteland1 Wasteland2 Wasteland3 Wasteland4 Wasteland5 Wasteland6 Wasteland7 Wasteland8 Wasteland9 . . // Sea, Wasteland
+    SpriteOrder: Plasma1None Plasma1N Plasma1W Plasma1WN Plasma1E Plasma1EN Plasma1EW Plasma1EWN Plasma1S Plasma1NS Plasma1WS Plasma1WNS Plasma1ES Plasma1ENS Plasma1EWS Plasma1EWNS // Plasma 1
+    SpriteOrder: Plasma2None Plasma2N Plasma2W Plasma2WN Plasma2E Plasma2EN Plasma2EW Plasma2EWN Plasma2S Plasma2NS Plasma2WS Plasma2WNS Plasma2ES Plasma2ENS Plasma2EWS Plasma2EWNS // Plasma 2
+    SpriteOrder: Plasma3None Plasma3N Plasma3W Plasma3WN Plasma3E Plasma3EN Plasma3EW Plasma3EWN Plasma3S Plasma3NS Plasma3WS Plasma3WNS Plasma3ES Plasma3ENS Plasma3EWS Plasma3EWNS // Plasma 3
+    SpriteOrder: Road1NS Road1ES Road1WS Road1EWN Road1ENS Road1EWNS Road2NS Road2ES Road2WS Road2EWN Road2ENS Road2EWNS BridgeNS BridgeES BridgeWS BridgeEWN // Roads 1
+    SpriteOrder: Road1EN Road1EW Road1WN Road1EWS Road1WNS Road1S Road2EN Road2EW Road2WN Road2EWS Road2WNS Road1N BridgeEN BridgeEW BridgeWN BridgeEWS // Roads 2
+    SpriteOrder: BridgeENS BridgeEWNS BridgeWNS Road1E . . . . . . . . . . . . // Roads 3
+
+    // Plains
+    Sprite // This rule applies to all sprites in the "Name" field
+    {
+        Name: Plain1 Plain2 Plain3 Plain4 Plain5 Plain6 Plain7 Plain8 Plain9 Plain10 Plain11 Plain12 Plain13 Plain14 Plain15
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Plain
+        TerrainFrequency: 1
+    }
+    Sprite // The rule overrides data set for Plain1 above
+    {
+        Name: Plain1
+        TerrainFrequency: 5
+    }
+
+    Sprite
+    {
+        Name: Road1NS Road1ES Road1WS Road1EWN Road1ENS Road1EWNS Road2NS Road2ES Road2WS Road2EWN Road2ENS Road2EWNS Road1EN Road1EW Road1WN Road1EWS Road1WNS Road1S Road2EN Road2EW Road2WN Road2EWS Road2WNS Road1N Road1E
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Road
+    }
+    
+    // Rivers
+    Sprite
+    {
+        Name: RiverNS RiverES RiverWS RiverEWN RiverENS RiverEWNS RiverEN RiverEW RiverWN RiverEWS RiverWNS RiverS RiverE RiverW RiverN RiverNone
+        Group: Terrain
+        Type: Terrain
+        TerrainType: River
+        TerrainFrequency: 1
+    }
+
+    // Sea
+    AnimatedSprite
+    {
+        Name: Sea
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Sea
+        Sequence: Sea1 Sea2 Sea3 Sea4 Sea5
+        FrameSpeed: 166
+        AnimationStyle: Reverse
+    }
+
+    // Shoals
+    Sprite
+    {
+        Name: ShoalE4 ShoalW4 ShoalE14 ShoalS3 ShoalS23 ShoalS2 ShoalES ShoalWS ShoalES12 ShoalWS13 ShoalES2 ShoalWS3 ShoalES1 ShoalWS1 ShoalE ShoalS ShoalE1 ShoalW1 ShoalW14 ShoalN3 ShoalN23 ShoalN2 ShoalEN ShoalWN ShoalEN24 ShoalWN34 ShoalEN2 ShoalWN3 ShoalEN4 ShoalWN4 ShoalN ShoalW ShoalNone ShoalS ShoalN ShoalE ShoalW
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Shoal
+        TerrainFrequency: 1
+        Underlay: Sea
+    }
+
+    // SeaLand / SeaRiver
+    Sprite
+    {
+        Name: SeaLandNS SeaLandEW SeaLandES SeaLandWS SeaLandEN SeaLandWN SeaLandEWS SeaLandEWN SeaLandENS SeaLandWNS SeaLandS SeaLandN SeaLandE SeaLandW SeaLand4 SeaLand3 SeaLand34 SeaLand13 SeaLand234 SeaLand134 SeaLandEWNS SeaLand1234 SeaLandW4 SeaLandE3 SeaLandW2 SeaLandN4 SeaLandN3 SeaLandN34 SeaLandWN4 SeaLandEN3 SeaLand2 SeaLand1 SeaLand24 SeaLand12 SeaLand124 SeaLand123 SeaLand14 SeaLand23 SeaLandW2 SeaLandE1 SeaLandE13 SeaLandS2 SeaLandS1 SeaLandS12 SeaLandWS2 SeaLandES1 SeaRiverS SeaRiverW SeaRiverN SeaRiverE
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Sea
+        TerrainFrequency: 1
+        Underlay: Sea
+    }
+
+    // Rough
+    AnimatedSprite
+    {
+        Name: RoughSea
+        Group: Terrain
+        Type: Terrain
+        TerrainType: RoughSea
+        Sequence: RoughSea1 RoughSea2 RoughSea3 RoughSea4 RoughSea5
+        FrameSpeed: 133
+        Underlay: Sea
+        AnimationStyle: Loop
+    }
+
+    // Reef
+    Sprite
+    {
+        Name: Reef1 Reef2 Reef3 Reef4
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Reef
+        TerrainFrequency: 1
+        Underlay: Sea
+    }
+
+    // Woods
+    Sprite
+    {
+        Name: Wood1 Wood2 Wood3 Wood4
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Wood
+        TerrainFrequency: 1
+        Underlay: Plain1
+    }
+
+    // Ruins
+    Sprite
+    {
+        Name: Ruins1 Ruins2 Ruins3
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Ruins
+        TerrainFrequency: 1
+        Underlay: Plain1
+    }
+
+    // Wasteland
+    Sprite
+    {
+        Name: Wasteland1 Wasteland2 Wasteland3 Wasteland4 Wasteland5 Wasteland6 Wasteland7 Wasteland8 Wasteland9
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Wasteland
+        TerrainFrequency: 5
+    }
+    Sprite // The rule overrides data set for Wastelands above
+    {
+        Name: Wasteland8 Wasteland9
+        TerrainFrequency: 1
+    }
+
+    // Plasma
+    AnimatedSprite
+    {
+        Name: PlasmaEW
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Plasma
+        Sequence: Plasma1EW Plasma2EW Plasma3EW
+        FrameSpeed: 60
+        AnimationStyle: Loop
+    }
+}
+SpriteSheet
+{
+    Name: Terrain2
+    Group: Terrain
+    Resource: Terrain2.png
+    SpriteWidth: 24
+    SpriteHeight: 48
+    SheetWidth: 25
+    SheetHeight: 6
+    SpriteOrder: RedTAirportOn RedTPortOn RedRadarOn RedHeadquartersOn .
+    SpriteOrder: BlueTAirportOn BlueTPortOn BlueRadarOn BlueHeadquartersOn .
+    SpriteOrder: YellowTAirportOn YellowTPortOn YellowRadarOn YellowHeadquartersOn .
+    SpriteOrder: BlackTAirportOn BlackTPortOn BlackRadarOn BlackHeadquartersOn .
+    SpriteOrder: SiloFired SiloUnfired . . .
+    SpriteOrder: RedCityOn RedBaseOn RedAirportOn RedPortOn RedCommsTowerOn
+    SpriteOrder: BlueCityOn BlueBaseOn BlueAirportOn BluePortOn BlueCommsTowerOn
+    SpriteOrder: YellowCityOn YellowBaseOn YellowAirportOn YellowPortOn YellowCommsTowerOn
+    SpriteOrder: BlackCityOn BlackBaseOn BlackAirportOn BlackPortOn BlackCommsTowerOn
+    SpriteOrder: . . . . .
+    SpriteOrder: RedTAirportOff RedTPortOff RedRadarOff RedHeadquartersOff .
+    SpriteOrder: BlueTAirportOff BlueTPortOff BlueRadarOff BlueHeadquartersOff .
+    SpriteOrder: YellowTAirportOff YellowTPortOff YellowRadarOff YellowHeadquartersOff .
+    SpriteOrder: BlackTAirportOff BlackTPortOff BlackRadarOff BlackHeadquartersOff .
+    SpriteOrder: NeutralTAirport NeutralTPort NeutralRadar NeutralHeadquarters .
+    SpriteOrder: RedCityOff RedBaseOff RedAirportOff RedPortOff RedCommsTowerOff
+    SpriteOrder: BlueCityOff BlueBaseOff BlueAirportOff BluePortOff BlueCommsTowerOff
+    SpriteOrder: YellowCityOff YellowBaseOff YellowAirportOff YellowPortOff YellowCommsTowerOff
+    SpriteOrder: BlackCityOff BlackBaseOff BlackAirportOff BlackPortOff BlackCommsTowerOff
+    SpriteOrder: NeutralCity NeutralBase NeutralAirport NeutralPort NeutralCommsTower
+    SpriteOrder: Meteor Fog1 Fog2 Fog3 Fog4A Fog4B Fog4C Fire1 Fire2 Fire3 Fire4 Fire5 Fire6
+    SpriteOrder: Mountain MountainE MountainEW MountainW . . . . . . . .
+    SpriteOrder: MeteorW1 MeteorW2 MeteorW3 MeteorE1 MeteorE2 MeteorE3 MeteorEW1
+    SpriteOrder: MeteorEW2 MeteorEW3 MeteorS1 MeteorS2 MeteorS2 MeteorWS1 MeteorWS2
+    SpriteOrder: MeteorWS3 MeteorES1 MeteorES2 MeteorES3 MeteorEWS1 MeteorEWS2 MeteorEWS3
+
+    AnimatedSprite
+    {
+        Name: MeteorW
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Meteor
+        Sequence: MeteorW1 MeteorW2 MeteorW3
+        FrameSpeed: 60
+        AnimationStyle: Loop
+    }
+    
+    AnimatedSprite
+    {
+        Name: MeteorE
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Meteor
+        Sequence: MeteorE1 MeteorE2 MeteorE3
+        FrameSpeed: 60
+        AnimationStyle: Loop
+    }
+
+    Sprite
+    {
+        Name: Mountain MountainE MountainEW MountainW
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Mountain
+        TerrainFrequency: 1
+        Underlay: Plain1
+    }
+
+    AnimatedSprite
+    {
+        Name: RedCity
+        Group: Terrain
+        Type: Terrain
+        TerrainType: City
+        Sequence: RedCityOn RedCityOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: RedBase
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Base
+        Sequence: RedBaseOn RedBaseOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: RedHeadquarters
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Headquarters
+        Sequence: RedHeadquartersOn RedHeadquartersOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueCity
+        Group: Terrain
+        Type: Terrain
+        TerrainType: City
+        Sequence: BlueCityOn BlueCityOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+    
+    AnimatedSprite
+    {
+        Name: BlueBase
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Base
+        Sequence: BlueBaseOn BlueBaseOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueHeadquarters
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Headquarters
+        Sequence: BlueHeadquartersOn BlueHeadquartersOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    Sprite
+    {
+        Name: NeutralCity
+        Group: Terrain
+        Type: Terrain
+        TerrainType: City
+    }
+}

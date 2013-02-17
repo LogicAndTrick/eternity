@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4359C00F-CA41-4D19-9A28-8EF154DACF6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eternity.Controls</RootNamespace>
+    <AssemblyName>Eternity.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\Animation.cs" />
+    <Compile Include="Animations\AnimationPool.cs" />
+    <Compile Include="Animations\AnimationQueue.cs" />
+    <Compile Include="Animations\IAnimation.cs" />
+    <Compile Include="Control.cs" />
+    <Compile Include="Easings\BackEasing.cs" />
+    <Compile Include="Easings\BounceEasing.cs" />
+    <Compile Include="Easings\CircEasing.cs" />
+    <Compile Include="Easings\EasingInOut.cs" />
+    <Compile Include="Easings\EasingOut.cs" />
+    <Compile Include="Easings\ElasticEasing.cs" />
+    <Compile Include="Easings\ExponentialEasing.cs" />
+    <Compile Include="Easings\IEasing.cs" />
+    <Compile Include="Easings\LinearEasing.cs" />
+    <Compile Include="Easings\SineEasing.cs" />
+    <Compile Include="Easings\SwingEasing.cs" />
+    <Compile Include="Effects\EffectQueue.cs" />
+    <Compile Include="Effects\CardSwipeEffect.cs" />
+    <Compile Include="Effects\IEffect.cs" />
+    <Compile Include="IOverlayControl.cs" />
+    <Compile Include="LayoutControl.cs" />
+    <Compile Include="Layouts\BorderLayout.cs" />
+    <Compile Include="Layouts\CardLayout.cs" />
+    <Compile Include="Layouts\GridLayout.cs" />
+    <Compile Include="Layouts\ILayout.cs" />
+    <Compile Include="Layouts\VerticalStackLayout.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpritePool.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eternity.DataStructures\Eternity.DataStructures.csproj">
+      <Project>{54257FD4-80F9-4A63-9916-420A6BFE58CB}</Project>
+      <Name>Eternity.DataStructures</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eternity.Game\Eternity.Game.csproj">
+      <Project>{77EDF04C-136B-44D7-9924-5B5D4C4A9222}</Project>
+      <Name>Eternity.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eternity.Graphics\Eternity.Graphics.csproj">
+      <Project>{3DCCE3B9-640E-48DF-8854-B24D5729657E}</Project>
+      <Name>Eternity.Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eternity.Input\Eternity.Input.csproj">
+      <Project>{6D42971E-D09F-48A1-965F-990D80E69B65}</Project>
+      <Name>Eternity.Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eternity.Resources\Eternity.Resources.csproj">
+      <Project>{EFDE4A72-1798-4CB1-8A37-2C94DAB5E798}</Project>
+      <Name>Eternity.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

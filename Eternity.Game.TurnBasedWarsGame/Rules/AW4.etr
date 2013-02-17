@@ -1,0 +1,924 @@
+﻿RuleSet
+{
+    Name: AW4
+    Group: AW4
+    Description: Advance Wars Dark Conflict
+
+    PreviewActions: True
+    ActionEndsTurn: True
+
+    // Armies
+    Army
+    {
+        Name: OS
+        FullName: Orange Star
+        Colour: Red
+        MirrorX: True
+        InfantryStyle: A
+    }
+
+    Army
+    {
+        Name: BM
+        FullName: Blue Moon
+        Colour: Blue
+        InfantryStyle: B
+    }
+
+    Army
+    {
+        Name: YC
+        FullName: Yellow Comet
+        Colour: Yellow
+        MirrorX: True
+        InfantryStyle: A
+    }
+
+    Army
+    {
+        Name: BH
+        FullName: Black Hole
+        Colour: Black
+        InfantryStyle: B
+    }
+
+    // Terrrain
+    Terrain
+    {
+        Name: Plain DestroyedPipeSeam
+        Defense: 1
+        Infantry: 1
+        Mech: 1
+        LightTyres: 2
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Wood
+        Defense: 3
+        Infantry: 1
+        Mech: 1
+        LightTyres: 3
+        HeavyTyres: 3
+        Treads: 2
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Mountain
+        Defense: 4
+        Infantry: 2
+        Mech: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Wasteland
+        Defense: 2
+        Infantry: 1
+        Mech: 1
+        LightTyres: 2
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Ruins
+        Defense: 1
+        Infantry: 1
+        Mech: 1
+        LightTyres: 2
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Road
+        Infantry: 1
+        Mech: 1
+        LightTyres: 1
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Bridge
+        Infantry: 1
+        Mech: 1
+        LightTyres: 1
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+        Ship: 1
+        TransportShip: 1
+    }
+
+    Terrain
+    {
+        Name: Pipe
+        Pipe: 1
+    }
+
+    Terrain
+    {
+        Name: PipeSeam
+        Pipe: 1
+        Health: 99
+    }
+
+    Terrain
+    {
+        Name: River
+        Infantry: 2
+        Mech: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Shoal
+        Infantry: 1
+        Mech: 1
+        LightTyres: 2
+        HeavyTyres: 2
+        Treads: 1
+        Air: 1
+        TransportShip: 1
+    }
+
+    Terrain
+    {
+        Name: Sea
+        Air: 1
+        Ship: 1
+        TransportShip: 1
+    }
+
+    Terrain
+    {
+        Name: RoughSea
+        Defense: 2
+        Air: 1
+        Ship: 2
+        TransportShip: 2
+    }
+
+    Terrain
+    {
+        Name: FoggySea
+        Defense: 1
+        Air: 1
+        Ship: 1
+        TransportShip: 1
+    }
+
+    Terrain
+    {
+        Name: Reef
+        Defense: 2
+        Air: 1
+        Ship: 2
+        TransportShip: 2
+    }
+
+    Terrain
+    {
+        Name: Fire
+        Vision: 3
+    }
+
+    Terrain
+    {
+        Name: Meteor
+        Health: 99
+    }
+
+    Terrain
+    {
+        Name: Plasma
+    }
+
+    Terrain
+    {
+        Name: Headquarters City Base Airport Port CommsTower Radar TemporaryAirport TemporaryPort Silo
+        Infantry: 1
+        Mech: 1
+        LightTyres: 1
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+        Capturable: True
+    }
+
+    Terrain
+    {
+        Name: Silo
+        Infantry: 1
+        Mech: 1
+        LightTyres: 1
+        HeavyTyres: 1
+        Treads: 1
+        Air: 1
+    }
+
+    Terrain
+    {
+        Name: Radar
+        Vision: 3
+    }
+
+    Terrain
+    {
+        Name: Headquarters
+        Defense: 4
+    }
+
+    Terrain
+    {
+        Name: Base Airport Port CommsTower Radar
+        Defense: 3
+    }
+
+    Terrain
+    {
+        Name: City Silo
+        Defense: 2
+    }
+
+    Terrain
+    {
+        Name: TemporaryAirport TemporaryPort
+        Defense: 1
+    }
+
+    Terrain
+    {
+        Name: Headquarters City Base
+        Recover: Infantry Vehicle
+    }
+
+    Terrain
+    {
+        Name: Airport TemporaryAirport
+        Recover: Plane Helicopter
+    }
+
+    Terrain
+    {
+        Name: Port TemporaryPort
+        Recover: Ship Sub
+    }
+
+    // Units
+    Unit
+    {
+        Name: Infantry
+        ClassType: Infantry
+        Vision: 2
+        MovePoints: 3
+        MoveType: Infantry
+        Fuel: 99
+        Price: 1500
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: Mech
+        ClassType: Infantry
+        Vision: 2
+        MovePoints: 2
+        MoveType: Mech
+        Fuel: 70
+        Price: 2500
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: Bazooka
+            AttackType: Direct
+            Ammo: 3
+        }
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: Motorbike
+        ClassType: Infantry
+        Vision: 2
+        MovePoints: 5
+        MoveType: HeavyTyres
+        Fuel: 70
+        Price: 2500
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: Recon
+        ClassType: Vehicle
+        Vision: 5
+        MovePoints: 8
+        MoveType: LightTyres
+        Fuel: 80
+        Price: 4000
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: Flare
+        ClassType: Vehicle
+        Vision: 3
+        MovePoints: 5
+        MoveType: Treads
+        Fuel: 60
+        Price: 5000
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: Tank
+        ClassType: Vehicle
+        Vision: 3
+        MovePoints: 6
+        MoveType: Treads
+        Fuel: 7000
+        Price: 70
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: TankGun
+            AttackType: Direct
+            Ammo: 6
+        }
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: HeavyTank
+        ClassType: Vehicle
+        Vision: 2
+        MovePoints: 5
+        MoveType: Treads
+        Fuel: 50
+        Price: 12000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: TankGun
+            AttackType: Direct
+            Ammo: 5
+        }
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: Missiles
+        ClassType: Vehicle
+        Vision: 5
+        MovePoints: 5
+        MoveType: LightTyres
+        Fuel: 50
+        Price: 12000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: SurfaceToAirMissiles
+            AttackType: Indirect
+            MinRange: 3
+            MaxRange: 6
+            Ammo: 5
+        }
+    }
+
+    Unit
+    {
+        Name: APC
+        ClassType: Vehicle
+        Vision: 1
+        MovePoints: 6
+        MoveType: Treads
+        Fuel: 99
+        Price: 5000
+        CanSupply: True
+
+        Construct
+        {
+            Type: Building
+            Plain: TemporaryAirport
+            Shoal: TemporaryPort
+            Material: 1
+        }
+
+        Load
+        {
+            ClassType: Infantry
+            Capacity: 2
+        }
+    }
+
+    Unit
+    {
+        Name: Artillery
+        ClassType: Vehicle
+        Vision: 3
+        MovePoints: 5
+        MoveType: Treads
+        Fuel: 50
+        Price: 6000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: ShellArtillery
+            AttackType: Indirect
+            MinRange: 2
+            MaxRange: 3
+            Ammo: 6
+        }
+    }
+
+    Unit
+    {
+        Name: Rockets
+        ClassType: Vehicle
+        Vision: 3
+        MovePoints: 5
+        MoveType: LightTyres
+        Fuel: 50
+        Price: 12000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: RocketArtillery
+            AttackType: Indirect
+            MinRange: 3
+            MaxRange: 6
+            Ammo: 5
+        }
+    }
+
+    Unit
+    {
+        Name: AntiAir
+        ClassType: Vehicle
+        Vision: 3
+        MovePoints: 6
+        MoveType: Treads
+        Fuel: 60
+        Price: 7000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: Autocannon
+            AttackType: Direct
+            Ammo: 6
+        }
+    }
+
+    Unit
+    {
+        Name: AntiTank
+        ClassType: Vehicle
+        Vision: 2
+        MovePoints: 4
+        MoveType: HeavyTyres
+        Fuel: 50
+        Price: 11000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: ShellArtillery
+            AttackType: Indirect
+            MinRange: 1
+            MaxRange: 3
+            Ammo: 6
+        }
+    }
+
+    Unit
+    {
+        Name: MegaTank
+        ClassType: Vehicle
+        Vision: 2
+        MovePoints: 4
+        MoveType: Treads
+        Fuel: 50
+        Price: 16000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: TankGun
+            AttackType: Direct
+            Ammo: 5
+        }
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: BattleHelicopter
+        ClassType: Helicopter
+        Vision: 2
+        MovePoints: 6
+        MoveType: Air
+        Fuel: 99
+        Price: 9000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: AirToSurfaceMissiles
+            AttackType: Direct
+            Ammo: 6
+        }
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: MachineGun
+            AttackType: Direct
+        }
+    }
+
+    Unit
+    {
+        Name: TransportHelicopter
+        ClassType: Helicopter
+        Vision: 1
+        MovePoints: 6
+        MoveType: Air
+        Fuel: 99
+        Price: 5000
+
+        Load
+        {
+            ClassType: Infantry
+            Capacity: 1
+        }
+    }
+
+    Unit
+    {
+        Name: Fighter
+        ClassType: Plane
+        Vision: 5
+        MovePoints: 9
+        MoveType: Air
+        Fuel: 99
+        Price: 20000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: AirToAirMissiles
+            AttackType: Direct
+            Ammo: 6
+        }
+    }
+
+    Unit
+    {
+        Name: Bomber
+        ClassType: Plane
+        Vision: 3
+        MovePoints: 7
+        MoveType: Air
+        Fuel: 99
+        Price: 20000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: Bombs
+            AttackType: Direct
+            Ammo: 6
+        }
+    }
+
+    Unit
+    {
+        Name: Duster
+        ClassType: Plane
+        Vision: 4
+        MovePoints: 8
+        MoveType: Air
+        Fuel: 99
+        Price: 13000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: GatlingGun
+            AttackType: Direct
+            Ammo: 9
+        }
+    }
+
+    Unit
+    {
+        Name: ShipPlane
+        ClassType: Plane
+        Vision: 4
+        MovePoints: 7
+        MoveType: Air
+        Fuel: 40
+        Price: 15000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: UniversallyGoodMissiles
+            AttackType: Direct
+            Ammo: 3
+        }
+    }
+
+    Unit
+    {
+        Name: Cruiser
+        ClassType: Ship
+        Vision: 5
+        MovePoints: 6
+        MoveType: Ship
+        Fuel: 99
+        Price: 16000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: AntiSubMissiles
+            AttackType: Direct
+            Ammo: 9
+        }
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: Autocannon
+            AttackType: Direct
+        }
+
+        Load
+        {
+            ClassType: Helicopter
+            Capacity: 2
+        }
+    }
+
+    Unit
+    {
+        Name: Lander
+        ClassType: Ship
+        Vision: 1
+        MovePoints: 6
+        MoveType: TransportShip
+        Fuel: 99
+        Price: 10000
+
+        Load
+        {
+            ClassType: Infantry Vehicle
+            Capacity: 2
+        }
+    }
+
+    Unit
+    {
+        Name: MissileBoat
+        ClassType: Ship
+        Vision: 2
+        MovePoints: 7
+        MoveType: TransportShip
+        Fuel: 99
+        Price: 6000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: AntiShipMissiles
+            AttackType: Direct
+            Ammo: 1
+        }
+
+        Load
+        {
+            ClassType: Helicopter
+            Capacity: 1
+        }
+    }
+
+    Unit
+    {
+        Name: Battleship
+        ClassType: Ship
+        Vision: 3
+        MovePoints: 5
+        MoveType: Ship
+        Fuel: 99
+        Price: 25000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: NavalCannon
+            AttackType: Indirect
+            MinRange: 3
+            MaxRange: 5
+            Ammo: 6
+            CanMoveAndFire: True
+        }
+    }
+
+    Unit
+    {
+        Name: Carrier
+        ClassType: Ship
+        Vision: 4
+        MovePoints: 5
+        MoveType: Ship
+        Fuel: 99
+        Price: 28000
+
+        Weapon
+        {
+            ClassType: Secondary
+            WeaponType: Autocannon
+            AttackType: Direct
+        }
+
+        Construct
+        {
+            Type: Unit
+            UnitType: ShipPlane
+            Material: 4
+        }
+
+        Load
+        {
+            ClassType: Plane
+            Capacity: 2
+        }
+    }
+
+    Unit
+    {
+        Name: Sub
+        ClassType: Sub
+        Vision: 5
+        MovePoints: 6
+        MoveType: Ship
+        Fuel: 70
+        Price: 20000
+
+        Weapon
+        {
+            ClassType: Primary
+            WeaponType: Torpedos
+            AttackType: Direct
+            Ammo: 6
+        }
+    }
+
+    // Damage Tables
+    Damage
+    {
+        // Credit goes to advancewarsnet.com and warsworldnews.com for this data
+
+        Order: Infantry Mech Motorbike Recon Flare Tank HeavyTank MegaTank
+        Order: AntiTank Artillery Rockets Missiles AntiAir APC
+        Order: TransportHelicopter BattleHelicopter Duster Fighter Bomber ShipPlane
+        Order: MissileBoat Lander Cruiser Sub Battleship Carrier
+
+        Attacker: Left // The attacking unit is down the left side of the table. Top for a transposed table
+
+        // Primary weapon damage table
+
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . 85 80 55 25 15 55 70 85 85 55 75 . . . . . . . . . . . .
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . 85 80 55 35 20 30 70 85 85 75 75 . . . . . . 55 18 9 9 8 8
+        Primary: . . . 95 90 70 55 35 35 85 90 90 90 90 . . . . . . 55 22 12 12 10 10
+        Primary: . . . 105 105 85 75 55 40 105 105 105 105 105 . . . . . . 65 28 14 14 12 12
+        Primary: 75 65 65 75 75 75 65 55 55 65 70 70 75 65 55 45 . . . . . . . . . .
+        Primary: 90 85 85 80 75 60 45 35 55 75 80 80 65 70 . . . . . . 100 65 55 55 45 45
+        Primary: 95 90 90 90 85 70 55 45 65 80 85 85 75 80 . . . . . . 105 75 65 65 55 55
+        Primary: . . . . . . . . . . . . . . 120 120 100 100 100 100 . . . . . .
+        Primary: 105 105 105 60 50 15 10 5 25 50 55 55 45 50 120 105 75 70 70 75 . . . . . .
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . 75 75 70 45 35 20 65 75 55 10 70 . . . . . . 85 25 5 25 25 25
+        Primary: 55 45 45 18 15 8 5 1 5 15 20 20 5 15 90 75 55 40 45 45 . . . . . .
+        Primary: . . . . . . . . . . . . . . 120 120 80 55 65 65 . . . . . .
+        Primary: 115 110 110 105 105 105 95 75 80 105 105 95 85 105 . . . . . . 120 95 50 95 85 85
+        Primary: 90 85 85 80 80 75 65 55 50 70 80 70 45 75 95 85 65 45 55 55 105 85 40 55 45 65
+        Primary: . . . . . . . . . . . . . . . . . . . . 75 55 40 40 40 40
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Primary: . . . . . . . . . . . . . . . . . . . . 85 40 28 95 38 38
+        Primary: . . . . . . . . . . . . . . . . . . . . 120 85 20 55 80 110
+        Primary: 75 70 70 70 70 65 50 40 55 70 75 75 65 65 . . . . . . 95 75 65 65 45 50
+        Primary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+        // Secondary weapon damage table
+
+        Secondary: 55 45 45 12 10 5 5 1 30 10 20 20 3 14 30 8 . . . . . . . . . .
+        Secondary: 65 55 55 18 15 8 5 1 35 15 35 35 5 20 35 12 . . . . . . . . . .
+        Secondary: 65 55 55 18 15 8 5 1 35 15 35 35 5 20 35 12 . . . . . . . . . .
+        Secondary: 75 65 65 35 30 8 5 1 25 45 55 55 8 45 35 18 . . . . . . . . . .
+        Secondary: 80 70 70 60 50 10 5 1 25 45 55 55 45 45 35 18 . . . . . . . . . .
+        Secondary: 75 70 70 40 35 8 5 1 1 45 55 55 8 45 40 18 . . . . . . . . . .
+        Secondary: 90 80 80 40 35 8 5 1 1 45 60 60 8 45 40 24 . . . . . . . . . .
+        Secondary: 105 95 95 45 40 10 10 1 1 45 65 65 10 45 45 35 . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: 75 65 65 30 30 8 8 1 1 25 35 25 1 20 85 65 . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . 120 120 105 105 105 105 . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . . . . . . . . . . . . .
+        Secondary: . . . . . . . . . . . . . . 55 45 40 35 35 40 . . . . . .
+    }
+}

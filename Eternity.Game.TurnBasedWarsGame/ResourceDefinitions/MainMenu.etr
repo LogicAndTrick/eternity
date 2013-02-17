@@ -1,0 +1,36 @@
+﻿Texture
+{
+	Name: Background0
+	Group: MainMenu
+	Resource: bg0.png
+}
+Texture
+{
+	Name: Background1
+	Group: MainMenu
+	Resource: bg1.png
+}
+Texture
+{
+	Name: Background2
+	Group: MainMenu
+	Resource: bg2.png
+}
+Texture
+{
+	Name: Background3
+	Group: MainMenu
+	Resource: bg3.png
+}
+Texture
+{
+	Name: BackgroundLogos
+	Group: MainMenu
+	Resource: bglogos.png
+}
+Sprite
+{
+	Name: CampaignIcon
+	Group: MainMenu
+	Resource: campaign.png
+}

@@ -1,0 +1,21 @@
+﻿
+1. AW4
+
+Graphics
+Animations
+  Explosions
+Unit Actions
+  Dive
+  Rise
+  Takeoff
+  CO
+  Build
+Turns/Days
+Funds
+Factories
+
+
+2. Pluggable Rules
+
+3. AW1-3
+

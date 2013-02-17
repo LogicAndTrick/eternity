@@ -1,0 +1,1340 @@
+﻿SpriteSheet
+{
+	Name: AllUnits1
+	Group: Units
+	Resource: AllUnits1.png
+	SpriteWidth: 24
+	SpriteHeight: 24
+	SheetWidth: 20
+	SheetHeight: 18
+	SpriteOrder[Red{0}1]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Blue{0}1]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Red{0}2]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Blue{0}2]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Red{0}3]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Blue{0}3]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+
+	SpriteOrder[Red{0}1]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Blue{0}1]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Red{0}2]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Blue{0}2]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Red{0}3]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Blue{0}3]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+
+	SpriteOrder[Red{0}1]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Blue{0}1]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Red{0}2]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Blue{0}2]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Red{0}3]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Blue{0}3]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+
+	SpriteOrder[Yellow{0}1]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Black{0}1]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Yellow{0}2]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Black{0}2]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Yellow{0}3]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+	SpriteOrder[Black{0}3]: Recon Flare Tank HeavyTank Missiles APC Artillery Rockets AntiAir AntiTank
+
+	SpriteOrder[Yellow{0}1]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Black{0}1]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Yellow{0}2]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Black{0}2]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Yellow{0}3]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+	SpriteOrder[Black{0}3]: Fighter Bomber Duster ShipPlane BattleHelicopter TransportHelicopter Cruiser Lander Sub MissileBoat
+
+	SpriteOrder[Yellow{0}1]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Black{0}1]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Yellow{0}2]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Black{0}2]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Yellow{0}3]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	SpriteOrder[Black{0}3]: InfantryA InfantryB MechA MechB MotorcycleA MotorcycleB CarrierPlane Battleship Carrier .
+	
+	AnimatedSprite
+	{
+		Name: RedInfantryA
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: RedInfantryA1 RedInfantryA2 RedInfantryA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedMechA
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: RedMechA1 RedMechA2 RedMechA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedRecon
+		Group: Units
+		Type: Unit
+		UnitType: Recon
+		Sequence: RedRecon1 RedRecon2 RedRecon3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedHeavyTank
+		Group: Units
+		Type: Unit
+		UnitType: HeavyTank
+		Sequence: RedHeavyTank1 RedHeavyTank2 RedHeavyTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedShipPlane
+		Group: Units
+		Type: Unit
+		UnitType: ShipPlane
+		Sequence: RedShipPlane1 RedShipPlane2 RedShipPlane3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedFlare
+		Group: Units
+		Type: Unit
+		UnitType: Flare
+		Sequence: RedFlare1 RedFlare2 RedFlare3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedTank
+		Group: Units
+		Type: Unit
+		UnitType: Tank
+		Sequence: RedTank1 RedTank2 RedTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedMissiles
+		Group: Units
+		Type: Unit
+		UnitType: Missiles
+		Sequence: RedMissiles1 RedMissiles2 RedMissiles3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedAPC
+		Group: Units
+		Type: Unit
+		UnitType: APC
+		Sequence: RedAPC1 RedAPC2 RedAPC3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedArtillery
+		Group: Units
+		Type: Unit
+		UnitType: Artillery
+		Sequence: RedArtillery1 RedArtillery2 RedArtillery3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedRockets
+		Group: Units
+		Type: Unit
+		UnitType: Rockets
+		Sequence: RedRockets1 RedRockets2 RedRockets3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedAntiAir
+		Group: Units
+		Type: Unit
+		UnitType: AntiAir
+		Sequence: RedAntiAir1 RedAntiAir2 RedAntiAir3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedAntiTank
+		Group: Units
+		Type: Unit
+		UnitType: AntiTank
+		Sequence: RedAntiTank1 RedAntiTank2 RedAntiTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedFighter
+		Group: Units
+		Type: Unit
+		UnitType: Fighter
+		Sequence: RedFighter1 RedFighter2 RedFighter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedBomber
+		Group: Units
+		Type: Unit
+		UnitType: Bomber
+		Sequence: RedBomber1 RedBomber2 RedBomber3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedDuster
+		Group: Units
+		Type: Unit
+		UnitType: Duster
+		Sequence: RedDuster1 RedDuster2 RedDuster3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedBattleHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: BattleHelicopter
+		Sequence: RedBattleHelicopter1 RedBattleHelicopter2 RedBattleHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedTransportHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: TransportHelicopter
+		Sequence: RedTransportHelicopter1 RedTransportHelicopter2 RedTransportHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedCruiser
+		Group: Units
+		Type: Unit
+		UnitType: Cruiser
+		Sequence: RedCruiser1 RedCruiser2 RedCruiser3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedLander
+		Group: Units
+		Type: Unit
+		UnitType: Lander
+		Sequence: RedLander1 RedLander2 RedLander3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedSub
+		Group: Units
+		Type: Unit
+		UnitType: Submarine
+		Sequence: RedSub1 RedSub2 RedSub3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedMissileBoat
+		Group: Units
+		Type: Unit
+		UnitType: MissileBoat
+		Sequence: RedMissileBoat1 RedMissileBoat2 RedMissileBoat3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedInfantryB
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: RedInfantryB1 RedInfantryB2 RedInfantryB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+    	AnimatedSprite
+	{
+		Name: RedMechB
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: RedMechB1 RedMechB2 RedMechB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedMotorcycleA
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: RedMotorcycleA1 RedMotorcycleA2 RedMotorcycleA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedMotorcycleB
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: RedMotorcycleB1 RedMotorcycleB2 RedMotorcycleB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedBattleship
+		Group: Units
+		Type: Unit
+		UnitType: Battleship
+		Sequence: RedBattleship1 RedBattleship2 RedBattleship3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: RedCarrier
+		Group: Units
+		Type: Unit
+		UnitType: Carrier
+		Sequence: RedCarrier1 RedCarrier2 RedCarrier3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+	
+	AnimatedSprite
+	{
+		Name: BlueInfantryA
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: BlueInfantryA1 BlueInfantryA2 BlueInfantryA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueMechA
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: BlueMechA1 BlueMechA2 BlueMechA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueRecon
+		Group: Units
+		Type: Unit
+		UnitType: Recon
+		Sequence: BlueRecon1 BlueRecon2 BlueRecon3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueHeavyTank
+		Group: Units
+		Type: Unit
+		UnitType: HeavyTank
+		Sequence: BlueHeavyTank1 BlueHeavyTank2 BlueHeavyTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueShipPlane
+		Group: Units
+		Type: Unit
+		UnitType: ShipPlane
+		Sequence: BlueShipPlane1 BlueShipPlane2 BlueShipPlane3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueFlare
+		Group: Units
+		Type: Unit
+		UnitType: Flare
+		Sequence: BlueFlare1 BlueFlare2 BlueFlare3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueTank
+		Group: Units
+		Type: Unit
+		UnitType: Tank
+		Sequence: BlueTank1 BlueTank2 BlueTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueMissiles
+		Group: Units
+		Type: Unit
+		UnitType: Missiles
+		Sequence: BlueMissiles1 BlueMissiles2 BlueMissiles3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueAPC
+		Group: Units
+		Type: Unit
+		UnitType: APC
+		Sequence: BlueAPC1 BlueAPC2 BlueAPC3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueArtillery
+		Group: Units
+		Type: Unit
+		UnitType: Artillery
+		Sequence: BlueArtillery1 BlueArtillery2 BlueArtillery3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueRockets
+		Group: Units
+		Type: Unit
+		UnitType: Rockets
+		Sequence: BlueRockets1 BlueRockets2 BlueRockets3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueAntiAir
+		Group: Units
+		Type: Unit
+		UnitType: AntiAir
+		Sequence: BlueAntiAir1 BlueAntiAir2 BlueAntiAir3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueAntiTank
+		Group: Units
+		Type: Unit
+		UnitType: AntiTank
+		Sequence: BlueAntiTank1 BlueAntiTank2 BlueAntiTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueFighter
+		Group: Units
+		Type: Unit
+		UnitType: Fighter
+		Sequence: BlueFighter1 BlueFighter2 BlueFighter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueBomber
+		Group: Units
+		Type: Unit
+		UnitType: Bomber
+		Sequence: BlueBomber1 BlueBomber2 BlueBomber3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueDuster
+		Group: Units
+		Type: Unit
+		UnitType: Duster
+		Sequence: BlueDuster1 BlueDuster2 BlueDuster3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueBattleHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: BattleHelicopter
+		Sequence: BlueBattleHelicopter1 BlueBattleHelicopter2 BlueBattleHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueTransportHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: TransportHelicopter
+		Sequence: BlueTransportHelicopter1 BlueTransportHelicopter2 BlueTransportHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueCruiser
+		Group: Units
+		Type: Unit
+		UnitType: Cruiser
+		Sequence: BlueCruiser1 BlueCruiser2 BlueCruiser3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueLander
+		Group: Units
+		Type: Unit
+		UnitType: Lander
+		Sequence: BlueLander1 BlueLander2 BlueLander3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueSub
+		Group: Units
+		Type: Unit
+		UnitType: Submarine
+		Sequence: BlueSub1 BlueSub2 BlueSub3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueMissileBoat
+		Group: Units
+		Type: Unit
+		UnitType: MissileBoat
+		Sequence: BlueMissileBoat1 BlueMissileBoat2 BlueMissileBoat3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueInfantryB
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: BlueInfantryB1 BlueInfantryB2 BlueInfantryB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+    	AnimatedSprite
+	{
+		Name: BlueMechB
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: BlueMechB1 BlueMechB2 BlueMechB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueMotorcycleA
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: BlueMotorcycleA1 BlueMotorcycleA2 BlueMotorcycleA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueMotorcycleB
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: BlueMotorcycleB1 BlueMotorcycleB2 BlueMotorcycleB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueBattleship
+		Group: Units
+		Type: Unit
+		UnitType: Battleship
+		Sequence: BlueBattleship1 BlueBattleship2 BlueBattleship3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueCarrier
+		Group: Units
+		Type: Unit
+		UnitType: Carrier
+		Sequence: BlueCarrier1 BlueCarrier2 BlueCarrier3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+	
+	AnimatedSprite
+	{
+		Name: YellowInfantryA
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: YellowInfantryA1 YellowInfantryA2 YellowInfantryA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowMechA
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: YellowMechA1 YellowMechA2 YellowMechA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowRecon
+		Group: Units
+		Type: Unit
+		UnitType: Recon
+		Sequence: YellowRecon1 YellowRecon2 YellowRecon3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowHeavyTank
+		Group: Units
+		Type: Unit
+		UnitType: HeavyTank
+		Sequence: YellowHeavyTank1 YellowHeavyTank2 YellowHeavyTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowShipPlane
+		Group: Units
+		Type: Unit
+		UnitType: ShipPlane
+		Sequence: YellowShipPlane1 YellowShipPlane2 YellowShipPlane3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowFlare
+		Group: Units
+		Type: Unit
+		UnitType: Flare
+		Sequence: YellowFlare1 YellowFlare2 YellowFlare3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowTank
+		Group: Units
+		Type: Unit
+		UnitType: Tank
+		Sequence: YellowTank1 YellowTank2 YellowTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowMissiles
+		Group: Units
+		Type: Unit
+		UnitType: Missiles
+		Sequence: YellowMissiles1 YellowMissiles2 YellowMissiles3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowAPC
+		Group: Units
+		Type: Unit
+		UnitType: APC
+		Sequence: YellowAPC1 YellowAPC2 YellowAPC3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowArtillery
+		Group: Units
+		Type: Unit
+		UnitType: Artillery
+		Sequence: YellowArtillery1 YellowArtillery2 YellowArtillery3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowRockets
+		Group: Units
+		Type: Unit
+		UnitType: Rockets
+		Sequence: YellowRockets1 YellowRockets2 YellowRockets3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowAntiAir
+		Group: Units
+		Type: Unit
+		UnitType: AntiAir
+		Sequence: YellowAntiAir1 YellowAntiAir2 YellowAntiAir3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowAntiTank
+		Group: Units
+		Type: Unit
+		UnitType: AntiTank
+		Sequence: YellowAntiTank1 YellowAntiTank2 YellowAntiTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowFighter
+		Group: Units
+		Type: Unit
+		UnitType: Fighter
+		Sequence: YellowFighter1 YellowFighter2 YellowFighter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowBomber
+		Group: Units
+		Type: Unit
+		UnitType: Bomber
+		Sequence: YellowBomber1 YellowBomber2 YellowBomber3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowDuster
+		Group: Units
+		Type: Unit
+		UnitType: Duster
+		Sequence: YellowDuster1 YellowDuster2 YellowDuster3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowBattleHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: BattleHelicopter
+		Sequence: YellowBattleHelicopter1 YellowBattleHelicopter2 YellowBattleHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowTransportHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: TransportHelicopter
+		Sequence: YellowTransportHelicopter1 YellowTransportHelicopter2 YellowTransportHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowCruiser
+		Group: Units
+		Type: Unit
+		UnitType: Cruiser
+		Sequence: YellowCruiser1 YellowCruiser2 YellowCruiser3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowLander
+		Group: Units
+		Type: Unit
+		UnitType: Lander
+		Sequence: YellowLander1 YellowLander2 YellowLander3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowSub
+		Group: Units
+		Type: Unit
+		UnitType: Submarine
+		Sequence: YellowSub1 YellowSub2 YellowSub3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowMissileBoat
+		Group: Units
+		Type: Unit
+		UnitType: MissileBoat
+		Sequence: YellowMissileBoat1 YellowMissileBoat2 YellowMissileBoat3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowInfantryB
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: YellowInfantryB1 YellowInfantryB2 YellowInfantryB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+    	AnimatedSprite
+	{
+		Name: YellowMechB
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: YellowMechB1 YellowMechB2 YellowMechB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowMotorcycleA
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: YellowMotorcycleA1 YellowMotorcycleA2 YellowMotorcycleA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowMotorcycleB
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: YellowMotorcycleB1 YellowMotorcycleB2 YellowMotorcycleB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowBattleship
+		Group: Units
+		Type: Unit
+		UnitType: Battleship
+		Sequence: YellowBattleship1 YellowBattleship2 YellowBattleship3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowCarrier
+		Group: Units
+		Type: Unit
+		UnitType: Carrier
+		Sequence: YellowCarrier1 YellowCarrier2 YellowCarrier3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+	
+	AnimatedSprite
+	{
+		Name: BlackInfantryA
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: BlackInfantryA1 BlackInfantryA2 BlackInfantryA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackMechA
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: BlackMechA1 BlackMechA2 BlackMechA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackRecon
+		Group: Units
+		Type: Unit
+		UnitType: Recon
+		Sequence: BlackRecon1 BlackRecon2 BlackRecon3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackHeavyTank
+		Group: Units
+		Type: Unit
+		UnitType: HeavyTank
+		Sequence: BlackHeavyTank1 BlackHeavyTank2 BlackHeavyTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackShipPlane
+		Group: Units
+		Type: Unit
+		UnitType: ShipPlane
+		Sequence: BlackShipPlane1 BlackShipPlane2 BlackShipPlane3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackFlare
+		Group: Units
+		Type: Unit
+		UnitType: Flare
+		Sequence: BlackFlare1 BlackFlare2 BlackFlare3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackTank
+		Group: Units
+		Type: Unit
+		UnitType: Tank
+		Sequence: BlackTank1 BlackTank2 BlackTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackMissiles
+		Group: Units
+		Type: Unit
+		UnitType: Missiles
+		Sequence: BlackMissiles1 BlackMissiles2 BlackMissiles3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackAPC
+		Group: Units
+		Type: Unit
+		UnitType: APC
+		Sequence: BlackAPC1 BlackAPC2 BlackAPC3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackArtillery
+		Group: Units
+		Type: Unit
+		UnitType: Artillery
+		Sequence: BlackArtillery1 BlackArtillery2 BlackArtillery3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackRockets
+		Group: Units
+		Type: Unit
+		UnitType: Rockets
+		Sequence: BlackRockets1 BlackRockets2 BlackRockets3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackAntiAir
+		Group: Units
+		Type: Unit
+		UnitType: AntiAir
+		Sequence: BlackAntiAir1 BlackAntiAir2 BlackAntiAir3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackAntiTank
+		Group: Units
+		Type: Unit
+		UnitType: AntiTank
+		Sequence: BlackAntiTank1 BlackAntiTank2 BlackAntiTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackFighter
+		Group: Units
+		Type: Unit
+		UnitType: Fighter
+		Sequence: BlackFighter1 BlackFighter2 BlackFighter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackBomber
+		Group: Units
+		Type: Unit
+		UnitType: Bomber
+		Sequence: BlackBomber1 BlackBomber2 BlackBomber3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackDuster
+		Group: Units
+		Type: Unit
+		UnitType: Duster
+		Sequence: BlackDuster1 BlackDuster2 BlackDuster3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackBattleHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: BattleHelicopter
+		Sequence: BlackBattleHelicopter1 BlackBattleHelicopter2 BlackBattleHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackTransportHelicopter
+		Group: Units
+		Type: Unit
+		UnitType: TransportHelicopter
+		Sequence: BlackTransportHelicopter1 BlackTransportHelicopter2 BlackTransportHelicopter3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackCruiser
+		Group: Units
+		Type: Unit
+		UnitType: Cruiser
+		Sequence: BlackCruiser1 BlackCruiser2 BlackCruiser3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackLander
+		Group: Units
+		Type: Unit
+		UnitType: Lander
+		Sequence: BlackLander1 BlackLander2 BlackLander3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackSub
+		Group: Units
+		Type: Unit
+		UnitType: Submarine
+		Sequence: BlackSub1 BlackSub2 BlackSub3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackMissileBoat
+		Group: Units
+		Type: Unit
+		UnitType: MissileBoat
+		Sequence: BlackMissileBoat1 BlackMissileBoat2 BlackMissileBoat3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackInfantryB
+		Group: Units
+		Type: Unit
+		UnitType: Infantry
+		Sequence: BlackInfantryB1 BlackInfantryB2 BlackInfantryB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+    	AnimatedSprite
+	{
+		Name: BlackMechB
+		Group: Units
+		Type: Unit
+		UnitType: Mech
+		Sequence: BlackMechB1 BlackMechB2 BlackMechB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackMotorcycleA
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: BlackMotorcycleA1 BlackMotorcycleA2 BlackMotorcycleA3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackMotorcycleB
+		Group: Units
+		Type: Unit
+		UnitType: Motorbike
+		Sequence: BlackMotorcycleB1 BlackMotorcycleB2 BlackMotorcycleB3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackBattleship
+		Group: Units
+		Type: Unit
+		UnitType: Battleship
+		Sequence: BlackBattleship1 BlackBattleship2 BlackBattleship3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackCarrier
+		Group: Units
+		Type: Unit
+		UnitType: Carrier
+		Sequence: BlackCarrier1 BlackCarrier2 BlackCarrier3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+}
+SpriteSheet
+{
+	Name: AllUnits2
+	Group: Units
+	Resource: AllUnits2.png
+	SpriteWidth: 24
+	SpriteHeight: 48
+	SheetWidth: 4
+	SheetHeight: 3
+	SpriteOrder: RedMegaTank1 BlueMegaTank1 YellowMegaTank1 BlackMegaTank1
+	SpriteOrder: RedMegaTank2 BlueMegaTank2 YellowMegaTank2 BlackMegaTank2
+	SpriteOrder: RedMegaTank3 BlueMegaTank3 YellowMegaTank3 BlackMegaTank3
+	
+	AnimatedSprite
+	{
+		Name: RedMegaTank
+		Group: Units
+		Type: Unit
+		UnitType: MegaTank
+		Sequence: RedMegaTank1 RedMegaTank2 RedMegaTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlueMegaTank
+		Group: Units
+		Type: Unit
+		UnitType: MegaTank
+		Sequence: BlueMegaTank1 BlueMegaTank2 BlueMegaTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: YellowMegaTank
+		Group: Units
+		Type: Unit
+		UnitType: MegaTank
+		Sequence: YellowMegaTank1 YellowMegaTank2 YellowMegaTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+
+	AnimatedSprite
+	{
+		Name: BlackMegaTank
+		Group: Units
+		Type: Unit
+		UnitType: MegaTank
+		Sequence: BlackMegaTank1 BlackMegaTank2 BlackMegaTank3
+		FrameSpeed: 200
+		AnimationStyle: Reverse
+	}
+}

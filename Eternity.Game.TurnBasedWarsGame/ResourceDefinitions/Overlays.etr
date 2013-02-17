@@ -1,0 +1,185 @@
+﻿SpriteSheet
+{
+    Name: Overlays
+    Group: Overlays
+    Resource: Overlays.png
+    SpriteWidth: 24
+    SpriteHeight: 24
+    SheetWidth: 4
+    SheetHeight: 9
+    
+    SpriteOrder: BlueOverlayE BlueOverlayW GreyOverlayE GreyOverlayW
+    SpriteOrder: BlueOverlayS BlueOverlayN GreyOverlayS GreyOverlayN
+    SpriteOrder: BlueOverlayR4 BlueOverlayR3 GreyOverlayR4 GreyOverlayR3
+    SpriteOrder: BlueOverlayR2 BlueOverlayR1 GreyOverlayR2 GreyOverlayR1
+    SpriteOrder: BlueOverlayC4 BlueOverlayC3 GreyOverlayC4 GreyOverlayC3
+    SpriteOrder: BlueOverlayC2 BlueOverlayC1 GreyOverlayC2 GreyOverlayC1
+    SpriteOrder: BlueOverlayA4 BlueOverlayA3 GreyOverlayA4 GreyOverlayA3
+    SpriteOrder: BlueOverlayA2 BlueOverlayA1 GreyOverlayA2 GreyOverlayA1
+    SpriteOrder: BlueOverlayFull . GreyOverlayFull .
+
+    Sprite
+    {
+        Name: BlueOverlayE BlueOverlayW GreyOverlayE GreyOverlayW
+        Name: BlueOverlayS BlueOverlayN GreyOverlayS GreyOverlayN
+        Name: BlueOverlayR4 BlueOverlayR3 GreyOverlayR4 GreyOverlayR3
+        Name: BlueOverlayR2 BlueOverlayR1 GreyOverlayR2 GreyOverlayR1
+        Name: BlueOverlayC4 BlueOverlayC3 GreyOverlayC4 GreyOverlayC3
+        Name: BlueOverlayC2 BlueOverlayC1 GreyOverlayC2 GreyOverlayC1
+        Name: BlueOverlayA4 BlueOverlayA3 GreyOverlayA4 GreyOverlayA3
+        Name: BlueOverlayA2 BlueOverlayA1 GreyOverlayA2 GreyOverlayA1
+        Name: BlueOverlayFull GreyOverlayFull
+        Group: Overlays
+    }
+}
+Texture
+{
+    Name: Clouds
+    Group: Overlays
+    Resource: Clouds.png
+}
+SpriteSheet
+{
+    Name: Arrows
+    Group: Overlays
+    Resource: Arrows.png
+    SpriteWidth: 24
+    SpriteHeight: 24
+    SheetWidth: 5
+    SheetHeight: 4
+    
+    SpriteOrder: ArrowStartE ArrowStartW ArrowStartS ArrowStartN ArrowLineEN
+    SpriteOrder: ArrowLineEW ArrowLineNS ArrowLineES ArrowLineWS ArrowLineWN
+    SpriteOrder: ArrowEndS ArrowEndW ArrowEndN ArrowEndE .
+    SpriteOrder: UnloadArrowEndN UnloadArrowEndE UnloadArrowEndS UnloadArrowEndW .
+
+    Sprite
+    {
+        Name: ArrowStartE ArrowStartW ArrowStartS ArrowStartN ArrowLineEN 
+        Name: ArrowLineEW ArrowLineNS ArrowLineES ArrowLineWS ArrowLineWN
+        Name: ArrowEndS ArrowEndW ArrowEndN ArrowEndE
+        Name: UnloadArrowEndN UnloadArrowEndE UnloadArrowEndS UnloadArrowEndW
+        Group: Overlays
+    }
+}
+SpriteSheet
+{
+    Name: MoveTileSheet
+    Group: Overlays
+    Resource: MoveTile.png
+    SpriteWidth: 24
+    SpriteHeight: 24
+    SheetWidth: 12
+    SheetHeight: 1
+    
+    SpriteOrder: MoveTile1 MoveTile2 MoveTile3 MoveTile4 MoveTile5 MoveTile6
+    SpriteOrder: MoveTile7 MoveTile8 MoveTile9 MoveTile10 MoveTile11 MoveTile12
+
+    AnimatedSprite
+    {
+        Name: MoveTile
+        Group: Overlays
+        Sequence: MoveTile1 MoveTile2 MoveTile3 MoveTile4 MoveTile5 MoveTile6
+        Sequence: MoveTile7 MoveTile8 MoveTile9 MoveTile10 MoveTile11 MoveTile12
+        FrameSpeed: 50
+        AnimationStyle: Loop
+    }
+}
+SpriteSheet
+{
+    Name: AttackTileSheet
+    Group: Overlays
+    Resource: AttackTile.png
+    SpriteWidth: 24
+    SpriteHeight: 24
+    SheetWidth: 12
+    SheetHeight: 1
+    
+    SpriteOrder: AttackTile1 AttackTile2 AttackTile3 AttackTile4 AttackTile5 AttackTile6
+    SpriteOrder: AttackTile7 AttackTile8 AttackTile9 AttackTile10 AttackTile11 AttackTile12
+
+    AnimatedSprite
+    {
+        Name: AttackTile
+        Group: Overlays
+        Sequence: AttackTile1 AttackTile2 AttackTile3 AttackTile4 AttackTile5 AttackTile6
+        Sequence: AttackTile7 AttackTile8 AttackTile9 AttackTile10 AttackTile11 AttackTile12
+        FrameSpeed: 50
+        AnimationStyle: Loop
+    }
+}
+SpriteSheet
+{
+    Name: StatusIconTileSheet
+    Group: Overlays
+    Resource: StatusIcons.png
+    SpriteWidth: 8
+    SpriteHeight: 8
+    SheetWidth: 14
+    SheetHeight: 1
+    
+    SpriteOrder: 0 1 2 3 4 5 6 7 8 9 - Heart Fuel Ammo
+
+    Sprite
+    {
+        Name: 0 1 2 3 4 5 6 7 8 9 - Heart Fuel Ammo
+        Group: Overlays
+    }
+}
+SpriteSheet
+{
+    Name: StatusIcon9TileSheet
+    Group: Overlays
+    Resource: StatusIcons9.png
+    SpriteWidth: 9
+    SpriteHeight: 9
+    SheetWidth: 1
+    SheetHeight: 1
+    
+    SpriteOrder: Flag
+
+    Sprite
+    {
+        Name: Flag
+        Group: Overlays
+    }
+}
+SpriteSheet
+{
+    Name: CrosshairTileSheet
+    Group: Overlays
+    Resource: Crosshair.png
+    SpriteWidth: 32
+    SpriteHeight: 32
+    SheetWidth: 3
+    SheetHeight: 1
+    
+    SpriteOrder: Crosshair1 Crosshair2 Crosshair3
+
+    AnimatedSprite
+    {
+        Name: Crosshair
+        Group: Overlays
+        Sequence: Crosshair1 Crosshair2 Crosshair3
+        FrameSpeed: 150
+        AnimationStyle: Reverse
+    }
+}
+SpriteSheet
+{
+    Name: PopupTileSheet
+    Group: Overlays
+    Resource: Popups.png
+    SpriteWidth: 64
+    SpriteHeight: 24
+    SheetWidth: 1
+    SheetHeight: 6
+    
+    SpriteOrder: TrapRight TrapLeft RepairRight RepairLeft SupplyRight SupplyLeft
+
+    Sprite
+    {
+        Name: TrapRight TrapLeft RepairRight RepairLeft SupplyRight SupplyLeft
+        Group: Overlays
+    }
+}
