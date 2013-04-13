@@ -20,7 +20,7 @@ namespace Eternity.Controls.Animations
         private readonly Func<T, T> _animationLambda;
         private long _nextStep;
         private readonly Action<T> _progressCallback;
-        private readonly Action<T> _completedCallback;
+        private Action<T> _completedCallback;
 
         public bool HasStarted { get; private set; }
         public bool Running { get; private set; }
@@ -61,6 +61,25 @@ namespace Eternity.Controls.Animations
             CurrentProgress = 0;
             _nextStep = 0;
             HasStarted = false;
+        }
+
+        public Animation<T> Queue(Action<IAnimation> add, Func<T> val, Func<T> targetVal, long animationTimeInMilliseconds, IEasing easing, Action<T> progressCallback = null, Action<T> completedCallback = null)
+        {
+            var cc = _completedCallback;
+            var anim = new Animation<T>(val, targetVal, animationTimeInMilliseconds, easing, progressCallback, completedCallback);
+            /*_completedCallback = x =>
+                                     {
+                                         add(anim);
+                                         if (cc != null) cc(x);
+                                     };*/
+            _completedCallback = x => add(anim);
+            return anim;
+        }
+
+        public static Animation<T> Delay(long milliseconds, Action<T> callback = null)
+        {
+            if (callback == null) callback = _ => { };
+            return new Animation<T>(default(T), default(T), milliseconds, new LinearEasing(), null, callback);
         }
 
         public void Update(FrameInfo info, IInputState state)

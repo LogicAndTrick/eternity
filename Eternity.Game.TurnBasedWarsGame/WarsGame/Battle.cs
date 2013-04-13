@@ -60,6 +60,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             CurrentTurn = CurrentTurn.CreateNextTurn();
             GameBoard.HideDialog();
             GameBoard.UpdateHealthOverlays();
+            NewTurnOverlay();
+        }
+
+        private void NewTurnOverlay()
+        {
+            var eo = new NewTurnEffectOverlay(CurrentTurn);
+            GameBoard.AddOverlay(eo);
         }
 
         public void EndUnitAction()

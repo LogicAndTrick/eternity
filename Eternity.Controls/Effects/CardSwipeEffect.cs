@@ -48,7 +48,7 @@ namespace Eternity.Controls.Effects
 
         public bool IsFinished()
         {
-            return !_animations.Any(x => !x.IsFinished());
+            return _animations.All(x => x.IsFinished());
         }
 
         public void Start(long currentTimeInMilliseconds)

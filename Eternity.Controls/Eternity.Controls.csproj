@@ -51,6 +51,7 @@
     <Compile Include="Easings\BackEasing.cs" />
     <Compile Include="Easings\BounceEasing.cs" />
     <Compile Include="Easings\CircEasing.cs" />
+    <Compile Include="Easings\EasingExtensions.cs" />
     <Compile Include="Easings\EasingInOut.cs" />
     <Compile Include="Easings\EasingOut.cs" />
     <Compile Include="Easings\ElasticEasing.cs" />

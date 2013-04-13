@@ -23,12 +23,12 @@ namespace Eternity.Controls.Animations
 
         public bool IsEmpty()
         {
-            return !_animations.Any(x => !x.IsFinished());
+            return _animations.All(x => x.IsFinished());
         }
 
         public bool IsSequentialEmpty()
         {
-            return !_sequential.Any(x => !x.IsFinished());
+            return _sequential.All(x => x.IsFinished());
         }
 
         public void AddAnimation(IAnimation anim)
@@ -53,7 +53,7 @@ namespace Eternity.Controls.Animations
             _new.Clear();
 
             // Update running animations
-            foreach (var animation in _animations)
+            foreach (var animation in _animations.ToArray())
             {
                 animation.Update(info, state);
             }
@@ -69,6 +69,12 @@ namespace Eternity.Controls.Animations
         {
             _animations.RemoveAll(x => x.IsFinished());
             _sequential.RemoveAll(x => x.IsFinished());
+        }
+
+        public void StopAnimations()
+        {
+            _animations.ForEach(x => x.Stop());
+            _animations.Clear();
         }
 
         public void StopSequential()

@@ -36,5 +36,8 @@ namespace Eternity.Graphics
         ITexture CreateTextureFromImage(Image image, string name);
 
         void Translate(int x, int y);
+
+        void SetScissor(int x, int y, int width, int height);
+        void RemoveScissor();
     }
 }

@@ -18,6 +18,7 @@ namespace Eternity.Controls
         protected List<Control> Overlays;
         protected AnimationQueue AnimationQueue;
         protected EffectQueue EffectQueue;
+        protected bool Clip;
 
         private Box _box;
         public Box Box
@@ -49,6 +50,7 @@ namespace Eternity.Controls
             PreferredSize = new Size(100, 100);
             AnimationQueue = new AnimationQueue();
             EffectQueue = new EffectQueue();
+            Clip = false;
         }
 
         public virtual Size GetPreferredSize()
@@ -144,6 +146,11 @@ namespace Eternity.Controls
             {
                 AnimationQueue.AddSequential(anim);
             }
+        }
+
+        public void StopAnimations()
+        {
+            AnimationQueue.StopAnimations();
         }
 
         public void StopSequentialAnimations()
@@ -329,6 +336,7 @@ namespace Eternity.Controls
 
         public void Render(IRenderContext context)
         {
+            if (Clip) context.SetScissor(Box.X, Box.Y, Box.Width, Box.Height);
             OnRender(context);
             foreach (var control in Children)
             {
@@ -340,6 +348,7 @@ namespace Eternity.Controls
             Overlays.ForEach(x => x.Render(context));
             EffectQueue.Render(context);
             OnAfterRenderOverlays(context);
+            if (Clip) context.RemoveScissor();
         }
 
         public void Update(FrameInfo info, IInputState state)

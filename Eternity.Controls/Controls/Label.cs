@@ -24,20 +24,32 @@ namespace Eternity.Controls.Controls
             }
         }
 
+        public Font Font
+        {
+            get { return _font; }
+            set
+            {
+                _font = value;
+                UpdateRenderer();
+            }
+        }
+
         private TextRenderer _renderer;
         private string _text;
         private Color _color;
+        private Font _font;
 
-        public Label(string text, Color color = default(Color))
+        public Label(string text, Color color = default(Color), Font font = null)
         {
             _text = text;
             _color = color;
+            _font = font;
             UpdateRenderer();
         }
 
         public override DataStructures.Primitives.Size GetPreferredSize()
         {
-            return _renderer.GetPreferredSize(_text);
+            return _renderer.GetPreferredSize(_text, Font);
         }
 
         private void UpdateRenderer()
@@ -46,7 +58,7 @@ namespace Eternity.Controls.Controls
             _renderer = new TextRenderer(_text, Box.Width, Box.Height);
             using (var brush = new SolidBrush(Color))
             {
-                _renderer.DrawString(Text, null, brush);
+                _renderer.DrawString(Text, _font, brush);
             }
         }
 

@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MapScreen\EffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\MenuDialog.cs" />
     <Compile Include="Controls\MapScreen\ChromeOverlay.cs" />
     <Compile Include="Controls\MapScreen\MapSprites.cs" />
+    <Compile Include="Controls\MapScreen\NewTurnEffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\RootPanel.cs" />
     <Compile Include="Controls\MapScreen\ScrollingMapPanel.cs" />
     <Compile Include="Controls\MapScreen\TileControl.cs" />

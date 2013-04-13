@@ -39,7 +39,7 @@ namespace Eternity.Graphics
         {
             var size = GetPreferredSize(text, font);
             Init(size.Width, size.Height);
-            DrawString(text, font);
+            //DrawString(text, font);
         }
 
         public Size GetPreferredSize(string text, Font font = null)
@@ -57,7 +57,7 @@ namespace Eternity.Graphics
         public TextRenderer(string text, int width, int height, Font font = null)
         {
             Init(width, height);
-            DrawString(text, font);
+            //DrawString(text, font);
         }
 
         private void Init(int width, int height)

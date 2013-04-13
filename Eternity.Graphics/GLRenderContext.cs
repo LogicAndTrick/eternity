@@ -154,5 +154,16 @@ namespace Eternity.Graphics
         {
             GL.Translate(x, y, 0);
         }
+
+        public void SetScissor(int x, int y, int width, int height)
+        {
+            GL.Enable(EnableCap.ScissorTest);
+            GL.Scissor(x, y, width, height);
+        }
+
+        public void RemoveScissor()
+        {
+            GL.Disable(EnableCap.ScissorTest);
+        }
     }
 }
