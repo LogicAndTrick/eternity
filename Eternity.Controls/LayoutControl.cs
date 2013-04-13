@@ -19,6 +19,11 @@ namespace Eternity.Controls
             _setUp = false;
         }
 
+        protected object GetConstraints(Control child)
+        {
+            return _constraints.Where(x => x.Key == child).Select(x => x.Value).FirstOrDefault();
+        }
+
         public void SetLayout(ILayout layout)
         {
             _layout = layout;
@@ -35,8 +40,14 @@ namespace Eternity.Controls
             OnAdd(child);
         }
 
+        public override DataStructures.Primitives.Size GetPreferredSize()
+        {
+            return _layout.GetPreferredSize(this, Children, _constraints);
+        }
+
         public void DoLayout()
         {
+            Children.OfType<LayoutControl>().ToList().ForEach(x => x.DoLayout());
             if (_layout != null) _layout.DoLayout(this, Children, _constraints);
             OnDoLayout();
         }

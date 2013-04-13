@@ -76,6 +76,11 @@ namespace Eternity.Graphics
             SetTexture(tex.TextureReference);
         }
 
+        public void ClearTexture()
+        {
+            SetTexture(0);
+        }
+
         public void EnableTextures()
         {
             GL.Enable(EnableCap.Texture2D);

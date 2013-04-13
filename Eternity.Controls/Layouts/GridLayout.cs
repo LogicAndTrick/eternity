@@ -16,6 +16,11 @@ namespace Eternity.Controls.Layouts
             _insets = insets;
         }
 
+        public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
             var left = _insets.Left;

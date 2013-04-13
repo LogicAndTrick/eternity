@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
-using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Graphics.Sprites;
+using Point = Eternity.DataStructures.Primitives.Point;
 
 namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
 {
@@ -125,7 +126,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             if (_unit == null) return;
 
             BaseGroups.AddLayer("Unit", "Unit", _unit.Style,
-                new SpriteDrawingOptions { MirrorX = _unit.Army.ArmyRules.MirrorX });
+                new SpriteDrawingOptions { MirrorX = _unit.Army.ArmyRules.MirrorX, Colour = _unit.HasMoved ? Color.Gray : Color.White });
             var num = _unit.HealthOutOfTen;
             if (num < 10)
             {

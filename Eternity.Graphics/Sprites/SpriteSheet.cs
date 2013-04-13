@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Eternity.DataStructures.Primitives;
 using Eternity.Graphics.Textures;
 using Eternity.Resources;
+using Point = Eternity.DataStructures.Primitives.Point;
 
 namespace Eternity.Graphics.Sprites
 {
@@ -93,6 +95,7 @@ namespace Eternity.Graphics.Sprites
             var pos = options.CalculatePositionBox(box, _spriteWidth, _spriteHeight);
 
             context.SetTexture(_texture);
+            context.SetColour(options.Colour);
             context.StartQuads();
 
             context.TexturePoint(tex[0], tex[1]);
@@ -108,6 +111,7 @@ namespace Eternity.Graphics.Sprites
             context.Point2(pos.X + pos.Width, pos.Y);
 
             context.End();
+            context.SetColour(Color.White);
         }
     }
 }

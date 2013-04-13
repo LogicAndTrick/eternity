@@ -17,5 +17,10 @@
             Right = right;
             Bottom = bottom;
         }
+
+        public static Insets All(int val)
+        {
+            return new Insets(val, val, val, val);
+        }
     }
 }

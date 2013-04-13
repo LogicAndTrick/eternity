@@ -7,7 +7,7 @@ using Eternity.Controls.Easings;
 using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.WarsGame;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Turns;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Actions;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Graphics;
@@ -36,15 +36,31 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             AddOverlay(bgi);
         }
 
-        public void ShowDialog(Tile tile, params ActionDialog.ActionDialogAction[] actions)
+        public MenuDialog ShowDialog(params MenuDialog.MenuDialogAction[] actions)
         {
-            var dialog = new ActionDialog(Box, GetTileControl(tile.Location).Box, actions);
+            return ShowDialog(new Box(new Point(Box.Width / 2, Box.Height / 2), Size.Zero), actions);
+        }
+
+        public MenuDialog ShowDialog(Tile tile, params MenuDialog.MenuDialogAction[] actions)
+        {
+            return ShowDialog(GetTileControl(tile.Location).Box, actions);
+        }
+
+        public MenuDialog ShowDialog(Box box, params MenuDialog.MenuDialogAction[] actions)
+        {
+            var dialog = new MenuDialog(Box, box, actions);
             AddOverlay(dialog);
+            return dialog;
+        }
+
+        public bool HasDialog()
+        {
+            return GetAllChildren().Any(x => x is MenuDialog);
         }
 
         public void HideDialog()
         {
-            Remove(x => x is ActionDialog);
+            Remove(x => x is MenuDialog);
         }
 
         public void DeselectUnit(Unit u)
@@ -218,11 +234,6 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             return Children.OfType<TileControl>().FirstOrDefault(x => x.Tile.Location.Equals(p));
         }
 
-        public override void OnSetUp(IRenderContext context)
-        {
-            base.OnSetUp(context);
-        }
-
         public override void OnAfterRender(IRenderContext context)
         {
             base.OnAfterRender(context);
@@ -239,18 +250,10 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             DrawAnimation(context);
         }
 
-        public override void OnUpdate(FrameInfo info, Input.IInputState state)
+        public override void OnMouseMove(Input.EternityEvent e)
         {
-            base.OnUpdate(info, state);
-
-            var lit = GetLocationInTree();
-            var tc = GetChildAt(state.GetMouseX() - lit.X, state.GetMouseY() - lit.Y) as TileControl;
+            var tc = GetChildAt(e.X, e.Y) as TileControl;
             if (tc != null) Battle.TileHovered(tc.Tile);
-        }
-
-        protected override void OnDoLayout()
-        {
-            //_bgi.Box = Box;
         }
     }
 }

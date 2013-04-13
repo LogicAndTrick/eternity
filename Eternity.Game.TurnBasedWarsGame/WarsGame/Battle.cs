@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Actions;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.COs;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Turns;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Rules;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Turns;
 using Eternity.Input;
 using Eternity.Resources;
 
@@ -15,9 +17,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
     {
         public Map Map { get; private set; }
         public List<Army> Armies { get; private set; }
-        public int Turn { get; private set; }
+        public Turn CurrentTurn { get; private set; }
         public int Day { get; private set; }
         public GameBoard GameBoard { get; set; }
+
+        public TileInfoChromeControl TileInfoChromeControl { get; set; }
 
         private ITileInteractionSet _interaction;
 
@@ -30,8 +34,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
                 Armies.Add(new Army(new CO(), army));
             }
             Map = new Map(this, mapDefinition);
-            Turn = 0;
             Day = 1;
+            CurrentTurn = new Turn(this, 1, Armies.First());
             _interaction = null;
         }
 
@@ -51,7 +55,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
 
         public void EndTurn()
         {
-            
+            EndUnitAction();
+            CurrentTurn.Army.Units.ForEach(x => x.HasMoved = false);
+            CurrentTurn = CurrentTurn.CreateNextTurn();
+            GameBoard.HideDialog();
+            GameBoard.UpdateHealthOverlays();
         }
 
         public void EndUnitAction()
@@ -59,6 +67,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             if (_interaction == null) return;
             _interaction.Complete();
             _interaction = null;
+            GameBoard.UpdateHealthOverlays();
         }
 
         public void TileMouseDown(EternityEvent e, Tile tile)
@@ -69,19 +78,47 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             }
             else if (tile.Unit != null)
             {
-                if (e.Button == MouseButton.Left)_interaction = new UnitActionSet(tile.Unit);
+                if (e.Button == MouseButton.Left) _interaction = new UnitActionSet(tile.Unit);
                 else if (e.Button == MouseButton.Right) _interaction = new UnitRangeHighlight(tile.Unit);
+            }
+            else if (e.Button == MouseButton.Right)
+            {
+                var point = GameBoard.GetTileControl(tile.Location).GetLocationInTree() - GameBoard.GetLocationInTree();
+                ToggleMenu(point + new Point(e.X, e.Y));
             }
         }
 
         public void TileHovered(Tile tile)
         {
+            if (TileInfoChromeControl != null) TileInfoChromeControl.SetTile(tile);
             if (_interaction != null) _interaction.TileHovered(tile);
         }
 
         public void TileMouseUp(EternityEvent e, Tile tile)
         {
             if (_interaction != null) _interaction.TileMouseUp(e, tile);
+        }
+
+        public void KeyDown(EternityEvent e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                ToggleMenu(null);
+            }
+        }
+
+        private void ToggleMenu(Point p)
+        {
+            if (GameBoard.HasDialog())
+            {
+                GameBoard.HideDialog();
+            }
+            else
+            {
+                var actions = new[] { MenuDialog.Action("End Turn", EndTurn) };
+                var dialog = p == null ? GameBoard.ShowDialog(actions) : GameBoard.ShowDialog(new Box(p, Size.Zero), actions);
+                dialog.CancelAction = GameBoard.HideDialog;
+            }
         }
     }
 }

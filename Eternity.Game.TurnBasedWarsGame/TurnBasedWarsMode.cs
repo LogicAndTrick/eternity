@@ -47,7 +47,7 @@ namespace Eternity.Game.TurnBasedWarsGame
 
         private void InitialiseControls(IRenderContext context)
         {
-            _root = new LayoutControl(new CardLayout())
+            _root = new RootPanel(_battle)
             {
                 Box = new Box(new Point(0, 0), new Point(context.ScreenWidth, context.ScreenHeight))
             };
@@ -61,6 +61,21 @@ namespace Eternity.Game.TurnBasedWarsGame
             }
             scrollingMapPanel.Add(gameBoard);
             _root.Add(scrollingMapPanel);
+
+            var chrome = new ChromeOverlay();
+            var tileInfo = new TileInfoChromeControl {Box = new Box(0, 0, 100, 50)};
+            chrome.Add(tileInfo,
+                       new ChromeConstraints
+                           {
+                               AvoidCursor = true,
+                               StickyDirection = Direction.Top,
+                               CurrentDirection = Direction.Top | Direction.Left
+                           });
+
+            _battle.TileInfoChromeControl = tileInfo;
+
+            scrollingMapPanel.AddOverlay(chrome);
+
             _root.SetUp(context);
         }
 

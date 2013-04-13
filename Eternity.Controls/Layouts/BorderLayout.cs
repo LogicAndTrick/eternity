@@ -26,6 +26,17 @@ namespace Eternity.Controls.Layouts
             _insets = insets;
         }
 
+        protected virtual Direction ExtractDirection(object constraints)
+        {
+            if (constraints is Direction) return (Direction)constraints;
+            return Direction.Top | Direction.Left;
+        }
+
+        public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
             var left = _insets.Left;
@@ -35,11 +46,7 @@ namespace Eternity.Controls.Layouts
             var center = new Point(left + (right - left) / 2, top + (bottom - top) / 2);
             foreach (var child in children)
             {
-                var dir = Direction.Top | Direction.Left;
-                if (constraints.ContainsKey(child) && constraints[child] is Direction)
-                {
-                    dir = (Direction) constraints[child];
-                }
+                var dir = ExtractDirection(constraints.Where(kv => kv.Key == child).Select(kv => kv.Value).FirstOrDefault());
                 var x = center.X - child.Box.Width / 2;
                 var y = center.Y - child.Box.Height / 2;
                 if ((dir & Direction.Fill) == Direction.Fill)

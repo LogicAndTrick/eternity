@@ -22,6 +22,7 @@ namespace Eternity.Graphics
 
         void SetColour(Color c);
         void SetTexture(ITexture tex);
+        void ClearTexture();
 
         void EnableTextures();
         void DisableTextures();

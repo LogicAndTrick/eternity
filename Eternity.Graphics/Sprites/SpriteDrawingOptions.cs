@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Eternity.DataStructures.Primitives;
@@ -24,10 +25,13 @@ namespace Eternity.Graphics.Sprites
         public int OffsetX { get; set; }
         public int OffsetY { get; set; }
 
+        public Color Colour { get; set; }
+
         public SpriteDrawingOptions()
         {
             DockX = Dock.Right;
             DockY = Dock.Bottom;
+            Colour = Color.White;
         }
 
         public double[] CalculateTextureBox(double[] box)

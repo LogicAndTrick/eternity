@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +46,8 @@
     <Compile Include="Animations\AnimationQueue.cs" />
     <Compile Include="Animations\IAnimation.cs" />
     <Compile Include="Control.cs" />
+    <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\Label.cs" />
     <Compile Include="Easings\BackEasing.cs" />
     <Compile Include="Easings\BounceEasing.cs" />
     <Compile Include="Easings\CircEasing.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="Layouts\BorderLayout.cs" />
     <Compile Include="Layouts\CardLayout.cs" />
     <Compile Include="Layouts\GridLayout.cs" />
+    <Compile Include="Layouts\HorizontalStackLayout.cs" />
     <Compile Include="Layouts\ILayout.cs" />
     <Compile Include="Layouts\VerticalStackLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

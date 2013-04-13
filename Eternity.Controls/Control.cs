@@ -11,7 +11,7 @@ using Eternity.Input;
 
 namespace Eternity.Controls
 {
-    public class Control : IRenderable, IUpdatable
+    public class Control : IRenderable, IUpdatable, IDisposable
     {
         public Control Parent { get; protected set; }
         protected List<Control> Children;
@@ -34,6 +34,10 @@ namespace Eternity.Controls
             }
         }
 
+        public Size ActualSize {get { return new Size(_box.Width, _box.Height); }}
+        public int NumChildren { get { return Children.Count; } }
+        public Size PreferredSize { get; set; }
+
         public bool OnFocusPath { get; private set; }
 
         public Control()
@@ -42,8 +46,14 @@ namespace Eternity.Controls
             Children = new List<Control>();
             Overlays = new List<Control>();
             _box = new Box(0, 0, 100, 100);
+            PreferredSize = new Size(100, 100);
             AnimationQueue = new AnimationQueue();
             EffectQueue = new EffectQueue();
+        }
+
+        public virtual Size GetPreferredSize()
+        {
+            return PreferredSize;
         }
 
         public void SetUp(IRenderContext context)
@@ -87,6 +97,7 @@ namespace Eternity.Controls
                                      x.ResizeSafe(overlayBox);
                                      x.OnSizeChanged();
                                  });
+            OnSizeChanged();
         }
 
         public void Add(Control child)
@@ -116,7 +127,7 @@ namespace Eternity.Controls
             Children.Remove(child);
             Overlays.Remove(child);
             OnRemove(child);
-            if (child is IDisposable) ((IDisposable)child).Dispose();
+            child.Dispose();
         }
 
         public void AddAnimation(params IAnimation[] animation)
@@ -155,14 +166,14 @@ namespace Eternity.Controls
 
         // TREE TRAVERSAL / CHILD LOCATING
 
-        private IEnumerable<Control> GetEventAccpetingChildren()
-        {
-            return Overlays.OfType<IOverlayControl>().Any(x => x.IsModal)
-                       ? Overlays.Where(x => x is IOverlayControl && ((IOverlayControl) x).IsModal).Take(1)
-                       : Children;
-        }
+        // private IEnumerable<Control> GetEventAcceptingChildren()
+        // {
+        //     return Overlays.OfType<IOverlayControl>().Any(x => x.IsModal)
+        //                ? Overlays.Where(x => x is IOverlayControl && ((IOverlayControl) x).IsModal).Take(1)
+        //                : Children;
+        // }
 
-        private IEnumerable<Control> GetAllChildren()
+        protected IEnumerable<Control> GetAllChildren()
         {
             return Children.Union(Overlays);
         }
@@ -170,13 +181,13 @@ namespace Eternity.Controls
         public Control GetChildAt(int x, int y)
         {
             var p = new Point(x, y);
-            return GetEventAccpetingChildren().LastOrDefault(control => control.Box.Contains(p));
+            return Children.LastOrDefault(control => control.Box.Contains(p));
         }
 
         public List<Control> GetChildrenOverlapping(Line line)
         {
             Point p1, p2;
-            return GetEventAccpetingChildren().Where(control => line.Intersects(control.Box, out p1, out p2)).ToList();
+            return Children.Where(control => line.Intersects(control.Box, out p1, out p2)).ToList();
         }
 
         public Control GetFocusedChild()
@@ -250,6 +261,17 @@ namespace Eternity.Controls
 
         protected void EventBubbleDown(EternityEvent ee)
         {
+            // Check intercepting overlays
+            var overlays = Overlays.OfType<IOverlayControl>().ToList();
+            var intercept = overlays.FirstOrDefault(x => x.InterceptEvent(ee)) as Control;
+            if (intercept != null)
+            {
+                intercept.EventBubbleDown(ee.Clone());
+                return;
+            }
+            // Check listening overlays
+            overlays.Where(x => x.ListenEvent(ee)).OfType<Control>().ToList().ForEach(x => x.EventBubbleDown(ee.Clone()));
+            
             var bubbleChildren = new List<Control>();
             var childAt = GetChildAt(ee.X, ee.Y);
             var childFocus = GetFocusedChild();
@@ -266,7 +288,7 @@ namespace Eternity.Controls
                 case EventType.MouseMove:
                     OnMouseMove(ee);
                     var line = new Line(new Point(ee.LastX, ee.LastY), new Point(ee.X, ee.Y));
-                    foreach (var control in GetEventAccpetingChildren())
+                    foreach (var control in Children)
                     {
                         Point p1, p2;
                         if (!line.Intersects(control.Box, out p1, out p2)) continue;
@@ -444,6 +466,17 @@ namespace Eternity.Controls
         }
 
         public virtual void OnChildSizeChanged()
+        {
+            // Virtual
+        }
+
+        public void Dispose()
+        {
+            OnDispose();
+            Children.ForEach(x => x.Dispose());
+        }
+
+        public virtual void OnDispose()
         {
             // Virtual
         }

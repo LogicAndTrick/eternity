@@ -3,6 +3,7 @@ using System.Drawing;
 using Eternity.Graphics.Textures;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using Size = Eternity.DataStructures.Primitives.Size;
 
 namespace Eternity.Graphics
 {
@@ -36,15 +37,27 @@ namespace Eternity.Graphics
 
         public TextRenderer(string text, Font font = null)
         {
-            using (var b = new Bitmap(1,1))
+            var size = GetPreferredSize(text, font);
+            Init(size.Width, size.Height);
+            DrawString(text, font);
+        }
+
+        public Size GetPreferredSize(string text, Font font = null)
+        {
+            using (var b = new Bitmap(1, 1))
             {
                 using (var g = System.Drawing.Graphics.FromImage(b))
                 {
                     var size = g.MeasureString(text, font ?? DefaultFont);
-                    Init((int) size.Width, (int) size.Height);
-                    DrawString(text, font);
+                    return new Size((int) size.Width, (int) size.Height);
                 }
             }
+        }
+
+        public TextRenderer(string text, int width, int height, Font font = null)
+        {
+            Init(width, height);
+            DrawString(text, font);
         }
 
         private void Init(int width, int height)
@@ -91,6 +104,7 @@ namespace Eternity.Graphics
             var size = _gfx.MeasureString(text, font ?? DefaultFont);
             _dirtyRegion = Rectangle.Round(RectangleF.Union(_dirtyRegion, new RectangleF(point, size)));
             _dirtyRegion = Rectangle.Intersect(_dirtyRegion, new Rectangle(0, 0, _bmp.Width, _bmp.Height));
+            _dirtyRegion = new Rectangle(0, 0, _bmp.Width, _bmp.Height);
         }
 
         public void Render(IRenderContext context)

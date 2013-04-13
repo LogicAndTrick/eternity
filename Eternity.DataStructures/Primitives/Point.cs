@@ -7,6 +7,8 @@ namespace Eternity.DataStructures.Primitives
         public int X { get; set; }
         public int Y { get; set; }
 
+        public static readonly Point Zero = new Point(0, 0);
+
         public Point(int x, int y)
         {
             X = x;
@@ -46,7 +48,7 @@ namespace Eternity.DataStructures.Primitives
 
         public static bool Equals(Point p1, Point p2)
         {
-            return p1 == p2;
+            return Object.Equals(p1, p2);
         }
 
         public bool Equals(Point other)

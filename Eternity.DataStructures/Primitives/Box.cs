@@ -20,8 +20,19 @@ namespace Eternity.DataStructures.Primitives
         public int Width { get; private set; }
         public int Height { get; private set; }
 
+        public Size Size
+        {
+            get { return new Size(Width, Height); }
+        }
+
         public Box(int x, int y, int width, int height)
             : this(new Point(x, y), new Point(width + x, height + y))
+        {
+            
+        }
+
+        public Box(Point point, Size size)
+            : this(point, new Point(point.X + size.Width, point.Y + size.Height))
         {
             
         }

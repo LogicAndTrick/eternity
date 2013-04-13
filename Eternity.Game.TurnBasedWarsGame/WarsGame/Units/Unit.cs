@@ -45,6 +45,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         /// </summary>
         public int CurrentHealth { get; set; }
 
+        /// <summary>
+        /// Get the unit's health, rounded up to the closest integer out of ten
+        /// </summary>
         public int HealthOutOfTen { get { return (int)Math.Ceiling(CurrentHealth / 10.0); } }
 
         /// <summary>
@@ -67,9 +70,20 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         /// </summary>
         public List<Unit> LoadedUnits { get; private set; }
 
+        /// <summary>
+        /// Get or set the unit's current amount of building material
+        /// </summary>
         public int BuildingMaterial { get; set; }
 
+        /// <summary>
+        /// Get or set the unit's current amount of unit material
+        /// </summary>
         public int UnitMaterial { get; set; }
+
+        /// <summary>
+        /// Get or set whether this unit has been moved in the current turn or not
+        /// </summary>
+        public bool HasMoved { get; set; }
 
         /// <summary>
         /// Create a unit from an army and a resource definition from a map file.
@@ -79,6 +93,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         public Unit(Army army, ResourceDefinition def)
         {
             Army = army;
+            army.Units.Add(this);
             UnitType unitType;
             Enum.TryParse(def.GetData("UnitType"), out unitType);
             UnitType = unitType;
@@ -101,6 +116,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         public Unit(Army army, UnitType unitType, string style)
         {
             Army = army;
+            army.Units.Add(this);
             UnitType = unitType;
             Style = style;
             UnitRules = RuleSet.GetUnitRules(unitType);
@@ -139,12 +155,16 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             if (SecondaryWeapon != null) SecondaryWeapon.CurrentAmmo = SecondaryWeapon.WeaponRules.Ammo;
         }
 
+        public bool CanResupply()
+        {
+            return UnitRules.CanSupply;
+        }
+
         public bool CanBeResupplied()
         {
             return CurrentFuel != UnitRules.Fuel
                    || (PrimaryWeapon != null && PrimaryWeapon.CanBeResupplied())
-                   || (SecondaryWeapon != null && SecondaryWeapon.CanBeResupplied())
-                   || true; // TODO 
+                   || (SecondaryWeapon != null && SecondaryWeapon.CanBeResupplied());
         }
 
         /// <summary>
