@@ -1,26 +1,24 @@
 using System.Collections.Generic;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common
 {
     /// <summary>
     /// A unit action generator. Provides the actions with state when required.
     /// </summary>
     public interface IUnitActionGenerator
     {
-        UnitActionType ActionType { get; }
-
         /// <summary>
         /// True if this action is valid given the current action set.
         /// </summary>
-        /// <param name="set">The current action set</param>
+        /// <param name="queue">The current context queue</param>
         /// <returns>True if this action is allowed at this point</returns>
-        bool IsValidFor(UnitActionSet set);
+        bool IsValidFor(ContextQueue queue);
 
         /// <summary>
         /// Get all the available actions for this generator given the current action set.
         /// </summary>
-        /// <param name="set">The current action set</param>
+        /// <param name="queue">The current context queue</param>
         /// <returns>The list of available actions</returns>
-        IEnumerable<IUnitAction> GetActions(UnitActionSet set);
+        IEnumerable<IUnitAction> GetActions(ContextQueue queue);
     }
 }

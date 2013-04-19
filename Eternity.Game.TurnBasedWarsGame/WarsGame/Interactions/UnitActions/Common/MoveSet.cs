@@ -4,7 +4,7 @@ using Eternity.Algorithms;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common
 {
     public class MoveSet : List<Move>
     {
@@ -30,28 +30,29 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
             return new MoveSet(unit, states);
         }
 
-        public static MoveSet AllPossibleAttackPositions(Unit unit)
+        public static MoveSet AllPossibleAttackPositions(Unit unit, Tile tile, bool allowMovement)
         {
             var set = new MoveSet(unit);
             if (unit.CanAttackDirectly())
             {
-                set.AddRange(AllPossibleMoves(unit)
-                                 .Where(x => x.MoveType == MoveType.Move)
-                                 .SelectMany(x => x.MoveTile.GetAdjacentTiles())
-                                 .Where(x => x != null)
-                                 .Select(x => Move.CreateAttack(x, unit)));
+                var adj = allowMovement
+                              ? AllPossibleMoves(unit, tile)
+                                    .Where(x => x.MoveType == MoveType.Move)
+                                    .SelectMany(x => x.MoveTile.GetAdjacentTiles())
+                              : tile.GetAdjacentTiles();
+                set.AddRange(adj.Where(x => x != null).Select(x => Move.CreateAttack(x, unit)));
             }
-            if (unit.CanAttackIndirectly(true))
+            if (allowMovement && unit.CanAttackIndirectly(true))
             {
-                var moves = AllPossibleMoves(unit).Where(x => x.MoveType == MoveType.Move);
-                set.AddRange(unit.Tile.Parent.Tiles
+                var moves = AllPossibleMoves(unit, tile).Where(x => x.MoveType == MoveType.Move);
+                set.AddRange(tile.Parent.Tiles
                                  .Where(x => moves.Any(y => unit.CanAttackIndirectly(y.MoveTile, x)))
                                  .Select(x => Move.CreateAttack(x, unit)));
             }
             if (unit.CanAttackIndirectly(false))
             {
-                set.AddRange(unit.Tile.Parent.Tiles
-                                 .Where(x => unit.CanAttackIndirectly(unit.Tile, x))
+                set.AddRange(tile.Parent.Tiles
+                                 .Where(x => unit.CanAttackIndirectly(tile, x))
                                  .Select(x => Move.CreateAttack(x, unit)));
             }
             return set;
@@ -67,7 +68,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
         {
             var fromTile = Count == 0 ? Unit.Tile : this.Last().MoveTile;
             var currentCost = this.Skip(1).Sum(x => x.GetMovementCost());
-            var attackable = Unit.GetAttackableTiles(fromTile, currentCost);
+            var attackable = Unit.GetAttackableTiles(fromTile, currentCost > 0);
             var states = attackable.Select(x => Move.CreateAttack(x, Unit));
             return new MoveSet(Unit, states);
         }

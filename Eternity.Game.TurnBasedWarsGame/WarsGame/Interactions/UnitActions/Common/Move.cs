@@ -3,7 +3,7 @@ using System.Linq;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common
 {
     public class Move
     {
@@ -53,7 +53,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
             if (MoveType != MoveType.Attack)
             {
                 list.AddRange(UnitToMove.GetMovableTiles(MoveTile, currentCost).Select(x => CreateMove(x, UnitToMove)));
-                list.AddRange(UnitToMove.GetAttackableTiles(MoveTile, currentCost).Select(x => CreateAttack(x, UnitToMove)));
+                list.AddRange(UnitToMove.GetAttackableTiles(MoveTile, currentCost > 0).Select(x => CreateAttack(x, UnitToMove)));
             }
             return list;
         }

@@ -1,13 +1,14 @@
-﻿using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
+﻿using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Input;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions
 {
     /// <summary>
     /// A secondary interaction set: showing a unit's attack range
     /// </summary>
-    public class UnitRangeHighlight : ITileInteractionSet
+    public class UnitRangeHighlight : ITileInteraction
     {
         public Unit Unit { get; private set; }
 
@@ -17,7 +18,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
         {
             Unit = unit;
             _battle = unit.Tile.Parent.Battle;
-            var states = MoveSet.AllPossibleAttackPositions(Unit);
+            var states = MoveSet.AllPossibleAttackPositions(Unit, Unit.Tile, true);
             states.ForEach(x =>
                                {
                                    x.MoveTile.CanMoveTo = x.MoveType == MoveType.Move;

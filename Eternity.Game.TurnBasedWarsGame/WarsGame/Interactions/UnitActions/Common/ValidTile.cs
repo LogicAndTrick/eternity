@@ -1,6 +1,6 @@
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common
 {
     /// <summary>
     /// A valid tile used by the unit actions.

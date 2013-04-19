@@ -2,9 +2,10 @@
 using System.Linq;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Actions;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.COs;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Rules;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Turns;
@@ -23,7 +24,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
 
         public TileInfoChromeControl TileInfoChromeControl { get; set; }
 
-        private ITileInteractionSet _interaction;
+        private ITileInteraction _interaction;
 
         public Battle(ResourceDefinition mapDefinition)
         {

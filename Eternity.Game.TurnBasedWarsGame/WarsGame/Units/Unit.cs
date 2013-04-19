@@ -211,7 +211,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         {
             if (Army != unit.Army) throw new ArgumentException("Units must be the same army to join.");
             if (UnitType != unit.UnitType) throw new ArgumentException("Units must be the same type to join.");
-            if (unit.CurrentHealth == 100) throw new ArgumentException("Cannot join with a unit that has full health.");
+            if (CurrentHealth == 100) throw new ArgumentException("Cannot join with a unit that has full health.");
             if (unit == this) throw new ArgumentException("Cannot join a unit with itself.");
             Heal(unit.CurrentHealth);
             CurrentFuel = Math.Min(UnitRules.Fuel, CurrentHealth + unit.CurrentFuel);
@@ -323,8 +323,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         /// <returns>True if this unit can attack the other</returns>
         public bool CanAttack(Unit unitToAttack)
         {
-            if (PrimaryWeapon != null && CanAttack(unitToAttack, PrimaryWeapon, 0)) return true;
-            if (SecondaryWeapon != null && CanAttack(unitToAttack, SecondaryWeapon, 0)) return true;
+            if (PrimaryWeapon != null && CanAttack(unitToAttack, PrimaryWeapon, false)) return true;
+            if (SecondaryWeapon != null && CanAttack(unitToAttack, SecondaryWeapon, false)) return true;
             return false;
         }
 
@@ -341,10 +341,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             return false;
         }
 
-        private bool CanAttack(Unit unitToAttack, Weapon weapon, int currentCost)
+        private bool CanAttack(Unit unitToAttack, Weapon weapon, bool hasMoved)
         {
             if (!weapon.CanAttack(unitToAttack)) return false;
-            if (weapon.WeaponRules.AttackType != AttackType.Direct && currentCost > 0 && !weapon.WeaponRules.CanMoveAndFire) return false;
+            if (weapon.WeaponRules.AttackType != AttackType.Direct && hasMoved && !weapon.WeaponRules.CanMoveAndFire) return false;
             return true;
         }
 
@@ -360,9 +360,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         /// Indirect weapons can only attack tiles if they haven't moved or if they can fire after moving.
         /// </summary>
         /// <param name="tile">The tile from attack from</param>
-        /// <param name="currentCost">The current path cost</param>
+        /// <param name="hasMoved">Whether the unit has moved or not</param>
         /// <returns>The list of attackable tiles</returns>
-        public List<Tile> GetAttackableTiles(Tile tile, int currentCost)
+        public List<Tile> GetAttackableTiles(Tile tile, bool hasMoved)
         {
             var list = new List<Tile>();
             // Cannot attack any tile if this unit is overlapping another (while moving)
@@ -370,12 +370,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             if (PrimaryWeapon != null)
             {
                 var primaryTiles = tile.Parent.Tiles.Where(x => PrimaryWeapon.InRange(tile, x));
-                list.AddRange(primaryTiles.Where(x => CanAttack(x.Unit, PrimaryWeapon, currentCost)));
+                list.AddRange(primaryTiles.Where(x => CanAttack(x.Unit, PrimaryWeapon, hasMoved)));
             }
             if (SecondaryWeapon != null)
             {
                 var secondaryTiles = tile.Parent.Tiles.Where(x => SecondaryWeapon.InRange(tile, x));
-                list.AddRange(secondaryTiles.Where(x => CanAttack(x.Unit, SecondaryWeapon, currentCost)));
+                list.AddRange(secondaryTiles.Where(x => CanAttack(x.Unit, SecondaryWeapon, hasMoved)));
             }
             return list;
         }
@@ -410,9 +410,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         public bool CanAttackIndirectly(bool afterMoving)
         {
             return (PrimaryWeapon != null && PrimaryWeapon.WeaponRules.AttackType == AttackType.Indirect
-                    && PrimaryWeapon.HasAmmo() && PrimaryWeapon.WeaponRules.CanMoveAndFire == afterMoving) ||
+                    && PrimaryWeapon.HasAmmo() && (PrimaryWeapon.WeaponRules.CanMoveAndFire || !afterMoving)) ||
                    (SecondaryWeapon != null && SecondaryWeapon.WeaponRules.AttackType == AttackType.Indirect
-                    && SecondaryWeapon.HasAmmo() && SecondaryWeapon.WeaponRules.CanMoveAndFire == afterMoving);
+                    && SecondaryWeapon.HasAmmo() && (SecondaryWeapon.WeaponRules.CanMoveAndFire || !afterMoving));
         }
 
         /// <summary>

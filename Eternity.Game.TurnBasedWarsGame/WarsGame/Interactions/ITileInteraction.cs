@@ -1,14 +1,14 @@
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Input;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions
 {
     /// <summary>
-    /// A tile interaction set is a transaction wrapped around tile input.
+    /// A tile interaction is a transaction wrapped around tile input.
     /// Tile interactions should know about the battle and call
     /// <code>Battle.EndUnitAction()</code> when complete.
     /// </summary>
-    public interface ITileInteractionSet
+    public interface ITileInteraction
     {
         /// <summary>
         /// A mouse button has been released on a tile

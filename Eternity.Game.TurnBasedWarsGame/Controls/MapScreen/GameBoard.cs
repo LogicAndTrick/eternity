@@ -7,7 +7,8 @@ using Eternity.Controls.Easings;
 using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.WarsGame;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Actions;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Graphics;
@@ -105,8 +106,9 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public void CalculateArrowOverlays(MoveSet set)
         {
-            var path = set.GetMovementMoves();
             Battle.Map.Tiles.ForEach(x => x.OverlayGroups.RemoveLayers("Arrow"));
+            if (set == null) return;
+            var path = set.GetMovementMoves();
             if (path.Count >= 2)
             {
                 for (var i = 0; i < path.Count; i++)

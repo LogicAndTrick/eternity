@@ -1,4 +1,4 @@
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common
 {
     public enum MoveType
     {
