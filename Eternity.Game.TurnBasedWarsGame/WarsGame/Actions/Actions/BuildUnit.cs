@@ -9,7 +9,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// Some units can build other units internally (carriers)
     /// </summary>
-    public class BuildUnit : IUnitAction, IUnitActionGenerator
+    public class BuildUnit : IUnitAction
     {
         public UnitActionType ActionType
         {
@@ -18,6 +18,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
 
         private UnitType BuildType { get; set; }
 
+        public BuildUnit(UnitType buildType)
+        {
+            BuildType = buildType;
+        }
+
         public void Execute(UnitActionSet set, Action callback)
         {
             var unit = new Unit(set.Unit.Army, BuildType, set.Unit.Army.GetUnitStyle(BuildType));
@@ -25,16 +30,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
             set.Unit.Army.Units.Add(unit);
             set.Unit.LoadWith(unit);
             callback();
-        }
-
-        public bool IsValidFor(UnitActionSet set)
-        {
-            return set.CurrentMoveSet.Count == 1 && set.Unit.CanBuildUnits();
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            return set.Unit.UnitRules.BuildUnits.Select(x => new BuildUnit {BuildType = x});
         }
 
         public bool IsValidTile(Tile tile, UnitActionSet set)
@@ -70,6 +65,24 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return true;
+        }
+    }
+
+    public class BuildUnitGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType
+        {
+            get { return UnitActionType.Build; }
+        }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            return set.CurrentMoveSet.Count == 1 && set.Unit.CanBuildUnits();
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            return set.Unit.UnitRules.BuildUnits.Select(x => new BuildUnit(x));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// APCs can resupply units with fuel and ammo
     /// </summary>
-    public class Resupply : IUnitAction, IUnitActionGenerator
+    public class Resupply : IUnitAction
     {
         private class PopupEffect : IEffect
         {
@@ -71,21 +71,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
             board.Delay(500, callback);
         }
 
-        public bool IsValidFor(UnitActionSet set)
-        {
-            var target = set.CurrentMoveSet.LastOrDefault();
-            return target != null &&
-                   set.Unit.CanResupply() &&
-                   target.MoveTile.GetAdjacentTiles()
-                       .Where(x => x != null && x.Unit != null && x.Unit != set.Unit)
-                       .Any(x => x.Unit.Army == set.Unit.Army && x.Unit.CanBeResupplied());
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            yield return new Resupply();
-        }
-
         public bool IsValidTile(Tile tile, UnitActionSet set)
         {
             return true;
@@ -119,6 +104,29 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return true;
+        }
+    }
+
+    public class ResupplyGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType
+        {
+            get { return UnitActionType.Resupply; }
+        }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            var target = set.CurrentMoveSet.LastOrDefault();
+            return target != null &&
+                   set.Unit.CanResupply() &&
+                   target.MoveTile.GetAdjacentTiles()
+                       .Where(x => x != null && x.Unit != null && x.Unit != set.Unit)
+                       .Any(x => x.Unit.Army == set.Unit.Army && x.Unit.CanBeResupplied());
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            yield return new Resupply();
         }
     }
 }

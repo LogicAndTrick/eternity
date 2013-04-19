@@ -19,14 +19,14 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions
         {
             RegisteredActions = new List<IUnitActionGenerator>
                                     {
-                                        new Fire(),
-                                        new Join(),
-                                        new Load(),
-                                        new Unload(),
-                                        new BuildUnit(),
-                                        new Capture(),
-                                        new Resupply(),
-                                        new Wait()
+                                        new FireGenerator(),
+                                        new JoinGenerator(),
+                                        new LoadGenerator(),
+                                        new UnloadGenerator(),
+                                        new BuildUnitGenerator(),
+                                        new CaptureGenerator(),
+                                        new ResupplyGenerator(),
+                                        new WaitGenerator()
 
                                         // TODO
 

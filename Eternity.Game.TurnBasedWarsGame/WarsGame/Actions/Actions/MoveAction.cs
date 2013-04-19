@@ -9,7 +9,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// The most important unit action. Always executes on every turn, even if the unit's tile isn't changing.
     /// The move also executes any attack, join, or load action as these all involve moving the unit.
     /// </summary>
-    public class MoveAction : IUnitAction, IUnitActionGenerator
+    public class MoveAction : IUnitAction
     {
         public UnitActionType ActionType
         {
@@ -51,16 +51,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
                                   });
         }
 
-        public bool IsValidFor(UnitActionSet set)
-        {
-            return false; // Move should always be first
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            throw new InvalidOperationException("Move is not a valid generator"); // Move is never generated
-        }
-
         public bool IsValidTile(Tile tile, UnitActionSet set)
         {
             return tile.CanAttack || tile.CanMoveTo;
@@ -95,6 +85,24 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return set.CurrentMoveSet.Any() && set.CurrentMoveSet.Last().MoveType == MoveType.Attack;
+        }
+    }
+
+    public class MoveActionGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType
+        {
+            get { return UnitActionType.Move; }
+        }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            return false; // Move should always be first
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            throw new InvalidOperationException("Move is not a valid generator"); // Move is never generated
         }
     }
 }

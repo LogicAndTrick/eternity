@@ -4,6 +4,30 @@ using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 
 namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
 {
+    public interface IUnitActionRunner
+    {
+        UnitActionType ActionType { get; }
+
+        /// <summary>
+        /// Execute and animate the action. Runs asynchronously.
+        /// </summary>
+        /// <param name="set">The current action set.</param>
+        /// <param name="callback">The callback to run once the action is complete.</param>
+        void Execute(UnitActionSet set, Action callback);
+    }
+
+    public class ContextState
+    {
+        public Units.Unit Unit { get; private set; }
+        public IUnitAction Action { get; private set; }
+        public IUnitActionRunner ActionRunner { get; private set; }
+    }
+
+    public class ContextStack : Stack<ContextState>
+    {
+        
+    }
+
     /// <summary>
     /// A unit action such as move, fire, wait, etc.
     /// </summary>

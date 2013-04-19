@@ -8,27 +8,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// Wait ends a turn without any further action.
     /// </summary>
-    public class Wait : IUnitAction, IUnitActionGenerator
+    public class Wait : IUnitAction
     {
         public UnitActionType ActionType { get { return UnitActionType.Wait; } }
 
         public void Execute(UnitActionSet set, Action callback)
         {
             callback();
-        }
-
-        public bool IsValidFor(UnitActionSet set)
-        {
-            var target = set.CurrentMoveSet.LastOrDefault();
-            if (target == null) return true;
-            if (target.UnitToAttack != null) return false;
-            if (target.MoveTile.Unit != null && target.MoveTile.Unit != set.Unit) return false;
-            return true;
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            yield return new Wait();
         }
 
         public bool IsValidTile(Tile tile, UnitActionSet set)
@@ -64,6 +50,25 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return true;
+        }
+    }
+
+    public class WaitGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType { get { return UnitActionType.Wait; } }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            var target = set.CurrentMoveSet.LastOrDefault();
+            if (target == null) return true;
+            if (target.UnitToAttack != null) return false;
+            if (target.MoveTile.Unit != null && target.MoveTile.Unit != set.Unit) return false;
+            return true;
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            yield return new Wait();
         }
     }
 }

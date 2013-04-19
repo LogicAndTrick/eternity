@@ -8,7 +8,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// Some units can be loaded with others (carrier, APC, cruiser, etc)
     /// </summary>
-    public class Load : IUnitAction, IUnitActionGenerator
+    public class Load : IUnitAction
     {
         public UnitActionType ActionType
         {
@@ -19,18 +19,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         {
             // The move action does loading already
             callback();
-        }
-
-        public bool IsValidFor(UnitActionSet set)
-        {
-            var last = set.CurrentMoveSet.LastOrDefault();
-            return last != null && last.MoveTile.Unit != null
-                && last.MoveTile.Unit.CanLoadWith(set.Unit);
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            yield return new Load();
         }
 
         public bool IsValidTile(Tile tile, UnitActionSet set)
@@ -66,6 +54,26 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return true;
+        }
+    }
+
+    public class LoadGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType
+        {
+            get { return UnitActionType.Load; }
+        }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            var last = set.CurrentMoveSet.LastOrDefault();
+            return last != null && last.MoveTile.Unit != null
+                && last.MoveTile.Unit.CanLoadWith(set.Unit);
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            yield return new Load();
         }
     }
 }

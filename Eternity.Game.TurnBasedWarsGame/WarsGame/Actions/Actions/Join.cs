@@ -8,7 +8,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// Join a unit with damaged unit of the same type.
     /// </summary>
-    public class Join : IUnitAction, IUnitActionGenerator
+    public class Join : IUnitAction
     {
         public UnitActionType ActionType
         {
@@ -19,17 +19,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         {
             // The move action takes care of joins
             callback();
-        }
-
-        public bool IsValidFor(UnitActionSet set)
-        {
-            var last = set.CurrentMoveSet.LastOrDefault();
-            return last != null && set.Unit.CanJoinWith(last.MoveTile.Unit);
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            yield return new Join();
         }
 
         public bool IsValidTile(Tile tile, UnitActionSet set)
@@ -65,6 +54,25 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return true;
+        }
+    }
+
+    public class JoinGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType
+        {
+            get { return UnitActionType.Join; }
+        }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            var last = set.CurrentMoveSet.LastOrDefault();
+            return last != null && set.Unit.CanJoinWith(last.MoveTile.Unit);
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            yield return new Join();
         }
     }
 }

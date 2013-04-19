@@ -9,7 +9,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// Loaded units can drop off their loadees onto adjacent tiles.
     /// </summary>
-    public class Unload : IUnitAction, IUnitActionGenerator
+    public class Unload : IUnitAction
     {
         public UnitActionType ActionType
         {
@@ -17,6 +17,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         }
 
         private Unit UnitToUnload { get; set; }
+
+        public Unload(Unit unitToUnload)
+        {
+            UnitToUnload = unitToUnload;
+        }
 
         public void Execute(UnitActionSet set, Action callback)
         {
@@ -35,35 +40,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
                                     endTile.Unit = UnitToUnload;
                                     callback();
                                 });
-        }
-
-        public bool IsValidFor(UnitActionSet set)
-        {
-            // Must have move loaded units than current unloads
-            var unloads = set.CurrentMoveSet.Count(x => x.MoveType == MoveType.Unload);
-            if (set.Unit.LoadedUnits.Count <= unloads) return false;
-
-            // Must be moving to a blank tile
-            var target = set.CurrentMoveSet.LastOrDefault(x => x.MoveType != MoveType.Unload);
-            if (target == null || target.MoveType != MoveType.Move) return false;
-            if (target.MoveTile.Unit != null && target.MoveTile.Unit != set.Unit) return false;
-
-            // Must be able to move the loaded units onto empty adjacent tiles with no other units already unloading onto them
-            var adjacent = target.MoveTile.GetAdjacentTiles()
-                .Where(x => x != null && x.Unit == null)
-                .Where(x => !set.CurrentMoveSet.Any(y => y.MoveType == MoveType.Unload && y.MoveTile == x))
-                .ToList();
-            return set.Unit.LoadedUnits.Any(x => adjacent.Any(y => x.CanMoveOn(y.Type)));
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            var target = set.CurrentMoveSet.Last(x => x.MoveType != MoveType.Unload);
-            var adjacent = target.MoveTile.GetAdjacentTiles().Where(x => x != null && x.Unit == null).ToList();
-            return set.Unit.LoadedUnits
-                .Where(x => adjacent.Any(y => x.CanMoveOn(y.Type)))
-                .Where(x => !set.CurrentMoveSet.Any(y => y.UnitToMove == x && y.MoveType == MoveType.Unload))
-                .Select(x => new Unload {UnitToUnload = x});
         }
 
         public bool IsValidTile(Tile tile, UnitActionSet set)
@@ -108,6 +84,43 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
             var unloads = set.CurrentMoveSet.GetUnloadMoves().Select(x => x.UnitToMove).ToList();
             unloads.Add(UnitToUnload);
             return set.Unit.LoadedUnits.All(unloads.Contains);
+        }
+    }
+
+    public class UnloadGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType
+        {
+            get { return UnitActionType.Unload; }
+        }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            // Must have move loaded units than current unloads
+            var unloads = set.CurrentMoveSet.Count(x => x.MoveType == MoveType.Unload);
+            if (set.Unit.LoadedUnits.Count <= unloads) return false;
+
+            // Must be moving to a blank tile
+            var target = set.CurrentMoveSet.LastOrDefault(x => x.MoveType != MoveType.Unload);
+            if (target == null || target.MoveType != MoveType.Move) return false;
+            if (target.MoveTile.Unit != null && target.MoveTile.Unit != set.Unit) return false;
+
+            // Must be able to move the loaded units onto empty adjacent tiles with no other units already unloading onto them
+            var adjacent = target.MoveTile.GetAdjacentTiles()
+                .Where(x => x != null && x.Unit == null)
+                .Where(x => !set.CurrentMoveSet.Any(y => y.MoveType == MoveType.Unload && y.MoveTile == x))
+                .ToList();
+            return set.Unit.LoadedUnits.Any(x => adjacent.Any(y => x.CanMoveOn(y.Type)));
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            var target = set.CurrentMoveSet.Last(x => x.MoveType != MoveType.Unload);
+            var adjacent = target.MoveTile.GetAdjacentTiles().Where(x => x != null && x.Unit == null).ToList();
+            return set.Unit.LoadedUnits
+                .Where(x => adjacent.Any(y => x.CanMoveOn(y.Type)))
+                .Where(x => !set.CurrentMoveSet.Any(y => y.UnitToMove == x && y.MoveType == MoveType.Unload))
+                .Select(x => new Unload(x));
         }
     }
 }

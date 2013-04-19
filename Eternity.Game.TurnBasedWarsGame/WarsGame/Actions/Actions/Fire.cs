@@ -8,7 +8,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
     /// <summary>
     /// Units attack other units. The fire is often combined into the move and this action isn't used.
     /// </summary>
-    public class Fire : IUnitAction, IUnitActionGenerator
+    public class Fire : IUnitAction
     {
         public UnitActionType ActionType { get { return UnitActionType.Fire; } }
 
@@ -17,20 +17,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
             // The move action ALWAYS executes (even if moved zero tiles), and 
             // the move action takes care of any attacks as well.
             callback();
-        }
-
-        public bool IsValidFor(UnitActionSet set)
-        {
-            var target = set.CurrentMoveSet.Any()
-                             ? set.CurrentMoveSet.Last().MoveTile
-                             : set.Unit.Tile;
-            return set.CurrentMoveSet.All(x => x.MoveType != MoveType.Attack)
-                && set.Unit.GetAttackableTiles(target, set.CurrentMoveSet.GetMovementCost()).Any();
-        }
-
-        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
-        {
-            yield return new Fire();
         }
 
         public bool IsValidTile(Tile tile, UnitActionSet set)
@@ -68,6 +54,25 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Actions.Actions
         public bool IsCommittingAction(UnitActionSet set)
         {
             return true;
+        }
+    }
+
+    public class FireGenerator : IUnitActionGenerator
+    {
+        public UnitActionType ActionType { get { return UnitActionType.Fire; } }
+
+        public bool IsValidFor(UnitActionSet set)
+        {
+            var target = set.CurrentMoveSet.Any()
+                             ? set.CurrentMoveSet.Last().MoveTile
+                             : set.Unit.Tile;
+            return set.CurrentMoveSet.All(x => x.MoveType != MoveType.Attack)
+                && set.Unit.GetAttackableTiles(target, set.CurrentMoveSet.GetMovementCost()).Any();
+        }
+
+        public IEnumerable<IUnitAction> GetActions(UnitActionSet set)
+        {
+            yield return new Fire();
         }
     }
 }
