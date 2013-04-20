@@ -80,12 +80,15 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             }
         }
 
-        public void SelectUnit(Unit u)
+        public void SelectUnit(Unit u, Tile t = null)
         {
-            var t = u.Tile;
-            t.BaseGroups.SetGroupVisibility("Unit", false);
-            t.OverlayGroups.SetGroupVisibility("UnitHealth", false);
-            t.OverlayGroups.SetGroupVisibility("UnitStatus", false);
+            if (t == null) t = u.Tile;
+            if (t == u.Tile)
+            {
+                t.BaseGroups.SetGroupVisibility("Unit", false);
+                t.OverlayGroups.SetGroupVisibility("UnitHealth", false);
+                t.OverlayGroups.SetGroupVisibility("UnitStatus", false);
+            }
             t.OverlayGroups.AddLayer("UnitAnimations", "Animation", u.Style + "W_24",
                                      new SpriteDrawingOptions { DockX = SpriteDrawingOptions.Dock.Center, MirrorX = true });
         }

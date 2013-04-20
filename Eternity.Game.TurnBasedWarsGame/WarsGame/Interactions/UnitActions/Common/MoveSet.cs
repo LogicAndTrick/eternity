@@ -14,11 +14,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
         }
 
         public Unit Unit { get; private set; }
+        private readonly Tile _startTile;
 
-        public MoveSet(Unit unit)
+        public MoveSet(Unit unit, Tile startTile = null)
         {
             Unit = unit;
-            TryMovePathTo(Move.CreateMove(unit.Tile, unit));
+            _startTile = startTile ?? unit.Tile;
+            TryMovePathTo(Move.CreateMove(_startTile, unit));
         }
 
         public static MoveSet AllPossibleMoves(Unit unit, Tile tile = null)
@@ -60,13 +62,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
 
         public int GetMovementCost()
         {
-            return this.Where(x => x.MoveTile != Unit.Tile && x.MoveType == MoveType.Move)
+            return this.Where(x => x.MoveTile != _startTile && x.MoveType == MoveType.Move)
                 .Sum(x => x.GetMovementCost());
         }
 
         public MoveSet GetPossibleAttackMoves()
         {
-            var fromTile = Count == 0 ? Unit.Tile : this.Last().MoveTile;
+            var fromTile = Count == 0 ? _startTile : this.Last().MoveTile;
             var currentCost = this.Skip(1).Sum(x => x.GetMovementCost());
             var attackable = Unit.GetAttackableTiles(fromTile, currentCost > 0);
             var states = attackable.Select(x => Move.CreateAttack(x, Unit));
@@ -131,7 +133,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
                 {
                     // Recalculate a new path running to the candidate
                     var lowestVal = int.MaxValue;
-                    var start = Move.CreateMove(Unit.Tile, Unit);
+                    var start = Move.CreateMove(_startTile, Unit);
                     foreach (var tile in candidates)
                     {
                         var temp = tile;

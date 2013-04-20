@@ -25,6 +25,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
         public int LoadCapacity { get; private set; }
         public List<UnitClassType> LoadClassTypes { get; private set; }
 
+        public bool AllowUnload { get; private set; }
+        public bool AllowTakeOff { get; private set; }
+
         public bool CanBuildBuildings { get; private set; }
         public Dictionary<TileType, List<TileType>> BuildBuildings { get; private set; }
         public int BuildingMaterial { get; private set; }
@@ -54,6 +57,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
                 .ToList();
             LoadCapacity = 0;
             LoadClassTypes = new List<UnitClassType>();
+            AllowUnload = AllowTakeOff = false;
             CanSupply = bool.Parse(def.GetData("CanSupply", "False"));
             var load = def.ChildrenDefinitions.FirstOrDefault(x => x.DefinitionType == "Load");
             if (load != null)
@@ -64,6 +68,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
                 {
                     if (Enum.TryParse(classType, out ct)) LoadClassTypes.Add(ct);
                 }
+                AllowUnload = LoadCapacity > 0 && bool.Parse(load.GetData("AllowUnload", "True"));
+                AllowTakeOff = LoadCapacity > 0 && bool.Parse(load.GetData("AllowTakeOff", "False"));
             }
             CanBuildBuildings = CanBuildUnits = false;
             BuildingMaterial = UnitMaterial = 0;

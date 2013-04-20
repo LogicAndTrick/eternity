@@ -24,7 +24,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
             board.AnimatePath(_set.Unit, _set.GetMovementMoves(),
                               () =>
                                   {
-                                      startTile.Unit = null;
+                                      if (startTile.Unit == _set.Unit) startTile.Unit = null;
                                       if (endTile.Unit == null) endTile.Unit = _set.Unit;
                                       callback();
                                   });

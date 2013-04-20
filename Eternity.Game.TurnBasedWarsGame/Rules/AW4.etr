@@ -829,6 +829,8 @@
         {
             ClassType: Plane
             Capacity: 2
+            AllowUnload: False
+            AllowTakeOff: True
         }
     }
 

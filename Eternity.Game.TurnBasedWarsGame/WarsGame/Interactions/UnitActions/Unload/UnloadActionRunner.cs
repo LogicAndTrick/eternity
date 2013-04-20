@@ -31,6 +31,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
                                   {
                                       _parent.LoadedUnits.Remove(_child);
                                       _targetTile.Unit = _child;
+                                      _child.HasMoved = true;
                                       callback();
                                   });
         }

@@ -12,7 +12,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
         {
             var context = queue.Last();
 
-            // Must have move loaded units than current unloads
+            if (!context.Unit.UnitRules.AllowUnload) return false;
+
+            // Must have more loaded units than current unloads
             var unloads = queue.Where(x => x.Type == UnitActionType.Unload)
                 .Select(x => x.Action as UnloadAction)
                 .Where(x => x != null)

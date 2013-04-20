@@ -83,6 +83,9 @@
     </Compile>
     <Compile Include="WarsGame\Interactions\UnitActions\Resupply\ResupplyActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Resupply\ResupplyActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\TakeOff\TakeOffAction.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\TakeOff\TakeOffActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\TakeOff\TakeOffActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Unload\UnloadActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Unload\UnloadAction.cs">
       <SubType>Code</SubType>

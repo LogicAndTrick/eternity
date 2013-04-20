@@ -8,6 +8,7 @@ using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Join;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Load;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Resupply;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.TakeOff;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unload;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Wait;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
@@ -31,6 +32,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                                         new JoinActionGenerator(),
                                         new LoadActionGenerator(),
                                         new UnloadActionGenerator(),
+                                        new TakeOffActionGenerator(),
                                         new BuildUnitActionGenerator(),
                                         new CaptureActionGenerator(),
                                         new ResupplyActionGenerator(),
@@ -58,9 +60,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
         }
 
         private readonly Battle _battle;
-        private readonly Unit _unit;
         private readonly ContextQueue _contextQueue;
 
+        private Unit _currentContextUnit;
         private IUnitAction _currentAction;
         private bool _committing;
 
@@ -68,17 +70,17 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
         public UnitActionSet(Unit unit)
         {
-            _unit = unit;
+            _currentContextUnit = unit;
             _battle = unit.Tile.Parent.Battle;
             _committing = false;
             _contextQueue = new ContextQueue();
 
             // Push the base state into the queue
             var noAction = new NoAction();
-            var cs = new ContextState(UnitActionType.None, _unit, _unit.Tile, noAction, noAction);
+            var cs = new ContextState(UnitActionType.None, _currentContextUnit, _currentContextUnit.Tile, noAction, noAction);
             _contextQueue.Enqueue(cs);
 
-            _battle.GameBoard.SelectUnit(_unit);
+            _battle.GameBoard.SelectUnit(_currentContextUnit);
 
             // Always start with the move action
             SelectAction(new MoveAction.MoveAction(_contextQueue.Last()));
@@ -119,6 +121,14 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             // Queue up all the context states
             var actions = _currentAction.CreateContextStates().ToList();
             actions.ForEach(_contextQueue.Enqueue);
+
+            var newContext = _contextQueue.Last();
+            if (newContext.Unit != _currentContextUnit)
+            {
+                _battle.GameBoard.DeselectUnit(_currentContextUnit);
+                _currentContextUnit = newContext.Unit;
+                _battle.GameBoard.SelectUnit(_currentContextUnit, newContext.Tile);
+            }
 
             if (_currentAction.IsCommittingAction())
             {
@@ -162,7 +172,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
         private Tile GetTarget()
         {
             // The target is the last tile of the context queue.
-            return _contextQueue.Select(x => x.Tile).LastOrDefault() ?? _unit.Tile;
+            return _contextQueue.Last().Tile;
         }
 
         private void CalculateArrowOverlays()
@@ -181,7 +191,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             }
 
             // ...and render them all on the gameboard.
-            var set = new MoveSet(_unit, moves);
+            var set = new MoveSet(_contextQueue.Last().Unit, moves);
             _battle.GameBoard.CalculateArrowOverlays(set.Any() ? set : null);
         }
 
@@ -190,7 +200,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             // An action has been chosen
             _battle.GameBoard.HideDialog();
             _currentAction = action;
-            _unit.Tile.Parent.Tiles.ForEach(x => x.CanAttack = x.CanMoveTo = false);
+            _battle.Map.Tiles.ForEach(x => x.CanAttack = x.CanMoveTo = false);
 
             // Instant actions don't allow selection of a tile
             if (action.IsInstantAction())
@@ -206,6 +216,15 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                                x.Tile.CanMoveTo = x.MoveType == MoveType.Move;
                                x.Tile.CanAttack = x.MoveType == MoveType.Attack;
                            });
+
+            var newContext = _contextQueue.Union(_currentAction.CreateContextStates()).Last();
+            if (newContext.Unit != _currentContextUnit)
+            {
+                _battle.GameBoard.DeselectUnit(_currentContextUnit);
+                _currentContextUnit = newContext.Unit;
+                _battle.GameBoard.SelectUnit(_currentContextUnit, newContext.Tile);
+            }
+
             _battle.GameBoard.UpdateTileHighlights();
             CalculateArrowOverlays();
         }
@@ -223,6 +242,15 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                 _currentAction.Cancel();
                 var act = _contextQueue.Pop().Action;
                 while (_contextQueue.Last().Action == act) _contextQueue.Pop();
+
+                var newContext = _contextQueue.Last();
+                if (newContext.Unit != _currentContextUnit)
+                {
+                    _battle.GameBoard.DeselectUnit(_currentContextUnit);
+                    _currentContextUnit = newContext.Unit;
+                    _battle.GameBoard.SelectUnit(_currentContextUnit, newContext.Tile);
+                }
+
                 SelectAction(act);
             }
         }
@@ -231,7 +259,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
         {
             // Start committing the action
             _committing = true;
-            _battle.GameBoard.DeselectUnit(_unit);
+            _battle.GameBoard.DeselectUnit(_currentContextUnit);
             CommitCallback();
         }
 
@@ -244,12 +272,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             {
                 // While the queue has items, run each action
                 var state = _contextQueue.Dequeue();
+                _currentContextUnit = state.Unit;
                 state.ActionRunner.Execute(CommitCallback); // Recursively use this method as the callback
             }
             else
             {
                 // The queue is empty, we're done here.
-                _unit.HasMoved = true;
+                _currentContextUnit.HasMoved = true;
                 _battle.EndUnitAction();
             }
         }
@@ -258,7 +287,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
         {
             // The unit action is over and we need to clean up any mess we made
             _battle.Map.Tiles.ForEach(x => x.CanAttack = x.CanMoveTo = false);
-            _battle.GameBoard.DeselectUnit(_unit);
+            _battle.GameBoard.DeselectUnit(_currentContextUnit);
         }
     }
 }
