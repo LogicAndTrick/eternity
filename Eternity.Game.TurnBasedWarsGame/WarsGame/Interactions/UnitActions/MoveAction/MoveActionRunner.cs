@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.MoveAction
 {
     public class MoveActionRunner : IUnitActionRunner
     {
@@ -16,7 +16,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
         public void Execute(Action callback)
         {
             var target = _set.LastOrDefault(x => x.MoveType == MoveType.Move)
-                         ?? Common.Move.CreateMove(_set.Unit.Tile, _set.Unit);
+                         ?? Move.CreateMove(_set.Unit.Tile, _set.Unit);
             var startTile = _set.Unit.Tile;
             var endTile = target.MoveTile;
             var board = _set.Unit.Tile.Parent.Battle.GameBoard;

@@ -24,7 +24,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
         public MoveSet GetMoveSet()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public void Cancel()

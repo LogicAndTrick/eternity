@@ -4,7 +4,7 @@ using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.MoveAction
 {
     /// <summary>
     /// Moves a unit, but could potentially move it nowhere. Might also include an attack.
@@ -18,7 +18,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
         {
             _state = state;
             _set = new MoveSet(state.Unit);
-            _set.TryMovePathTo(Common.Move.CreateMove(state.Tile, state.Unit));
+            _set.TryMovePathTo(Move.CreateMove(state.Tile, state.Unit));
         }
 
         public bool IsValidTile(Tile tile)
@@ -34,7 +34,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
 
         public void UpdateMoveSet(Tile tile)
         {
-            _set.TryMovePathTo(Common.Move.CreateMove(tile, _state.Unit));
+            _set.TryMovePathTo(Move.CreateMove(tile, _state.Unit));
         }
 
         public MoveSet GetMoveSet()

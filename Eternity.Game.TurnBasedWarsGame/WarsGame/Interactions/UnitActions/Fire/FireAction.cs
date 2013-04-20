@@ -39,7 +39,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire
         {
             return _attackTile == null
                        ? null
-                       : new MoveSet(_state.Unit, new[] {Common.Move.CreateAttack(_attackTile, _state.Unit)});
+                       : new MoveSet(_state.Unit, new[] {Move.CreateAttack(_attackTile, _state.Unit)});
         }
 
         public void Cancel()

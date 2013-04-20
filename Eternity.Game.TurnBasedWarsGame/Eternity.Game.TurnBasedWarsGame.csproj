@@ -50,24 +50,44 @@
     <Compile Include="Controls\MapScreen\RootPanel.cs" />
     <Compile Include="Controls\MapScreen\ScrollingMapPanel.cs" />
     <Compile Include="Controls\MapScreen\TileControl.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\BuildUnit\BuildUnitAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WarsGame\Interactions\UnitActions\BuildUnit\BuildUnitActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\BuildUnit\BuildUnitActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Load\LoadAction.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Load\LoadActionRunner.cs" />
-    <Compile Include="WarsGame\Interactions\UnitActions\Move\MoveActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\MoveAction\MoveActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinAction.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WarsGame\Interactions\UnitActions\Load\LoadActionGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="WarsGame\Interactions\UnitActions\Move\MoveActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\MoveAction\MoveActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\ContextQueue.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\ContextState.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Fire\FireActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Fire\FireActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\IUnitActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\NoAction.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Resupply\ResupplyAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WarsGame\Interactions\UnitActions\Resupply\ResupplyActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Resupply\ResupplyActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Unload\UnloadActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Unload\UnloadAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WarsGame\Interactions\UnitActions\Unload\UnloadActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Wait\WaitActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Wait\WaitActionGenerator.cs" />
     <Compile Include="WarsGame\Armies\Army.cs" />
@@ -86,7 +106,7 @@
     <Compile Include="WarsGame\Structures\StructureType.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Fire\FireAction.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\IUnitActionGenerator.cs" />
-    <Compile Include="WarsGame\Interactions\UnitActions\Move\MoveAction.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\MoveAction\MoveAction.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\IUnitAction.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\UnitActionType.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\ValidTile.cs" />

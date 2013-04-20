@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 
-namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
+namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.MoveAction
 {
     public class MoveActionGenerator : IUnitActionGenerator
     {
