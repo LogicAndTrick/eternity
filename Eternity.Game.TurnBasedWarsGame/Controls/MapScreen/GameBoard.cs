@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eternity.Algorithms;
 using Eternity.Controls;
 using Eternity.Controls.Animations;
 using Eternity.Controls.Easings;
 using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.WarsGame;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Graphics;
@@ -35,6 +38,8 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
             var bgi = new ScrollingBackgroundImage(TextureManager.GetTexture("Overlays", "Clouds"), 5, 5, 0.03, -0.06);
             AddOverlay(bgi);
+
+            SetFogOfWar();
         }
 
         public MenuDialog ShowDialog(params MenuDialog.MenuDialogAction[] actions)
@@ -105,6 +110,61 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         public void UpdateHealthOverlays()
         {
             Battle.Map.Tiles.ForEach(x => x.UpdateUnitLayers());
+        }
+
+        public void SetFogOfWar()
+        {
+            Battle.Map.Tiles.ForEach(x => x.Fog = x.ShouldHaveFog(Battle.CurrentTurn.Army));
+            foreach (var tile in Battle.Map.Tiles)
+            {
+                var uv = tile.Unit != null && tile.Unit.Army == Battle.CurrentTurn.Army ? tile.Unit.UnitRules.Vision + tile.Rules.GetVisionBonus(tile.Unit.UnitRules.MoveType) : 0;
+                var sv = tile.Structure != null && tile.Structure.Army == Battle.CurrentTurn.Army ? tile.Structure.Rules.Vision : 0;
+                if (uv == 0 && sv == 0) continue;
+                RevealFogOfWar(tile, uv, sv);
+            }
+        }
+
+        /// <summary>
+        /// Reveals the fog of war around this tile, as viewed by the provided unit.
+        /// </summary>
+        /// <param name="tile">The tile the unit is on</param>
+        /// <param name="unit">The unit that is viewing from the tile</param>
+        public void RevealFogOfWar(Tile tile, Unit unit)
+        {
+            var uv = unit.UnitRules.Vision + tile.Rules.GetVisionBonus(unit.UnitRules.MoveType);
+            if (uv > 0) RevealFogOfWar(tile, uv, 0);
+        }
+
+
+        /// <summary>
+        /// Reveals the fog of war around this tile, as viewed by the provided structure.
+        /// </summary>
+        /// <param name="tile">The tile the structure is on</param>
+        /// <param name="structure">The structure that is viewing from the tile</param>
+        public void RevealFogOfWar(Tile tile, Structure structure)
+        {
+            var sv = structure.Rules.Vision;
+            if (sv > 0) RevealFogOfWar(tile, 0, sv);
+        }
+
+        private static void RevealFogOfWar(Tile tile, int unitVision, int structureVision)
+        {
+            var states = Search.GetAllStates(Tuple.Create(tile, true),
+                                             (x, i) => TileVision(x, i, unitVision, structureVision),
+                                             (a, b) => a.Item1 == b.Item1,
+                                             x => 1);
+            foreach (var tuple in states.Where(x => x.Item2))
+            {
+                tuple.Item1.Fog = false;
+            }
+        }
+
+        private static IEnumerable<Tuple<Tile, bool>> TileVision(Tuple<Tile, bool> tuple, int cost, int unitVision, int structureVision)
+        {
+            var t = tuple.Item1;
+            if (cost >= Math.Max(unitVision, structureVision)) return null;
+            if (cost == 0 && unitVision > 0) return t.GetAdjacentTiles().Where(x => x != null).Select(x => Tuple.Create(x, true));
+            return t.GetAdjacentTiles().Where(x => x != null).Select(x => Tuple.Create(x, !x.Rules.BlocksVision));
         }
 
         public void CalculateArrowOverlays(MoveSet set)

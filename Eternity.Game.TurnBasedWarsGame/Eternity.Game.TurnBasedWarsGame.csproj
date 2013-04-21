@@ -106,6 +106,7 @@
     <Compile Include="TurnBasedWarsMode.cs" />
     <Compile Include="WarsGame\Map.cs" />
     <Compile Include="WarsGame\Rules\WeaponRules.cs" />
+    <Compile Include="WarsGame\Structures\Structure.cs" />
     <Compile Include="WarsGame\Structures\StructureType.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Fire\FireAction.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\IUnitActionGenerator.cs" />
@@ -225,6 +226,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Maps\Test2.etr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Maps\Test.etr">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

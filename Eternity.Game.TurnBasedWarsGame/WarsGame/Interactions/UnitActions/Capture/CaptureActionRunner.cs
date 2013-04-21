@@ -19,8 +19,15 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capt
         public void Execute(Action callback)
         {
             var points = _structure.CapturePoints - _capturer.HealthOutOfTen;
-            if (points <= 0) _structure.Capture(_capturer.Army);
-            else _structure.CapturePoints = points;
+            if (points <= 0)
+            {
+                _structure.Capture(_capturer.Army);
+                _capturer.Tile.Parent.Battle.GameBoard.RevealFogOfWar(_structure.Tile, _structure);
+            }
+            else
+            {
+                _structure.CapturePoints = points;
+            }
             callback();
         }
     }

@@ -44,7 +44,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                                         // Rise (sub)
 
                                         // AW 4
-                                        // Takeoff (carrier w/ planes)
                                         // CO (on a base)
                                         // Build (APC)
 

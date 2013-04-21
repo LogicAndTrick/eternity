@@ -305,4 +305,12 @@ SpriteSheet
         Type: Terrain
         TerrainType: City
     }
+
+    Sprite
+    {
+        Name: NeutralBase
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Base
+    }
 }

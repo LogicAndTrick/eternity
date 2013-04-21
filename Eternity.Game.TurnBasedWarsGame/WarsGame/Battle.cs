@@ -61,6 +61,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             CurrentTurn = CurrentTurn.CreateNextTurn();
             GameBoard.HideDialog();
             GameBoard.UpdateHealthOverlays();
+            GameBoard.SetFogOfWar();
             NewTurnOverlay();
         }
 
@@ -83,6 +84,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             if (_interaction != null)
             {
                 _interaction.TileMouseDown(e, tile);
+            }
+            else if (tile.Fog)
+            {
+                // Can't interact with fogged tiles
             }
             else if (tile.Unit != null)
             {

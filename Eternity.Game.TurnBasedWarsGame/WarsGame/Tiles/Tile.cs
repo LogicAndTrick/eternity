@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Rules;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Graphics.Sprites;
@@ -46,6 +48,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
                 }
             }
 
+            public TileLayer GetLayer(string groupName, string layerName)
+            {
+                return Groups.Where(x => x.GroupName == groupName)
+                    .SelectMany(x => x.Layers)
+                    .FirstOrDefault(x => x.LayerName == layerName);
+            }
+
             public void SetGroupVisibility(string groupName, bool visible)
             {
                 var g = Groups.FirstOrDefault(x => x.GroupName == groupName);
@@ -82,7 +91,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             {
                 LayerName = layerName;
                 SpriteName = spriteName;
-                DrawingOptions = drawingOptions;
+                DrawingOptions = drawingOptions ?? new SpriteDrawingOptions();
             }
         }
 
@@ -97,8 +106,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
         public bool CanAttack { get; set; }
 
         public Structure Structure { get; set; }
+        public TerrainRules Rules { get; private set; }
 
         private Unit _unit;
+        private bool _fog;
+
         public Unit Unit
         {
             get { return _unit; }
@@ -117,13 +129,46 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             }
         }
 
+        public bool Fog
+        {
+            get { return _fog; }
+            set
+            {
+                if (_fog == value) return;
+                BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.White);
+                if (Structure != null)
+                {
+                    var colour = Structure.Army == null ? "Neutral" : Structure.Army.ArmyRules.Colour;
+                    BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
+                    BaseGroups.AddLayer("Terrain", "TerrainOverlay", colour + Type);
+                }
+                _fog = value;
+                if (_fog)
+                {
+                    if (Structure != null && Type != TileType.Headquarters)
+                    {
+                        BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
+                        BaseGroups.AddLayer("Terrain", "TerrainOverlay", "Neutral" + Type);
+                    }
+                    BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.FromArgb(128, 128, 128));
+                }
+                UpdateUnitLayers();
+            }
+        }
+
+        public bool ShouldHaveFog(Army army)
+        {
+            if (Unit != null && Unit.Army == army) return false;
+            if (Structure != null && Structure.Army == army) return false;
+            return true;
+        }
 
         public void UpdateUnitLayers()
         {
             BaseGroups.RemoveLayers("Unit");
             OverlayGroups.RemoveLayers("UnitHealth");
             OverlayGroups.RemoveLayers("UnitStatus");
-            if (_unit == null) return;
+            if (_unit == null || Fog) return;
 
             BaseGroups.AddLayer("Unit", "Unit", _unit.Style,
                 new SpriteDrawingOptions { MirrorX = _unit.Army.ArmyRules.MirrorX, Colour = _unit.HasMoved ? Color.Gray : Color.White });
@@ -192,6 +237,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             Parent = parent;
             Type = type;
             Location = location;
+            Rules = RuleSet.GetTerrainRules(Type);
+
             BaseGroups = new TileGroupCollection();
             BaseGroups.Groups.Add(new TileGroup("Terrain", "Terrain"));
             BaseGroups.Groups.Add(new TileGroup("Unit", "Units"));

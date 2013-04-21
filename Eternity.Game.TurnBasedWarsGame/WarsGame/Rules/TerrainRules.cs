@@ -13,9 +13,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
         public TileType TileType { get; private set; }
         public int Defense { get; private set; }
         public int Vision { get; private set; }
+        public bool BlocksVision { get; private set; }
         public bool Capturable { get; private set; }
         public bool Destroyable { get; private set; }
         private readonly Dictionary<UnitMoveType, int> _moveValues;
+        private readonly Dictionary<UnitMoveType, int> _visionBonus;
 
         public TerrainRules(ResourceDefinition def)
         {
@@ -25,15 +27,25 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
 
             Defense = int.Parse(def.GetData("Defense", "0"));
             Vision = int.Parse(def.GetData("Vision", "0"));
+            BlocksVision = bool.Parse(def.GetData("BlocksVision", "False"));
             Capturable = bool.Parse(def.GetData("Capturable", "False"));
             Destroyable = bool.Parse(def.GetData("Destroyable", "False"));
 
             _moveValues = new Dictionary<UnitMoveType, int>();
-            foreach (var type in Enum.GetValues(typeof(UnitMoveType)).OfType<UnitMoveType>())
+            foreach (UnitMoveType type in Enum.GetValues(typeof(UnitMoveType)))
             {
                 var val = def.GetData(type.ToString());
                 var mv = String.IsNullOrWhiteSpace(val) ? 0 : int.Parse(val);
                 _moveValues.Add(type, mv);
+            }
+
+            _visionBonus = new Dictionary<UnitMoveType, int>();
+            var vb = def.ChildrenDefinitions.FirstOrDefault(x => x.DefinitionType == "VisionBonus") ?? new ResourceDefinition("VisionBonus");
+            foreach (UnitMoveType type in Enum.GetValues(typeof(UnitMoveType)))
+            {
+                var val = vb.GetData(type.ToString());
+                var mv = String.IsNullOrWhiteSpace(val) ? 0 : int.Parse(val);
+                _visionBonus.Add(type, mv);
             }
         }
 
@@ -45,6 +57,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
         public int GetMoveCost(UnitMoveType mt)
         {
             return _moveValues[mt];
+        }
+
+        public int GetVisionBonus(UnitMoveType mt)
+        {
+            return _visionBonus[mt];
         }
     }
 }

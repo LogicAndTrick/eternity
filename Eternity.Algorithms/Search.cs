@@ -95,7 +95,7 @@ namespace Eternity.Algorithms
             }
         }
 
-        public static List<T> GetAllStates<T>(T initialState, Func<T, int, List<T>> expand, Func<T, T, bool> equator, Func<T, int> cost)
+        public static List<T> GetAllStates<T>(T initialState, Func<T, int, IEnumerable<T>> expand, Func<T, T, bool> equator, Func<T, int> cost)
         {
             var fringe = new List<Node2<T>>
                              {
@@ -116,11 +116,13 @@ namespace Eternity.Algorithms
                 if (!resultList.Any(x => equator(x, e.Item))) resultList.Add(e.Item);
 
                 // Expand node
-                fringe.AddRange(expand(e.Item, e.Cost).Select(x => new Node2<T>(x, e.Cost + cost(x), new List<T>(e.Path) {x})));
+                var items = expand(e.Item, e.Cost);
+                if (items != null) fringe.AddRange(items.Select(x => new Node2<T>(x, e.Cost + cost(x), new List<T>(e.Path) { x })));
             }
             return resultList;
         }
-        public static List<T> InformedSearch<T>(T initialState, int initialCost, Func<T, int, List<T>> expand, Func<T, T, bool> equator, Func<T, int> cost, Func<T, bool> goal)
+
+        public static List<T> InformedSearch<T>(T initialState, int initialCost, Func<T, int, IEnumerable<T>> expand, Func<T, T, bool> equator, Func<T, int> cost, Func<T, bool> goal)
         {
             var fringe = new List<Node2<T>>
             {
@@ -140,7 +142,8 @@ namespace Eternity.Algorithms
                 if (goal(e.Item)) return e.Path;
 
                 // Expand node
-                fringe.AddRange(expand(e.Item, e.Cost).Select(x => new Node2<T>(x, e.Cost + cost(x), new List<T>(e.Path) { x })));
+                var items = expand(e.Item, e.Cost);
+                if (items != null) fringe.AddRange(items.Select(x => new Node2<T>(x, e.Cost + cost(x), new List<T>(e.Path) { x })));
             }
             return new List<T>();
         }

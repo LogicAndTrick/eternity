@@ -1,0 +1,1827 @@
+﻿Map
+{
+    Name: Bean Island 2
+    Group: Classic Maps
+    RuleSet: AW4
+    Armies: OS BM
+    Width: 16
+    Height: 15
+
+    Tile
+    {
+        Location: 0 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 1 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 2 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 3 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 4 0
+        TerrainType: Sea
+        Base: SeaLand4
+    }
+    Tile
+    {
+        Location: 5 0
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 6 0
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 7 0
+        TerrainType: Sea
+        Base: SeaLand3
+    }
+    Tile
+    {
+        Location: 8 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 9 0
+        TerrainType: Sea
+        Base: SeaLand4
+    }
+    Tile
+    {
+        Location: 10 0
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 11 0
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 12 0
+        TerrainType: Sea
+        Base: SeaLand3
+    }
+    Tile
+    {
+        Location: 13 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 14 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 15 0
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 0 1
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 1 1
+        TerrainType: Sea
+        Base: SeaLand4
+    }
+    Tile
+    {
+        Location: 2 1
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 3 1
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 4 1
+        TerrainType: Sea
+        Base: SeaLandES
+    }
+    Tile
+    {
+        Location: 5 1
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 6 1
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 7 1
+        TerrainType: Sea
+        Base: SeaLandWS
+    }
+    Tile
+    {
+        Location: 8 1
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 9 1
+        TerrainType: Sea
+        Base: SeaLandES
+    }
+    Tile
+    {
+        Location: 10 1
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 11 1
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 12 1
+        TerrainType: Sea
+        Base: SeaLandWS
+    }
+    Tile
+    {
+        Location: 13 1
+        TerrainType: Sea
+        Base: SeaLandS
+    }
+    Tile
+    {
+        Location: 14 1
+        TerrainType: Sea
+        Base: SeaLand3
+    }
+    Tile
+    {
+        Location: 15 1
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 0 2
+        TerrainType: Sea
+        Base: SeaLand4
+    }
+    Tile
+    {
+        Location: 1 2
+        TerrainType: Sea
+        Base: SeaLandES
+    }
+    Tile
+    {
+        Location: 2 2
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 3 2
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 4 2
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 5 2
+        TerrainType: Wood
+        Base: Wood2
+    }
+    Tile
+    {
+        Location: 6 2
+        TerrainType: Wood
+        Base: Wood3
+    }
+    Tile
+    {
+        Location: 7 2
+        TerrainType: Wood
+        Base: Wood3
+    }
+    Tile
+    {
+        Location: 8 2
+        TerrainType: Wood
+        Base: Wood3
+    }
+    Tile
+    {
+        Location: 9 2
+        TerrainType: Wood
+        Base: Wood3
+    }
+    Tile
+    {
+        Location: 10 2
+        TerrainType: Wood
+        Base: Wood4
+    }
+    Tile
+    {
+        Location: 11 2
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 12 2
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 13 2
+        TerrainType: Plain
+        Base: Plain3
+    }
+    Tile
+    {
+        Location: 14 2
+        TerrainType: Sea
+        Base: SeaLandWS
+    }
+    Tile
+    {
+        Location: 15 2
+        TerrainType: Sea
+        Base: SeaLand3
+    }
+    Tile
+    {
+        Location: 0 3
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 2 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 3 3
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 4 3
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 5 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 6 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 7 3
+        TerrainType: Plain
+        Base: Plain3
+    }
+    Tile
+    {
+        Location: 8 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 9 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 10 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 11 3
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 12 3
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 13 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 14 3
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 15 3
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 4
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: RedCity
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 2 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: RedCity
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 3 4
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 4 4
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 5 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: NeutralCity
+
+        Structure
+        {
+            Army: N
+        }
+    }
+    Tile
+    {
+        Location: 6 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: NeutralCity
+
+        Structure
+        {
+            Army: N
+        }
+    }
+    Tile
+    {
+        Location: 7 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: NeutralCity
+
+        Structure
+        {
+            Army: N
+        }
+    }
+    Tile
+    {
+        Location: 8 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: NeutralCity
+
+        Structure
+        {
+            Army: N
+        }
+    }
+    Tile
+    {
+        Location: 9 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: NeutralCity
+
+        Structure
+        {
+            Army: N
+        }
+    }
+    Tile
+    {
+        Location: 10 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: NeutralCity
+
+        Structure
+        {
+            Army: N
+        }
+    }
+    Tile
+    {
+        Location: 11 4
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 12 4
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 13 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: BlueCity
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 14 4
+        TerrainType: City
+        Base: Plain1
+        Overlay: BlueCity
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 15 4
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 5
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 5
+        TerrainType: Plain
+        Base: Plain3
+    }
+    Tile
+    {
+        Location: 2 5
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 3 5
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 4 5
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 5 5
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1ES
+    }
+    Tile
+    {
+        Location: 6 5
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1EW
+    }
+    Tile
+    {
+        Location: 7 5
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1EW
+    }
+    Tile
+    {
+        Location: 8 5
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1EW
+    }
+    Tile
+    {
+        Location: 9 5
+        TerrainType: Road
+        Base: Plain4
+        Overlay: Road1EW
+    }
+    Tile
+    {
+        Location: 10 5
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1WS
+    }
+    Tile
+    {
+        Location: 11 5
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 12 5
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 13 5
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 14 5
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 15 5
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 6
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 6
+        TerrainType: Base
+        Base: Plain1
+        Overlay: RedBase
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 2 6
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 3 6
+        TerrainType: Base
+        Base: Plain1
+        Overlay: RedBase
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 4 6
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 5 6
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 6 6
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 7 6
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 8 6
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 9 6
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 10 6
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 11 6
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 12 6
+        TerrainType: Base
+        Base: Plain1
+        Overlay: BlueBase
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 13 6
+        TerrainType: Plain
+        Base: Plain1
+
+        Unit
+        {
+            Army: BM
+            UnitType: Infantry
+            Style: BlueInfantryB
+        }
+    }
+    Tile
+    {
+        Location: 14 6
+        TerrainType: Base
+        Base: Plain1
+        Overlay: BlueBase
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 15 6
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 7
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 7
+        TerrainType: Headquarters
+        Base: Plain1
+        Overlay: RedHeadquarters
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 2 7
+        TerrainType: Base
+        Base: Plain1
+        Overlay: RedBase
+
+        Structure
+        {
+            Army: OS
+        }
+
+        Unit
+        {
+            Army: OS
+            UnitType: APC
+            Style: RedAPC
+        }
+    }
+    Tile
+    {
+        Location: 3 7
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+
+        Unit
+        {
+            Army: OS
+            UnitType: Infantry
+            Style: RedInfantryA
+        }
+    }
+    Tile
+    {
+        Location: 4 7
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 5 7
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 6 7
+        TerrainType: City
+        Base: Plain1
+        Overlay: RedCity
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 7 7
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 8 7
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 9 7
+        TerrainType: City
+        Base: Plain1
+        Overlay: BlueCity
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 10 7
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 11 7
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 12 7
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 13 7
+        TerrainType: Base
+        Base: Plain1
+        Overlay: BlueBase
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 14 7
+        TerrainType: Headquarters
+        Base: Plain1
+        Overlay: BlueHeadquarters
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 15 7
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 8
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 8
+        TerrainType: Base
+        Base: Plain1
+        Overlay: RedBase
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 2 8
+        TerrainType: Wood
+        Base: Wood1
+    }
+    Tile
+    {
+        Location: 3 8
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 4 8
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 5 8
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 6 8
+        TerrainType: Plain
+        Base: Plain4
+    }
+    Tile
+    {
+        Location: 7 8
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 8 8
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 9 8
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 10 8
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+
+        Unit
+        {
+            Army: BM
+            UnitType: MegaTank
+            Style: BlueMegaTank
+        }
+    }
+    Tile
+    {
+        Location: 11 8
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 12 8
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1NS
+    }
+    Tile
+    {
+        Location: 13 8
+        TerrainType: Wood
+        Base: Wood1
+    }
+    Tile
+    {
+        Location: 14 8
+        TerrainType: Base
+        Base: Plain1
+        Overlay: BlueBase
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 15 8
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 9
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 9
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 2 9
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 3 9
+        TerrainType: Road
+        Base: Plain4
+        Overlay: Road1EN
+    }
+    Tile
+    {
+        Location: 4 9
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1EW
+    }
+    Tile
+    {
+        Location: 5 9
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1WN
+    }
+    Tile
+    {
+        Location: 6 9
+        TerrainType: City
+        Base: Plain1
+        Overlay: RedCity
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 7 9
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 8 9
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 9 9
+        TerrainType: City
+        Base: Plain1
+        Overlay: BlueCity
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 10 9
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1EN
+    }
+    Tile
+    {
+        Location: 11 9
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1EW
+    }
+    Tile
+    {
+        Location: 12 9
+        TerrainType: Road
+        Base: Plain1
+        Overlay: Road1WN
+    }
+    Tile
+    {
+        Location: 13 9
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 14 9
+        TerrainType: Plain
+        Base: Plain3
+    }
+    Tile
+    {
+        Location: 15 9
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 10
+        TerrainType: Sea
+        Base: SeaLandE
+    }
+    Tile
+    {
+        Location: 1 10
+        TerrainType: City
+        Base: Plain1
+        Overlay: RedCity
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 2 10
+        TerrainType: City
+        Base: Plain1
+        Overlay: RedCity
+
+        Structure
+        {
+            Army: OS
+        }
+    }
+    Tile
+    {
+        Location: 3 10
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 4 10
+        TerrainType: Wood
+        Base: Wood2
+    }
+    Tile
+    {
+        Location: 5 10
+        TerrainType: Wood
+        Base: Wood4
+    }
+    Tile
+    {
+        Location: 6 10
+        TerrainType: Mountain
+        Base: MountainE
+    }
+    Tile
+    {
+        Location: 7 10
+        TerrainType: Mountain
+        Base: MountainEW
+    }
+    Tile
+    {
+        Location: 8 10
+        TerrainType: Mountain
+        Base: MountainEW
+    }
+    Tile
+    {
+        Location: 9 10
+        TerrainType: Mountain
+        Base: MountainW
+    }
+    Tile
+    {
+        Location: 10 10
+        TerrainType: Wood
+        Base: Wood2
+    }
+    Tile
+    {
+        Location: 11 10
+        TerrainType: Wood
+        Base: Wood3
+    }
+    Tile
+    {
+        Location: 12 10
+        TerrainType: Wood
+        Base: Wood4
+    }
+    Tile
+    {
+        Location: 13 10
+        TerrainType: City
+        Base: Plain1
+        Overlay: BlueCity
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 14 10
+        TerrainType: City
+        Base: Plain1
+        Overlay: BlueCity
+
+        Structure
+        {
+            Army: BM
+        }
+    }
+    Tile
+    {
+        Location: 15 10
+        TerrainType: Sea
+        Base: SeaLandW
+    }
+    Tile
+    {
+        Location: 0 11
+        TerrainType: Sea
+        Base: SeaLand2
+    }
+    Tile
+    {
+        Location: 1 11
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 2 11
+        TerrainType: Sea
+        Base: SeaLandEN
+    }
+    Tile
+    {
+        Location: 3 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 4 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 5 11
+        TerrainType: Plain
+        Base: Plain4
+    }
+    Tile
+    {
+        Location: 6 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 7 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 8 11
+        TerrainType: Sea
+        Base: SeaLandEWN
+    }
+    Tile
+    {
+        Location: 9 11
+        TerrainType: Plain
+        Base: Plain2
+    }
+    Tile
+    {
+        Location: 10 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 11 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 12 11
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 13 11
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 14 11
+        TerrainType: Sea
+        Base: SeaLandWN
+    }
+    Tile
+    {
+        Location: 15 11
+        TerrainType: Sea
+        Base: SeaLand1
+    }
+    Tile
+    {
+        Location: 0 12
+        TerrainType: Sea
+        Base: SeaLand4
+    }
+    Tile
+    {
+        Location: 1 12
+        TerrainType: Sea
+        Base: SeaLand3
+    }
+    Tile
+    {
+        Location: 2 12
+        TerrainType: Sea
+        Base: SeaLand2
+    }
+    Tile
+    {
+        Location: 3 12
+        TerrainType: Sea
+        Base: SeaLandEN
+    }
+    Tile
+    {
+        Location: 4 12
+        TerrainType: Plain
+        Base: Plain2
+    }
+    Tile
+    {
+        Location: 5 12
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 6 12
+        TerrainType: Sea
+        Base: SeaLandWN
+    }
+    Tile
+    {
+        Location: 7 12
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 8 12
+        TerrainType: Sea
+        Base: SeaLand12
+    }
+    Tile
+    {
+        Location: 9 12
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 10 12
+        TerrainType: Sea
+        Base: SeaLandEN
+    }
+    Tile
+    {
+        Location: 11 12
+        TerrainType: Plain
+        Base: Plain1
+    }
+    Tile
+    {
+        Location: 12 12
+        TerrainType: Sea
+        Base: SeaLandWN
+    }
+    Tile
+    {
+        Location: 13 12
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 14 12
+        TerrainType: Sea
+        Base: SeaLand1
+    }
+    Tile
+    {
+        Location: 15 12
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 0 13
+        TerrainType: Sea
+        Base: SeaLand2
+    }
+    Tile
+    {
+        Location: 1 13
+        TerrainType: Sea
+        Base: SeaLand1
+    }
+    Tile
+    {
+        Location: 2 13
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 3 13
+        TerrainType: Sea
+        Base: SeaLand2
+    }
+    Tile
+    {
+        Location: 4 13
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 5 13
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 6 13
+        TerrainType: Sea
+        Base: SeaLand1
+    }
+    Tile
+    {
+        Location: 7 13
+        TerrainType: Sea
+        Base: SeaLand4
+    }
+    Tile
+    {
+        Location: 8 13
+        TerrainType: Sea
+        Base: SeaLand3
+    }
+    Tile
+    {
+        Location: 9 13
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 10 13
+        TerrainType: Sea
+        Base: SeaLand2
+    }
+    Tile
+    {
+        Location: 11 13
+        TerrainType: Sea
+        Base: SeaLandN
+    }
+    Tile
+    {
+        Location: 12 13
+        TerrainType: Sea
+        Base: SeaLand1
+    }
+    Tile
+    {
+        Location: 13 13
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 14 13
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 15 13
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 0 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 1 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 2 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 3 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 4 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 5 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 6 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 7 14
+        TerrainType: Sea
+        Base: SeaLand2
+    }
+    Tile
+    {
+        Location: 8 14
+        TerrainType: Sea
+        Base: SeaLand1
+    }
+    Tile
+    {
+        Location: 9 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 10 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 11 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 12 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 13 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 14 14
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 15 14
+        TerrainType: Sea
+        Base: Sea
+    }
+}
+Map
+{
+    Name: Test Map
+    Group: Test Maps
+    Armies: OS BM
+    Width: 5
+    Height: 5
+
+    Tile
+    {
+        Location: 0 0
+        TerrainType: Mountain
+        Base: Mountain
+    }
+    Tile
+    {
+        Location: 1 0
+        TerrainType: Plain
+        Base: Plain2
+    }
+    Tile
+    {
+        Location: 2 0
+        TerrainType: Plain
+        Base: Plain3
+    }
+    Tile
+    {
+        Location: 3 0
+        TerrainType: Plain
+        Base: Plain4
+    }
+    Tile
+    {
+        Location: 4 0
+        TerrainType: Plain
+        Base: Plain5
+    }
+    Tile
+    {
+        Location: 0 1
+        TerrainType: Plain
+        Base: Plain6
+    }
+    Tile
+    {
+        Location: 1 1
+        TerrainType: Plain
+        Base: Plain7
+    }
+    Tile
+    {
+        Location: 2 1
+        TerrainType: Plain
+        Base: Plain8
+    }
+    Tile
+    {
+        Location: 3 1
+        TerrainType: Plain
+        Base: Plain9
+    }
+    Tile
+    {
+        Location: 4 1
+        TerrainType: Plain
+        Base: Plain10
+    }
+    Tile
+    {
+        Location: 0 2
+        TerrainType: Plain
+        Base: Plain11
+    }
+    Tile
+    {
+        Location: 1 2
+        TerrainType: Plain
+        Base: Plain12
+    }
+    Tile
+    {
+        Location: 2 2
+        TerrainType: Plain
+        Base: Plain13
+    }
+    Tile
+    {
+        Location: 3 2
+        TerrainType: Plain
+        Base: Plain14
+    }
+    Tile
+    {
+        Location: 4 2
+        TerrainType: Plain
+        Base: Plain15
+    }
+    Tile
+    {
+        Location: 0 3
+        TerrainType: Shoal
+        Base: ShoalN3
+    }
+    Tile
+    {
+        Location: 1 3
+        TerrainType: Shoal
+        Base: ShoalN23
+    }
+    Tile
+    {
+        Location: 2 3
+        TerrainType: Shoal
+        Base: ShoalN23
+    }
+    Tile
+    {
+        Location: 3 3
+        TerrainType: Shoal
+        Base: ShoalN23
+    }
+    Tile
+    {
+        Location: 4 3
+        TerrainType: Shoal
+        Base: ShoalN2
+    }
+    Tile
+    {
+        Location: 0 4
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 1 4
+        TerrainType: RoughSea
+        Base: RoughSea
+    }
+    Tile
+    {
+        Location: 2 4
+        TerrainType: RoughSea
+        Base: RoughSea
+    }
+    Tile
+    {
+        Location: 3 4
+        TerrainType: Sea
+        Base: Sea
+    }
+    Tile
+    {
+        Location: 4 4
+        TerrainType: Sea
+        Base: Sea
+    }
+}

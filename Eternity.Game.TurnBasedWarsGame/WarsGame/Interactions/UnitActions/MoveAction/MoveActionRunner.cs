@@ -26,6 +26,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
                                   {
                                       if (startTile.Unit == _set.Unit) startTile.Unit = null;
                                       if (endTile.Unit == null) endTile.Unit = _set.Unit;
+                                      foreach (var move in _set.Where(x => x.MoveType == MoveType.Move))
+                                      {
+                                          board.RevealFogOfWar(move.MoveTile, move.UnitToMove);
+                                      }
                                       callback();
                                   });
         }

@@ -65,6 +65,7 @@
         HeavyTyres: 3
         Treads: 2
         Air: 1
+        BlocksVision: True
     }
 
     Terrain
@@ -74,6 +75,12 @@
         Infantry: 2
         Mech: 1
         Air: 1
+
+        VisionBonus
+        {
+            Infantry: 3
+            Mech: 3
+        }
     }
 
     Terrain
@@ -190,6 +197,7 @@
         Air: 1
         Ship: 2
         TransportShip: 2
+        BlocksVision: True
     }
 
     Terrain
@@ -219,6 +227,8 @@
         Treads: 1
         Air: 1
         Capturable: True
+        Vision: 2
+        BlocksVision: True
     }
 
     Terrain
@@ -235,7 +245,7 @@
     Terrain
     {
         Name: Radar
-        Vision: 3
+        Vision: 5
     }
 
     Terrain
