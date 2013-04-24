@@ -606,6 +606,8 @@
         Fuel: 99
         Price: 9000
 
+        DailyFuel: 2
+
         Weapon
         {
             ClassType: Primary
@@ -632,6 +634,8 @@
         Fuel: 99
         Price: 5000
 
+        DailyFuel: 2
+
         Load
         {
             ClassType: Infantry
@@ -648,6 +652,8 @@
         MoveType: Air
         Fuel: 99
         Price: 20000
+
+        DailyFuel: 5
 
         Weapon
         {
@@ -668,6 +674,8 @@
         Fuel: 99
         Price: 20000
 
+        DailyFuel: 5
+
         Weapon
         {
             ClassType: Primary
@@ -686,6 +694,8 @@
         MoveType: Air
         Fuel: 99
         Price: 13000
+
+        DailyFuel: 5
 
         Weapon
         {
@@ -706,6 +716,8 @@
         Fuel: 40
         Price: 15000
 
+        DailyFuel: 5
+
         Weapon
         {
             ClassType: Primary
@@ -724,6 +736,8 @@
         MoveType: Ship
         Fuel: 99
         Price: 16000
+
+        DailyFuel: 1
 
         Weapon
         {
@@ -757,6 +771,8 @@
         Fuel: 99
         Price: 10000
 
+        DailyFuel: 1
+
         Load
         {
             ClassType: Infantry Vehicle
@@ -773,6 +789,8 @@
         MoveType: TransportShip
         Fuel: 99
         Price: 6000
+
+        DailyFuel: 1
 
         Weapon
         {
@@ -799,6 +817,8 @@
         Fuel: 99
         Price: 25000
 
+        DailyFuel: 1
+
         Weapon
         {
             ClassType: Primary
@@ -820,6 +840,8 @@
         MoveType: Ship
         Fuel: 99
         Price: 28000
+
+        DailyFuel: 1
 
         Weapon
         {
@@ -854,12 +876,22 @@
         Fuel: 70
         Price: 20000
 
+        DailyFuel: 1
+
         Weapon
         {
             ClassType: Primary
             WeaponType: Torpedos
             AttackType: Direct
             Ammo: 6
+        }
+
+        Hide
+        {
+            HideAction: Dive
+            ShowAction: Rise
+            DailyFuel: 5
+            Attackers: Sub Cruiser
         }
     }
 

@@ -274,7 +274,7 @@
 		Name: RedSub
 		Group: Units
 		Type: Unit
-		UnitType: Submarine
+		UnitType: Sub
 		Sequence: RedSub1 RedSub2 RedSub3
 		FrameSpeed: 200
 		AnimationStyle: Reverse
@@ -582,7 +582,7 @@
 		Name: BlueSub
 		Group: Units
 		Type: Unit
-		UnitType: Submarine
+		UnitType: Sub
 		Sequence: BlueSub1 BlueSub2 BlueSub3
 		FrameSpeed: 200
 		AnimationStyle: Reverse
@@ -890,7 +890,7 @@
 		Name: YellowSub
 		Group: Units
 		Type: Unit
-		UnitType: Submarine
+		UnitType: Sub
 		Sequence: YellowSub1 YellowSub2 YellowSub3
 		FrameSpeed: 200
 		AnimationStyle: Reverse
@@ -1198,7 +1198,7 @@
 		Name: BlackSub
 		Group: Units
 		Type: Unit
-		UnitType: Submarine
+		UnitType: Sub
 		Sequence: BlackSub1 BlackSub2 BlackSub3
 		FrameSpeed: 200
 		AnimationStyle: Reverse

@@ -114,6 +114,13 @@
         Location: 1 1
         TerrainType: Sea
         Base: SeaLand4
+
+        Unit
+        {
+            Army: OS
+            UnitType: Sub
+            Style: RedSub
+        }
     }
     Tile
     {

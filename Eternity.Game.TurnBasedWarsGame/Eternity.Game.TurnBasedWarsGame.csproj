@@ -61,6 +61,12 @@
     <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\ExecutionState.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Show\ShowAction.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Show\ShowActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Show\ShowActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Hide\HideAction.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Hide\HideActionGenerator.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Hide\HideActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Load\LoadAction.cs" />

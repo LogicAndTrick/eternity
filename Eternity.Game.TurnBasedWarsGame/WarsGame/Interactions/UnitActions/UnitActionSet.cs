@@ -5,9 +5,11 @@ using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.BuildUni
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capture;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Hide;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Join;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Load;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Resupply;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Show;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.TakeOff;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unload;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Wait;
@@ -36,12 +38,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                                         new BuildUnitActionGenerator(),
                                         new CaptureActionGenerator(),
                                         new ResupplyActionGenerator(),
-                                        new WaitActionGenerator()
+                                        new WaitActionGenerator(),
+                                        new HideActionGenerator(),
+                                        new ShowActionGenerator(),
 
                                         // TODO
-
-                                        // Dive (sub)
-                                        // Rise (sub)
 
                                         // AW 4
                                         // CO (on a base)

@@ -19,6 +19,14 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
         public int Price { get; private set; }
         public bool CanSupply { get; private set; }
 
+        public int DailyFuel { get; private set; }
+        public int HiddenDailyFuel { get; private set; }
+
+        public bool CanHide { get; private set; }
+        public string HideAction { get; set; }
+        public string ShowAction { get; set; }
+        public List<UnitType> HiddenAttackers { get; set; }
+
         public int MovePoints { get; private set; }
         public UnitMoveType MoveType { get; private set; }
 
@@ -41,20 +49,28 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
             UnitType ut;
             Enum.TryParse(def.GetData("Name"), out ut);
             UnitType = ut;
+
             UnitClassType ct;
             Enum.TryParse(def.GetData("ClassType"), out ct);
             ClassType = ct;
+
             Vision = int.Parse(def.GetData("Vision"));
             MovePoints = int.Parse(def.GetData("MovePoints"));
+
             UnitMoveType mt;
             Enum.TryParse(def.GetData("MoveType"), out mt);
             MoveType = mt;
+
             Fuel = int.Parse(def.GetData("Fuel"));
             Price = int.Parse(def.GetData("Price"));
+            DailyFuel = int.Parse(def.GetData("DailyFuel", "0"));
+
             WeaponRules = def.ChildrenDefinitions
                 .Where(x => x.DefinitionType == "Weapon")
                 .Select(x => new WeaponRules(x))
                 .ToList();
+
+            // Load
             LoadCapacity = 0;
             LoadClassTypes = new List<UnitClassType>();
             AllowUnload = AllowTakeOff = false;
@@ -71,6 +87,26 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
                 AllowUnload = LoadCapacity > 0 && bool.Parse(load.GetData("AllowUnload", "True"));
                 AllowTakeOff = LoadCapacity > 0 && bool.Parse(load.GetData("AllowTakeOff", "False"));
             }
+
+            // Hide
+            HiddenDailyFuel = 0;
+            CanHide = false;
+            HiddenAttackers = new List<UnitType>();
+            var hide = def.ChildrenDefinitions.FirstOrDefault(x => x.DefinitionType == "Hide");
+            if (hide != null)
+            {
+                CanHide = true;
+                HiddenDailyFuel = int.Parse(hide.GetData("DailyFuel", "0"));
+                var attackers = hide.GetData("Attackers", "").Split(' ');
+                foreach (var unitType in attackers)
+                {
+                    if (Enum.TryParse(unitType, out ut)) HiddenAttackers.Add(ut);
+                }
+                HideAction = hide.GetData("HideAction", "Hide");
+                ShowAction = hide.GetData("ShowAction", "Show");
+            }
+
+            // Build
             CanBuildBuildings = CanBuildUnits = false;
             BuildingMaterial = UnitMaterial = 0;
             BuildBuildings = new Dictionary<TileType, List<TileType>>();

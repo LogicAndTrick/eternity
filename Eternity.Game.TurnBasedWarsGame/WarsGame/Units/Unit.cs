@@ -106,6 +106,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             LoadedUnits = new List<Unit>();
             BuildingMaterial = UnitRules.BuildingMaterial;
             UnitMaterial = UnitRules.UnitMaterial;
+            IsHidden = false;
             InitWeapons();
         }
 
