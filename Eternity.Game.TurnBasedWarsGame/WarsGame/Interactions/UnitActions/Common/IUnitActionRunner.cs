@@ -11,6 +11,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
         /// Execute and animate the action. Runs asynchronously.
         /// </summary>
         /// <param name="callback">The callback to run once the action is complete.</param>
-        void Execute(Action callback);
+        void Execute(Action<ExecutionState> callback);
     }
 }

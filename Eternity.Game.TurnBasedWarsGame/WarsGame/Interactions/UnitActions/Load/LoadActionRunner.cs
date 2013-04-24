@@ -15,10 +15,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Load
             _child = child;
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
             _parent.LoadWith(_child);
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

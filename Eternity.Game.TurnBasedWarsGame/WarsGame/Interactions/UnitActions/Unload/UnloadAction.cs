@@ -33,7 +33,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
         {
             return _state.Tile.GetAdjacentTiles()
                 .Where(x => x != null && _unitToUnload.CanMoveOn(x.Type))
-                .Where(x => x.Unit == null || x.Unit == _state.Unit)
+                .Where(x => x.Unit == null || x.Unit == _state.Unit || x.Fog)
                 .Where(x => !_previousUnloads.Any(y => y.MoveTile == x && y.UnitToMove != _unitToUnload))
                 .Select(x => new ValidTile { MoveType = MoveType.Move, Tile = x}).ToList();
         }

@@ -18,11 +18,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Take
             _moveTile = moveTile;
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
             _parent.LoadedUnits.Remove(_child);
             _moveTile.Unit = _child;
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

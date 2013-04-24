@@ -15,10 +15,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire
             _defender = defender;
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
             _attacker.AttackUnit(_defender);
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

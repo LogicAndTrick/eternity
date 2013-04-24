@@ -259,15 +259,15 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             // Start committing the action
             _committing = true;
             _battle.GameBoard.DeselectUnit(_currentContextUnit);
-            CommitCallback();
+            CommitCallback(ExecutionState.Empty);
         }
 
-        private void CommitCallback()
+        private void CommitCallback(ExecutionState executionState)
         {
             // Each action might change the unit overlays, so update each time
             _battle.GameBoard.UpdateHealthOverlays();
 
-            if (_contextQueue.Any())
+            if (_contextQueue.Any() && !executionState.StopExecution)
             {
                 // While the queue has items, run each action
                 var state = _contextQueue.Dequeue();

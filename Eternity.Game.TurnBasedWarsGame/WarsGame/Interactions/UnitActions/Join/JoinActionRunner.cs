@@ -15,10 +15,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Join
             _joinUnit = joinUnit;
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
             _baseUnit.JoinWith(_joinUnit);
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

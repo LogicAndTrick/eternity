@@ -16,7 +16,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capt
             _structure = structure;
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
             var points = _structure.CapturePoints - _capturer.HealthOutOfTen;
             if (points <= 0)
@@ -28,7 +28,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capt
             {
                 _structure.CapturePoints = points;
             }
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

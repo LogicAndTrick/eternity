@@ -52,9 +52,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             throw new NotImplementedException();
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

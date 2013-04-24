@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Capture\CaptureActionRunner.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Common\ExecutionState.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinActionGenerator.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Join\JoinActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Load\LoadAction.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="WarsGame\Interactions\UnitActions\Fire\FireActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Common\IUnitActionRunner.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\NoAction.cs" />
+    <Compile Include="WarsGame\Interactions\UnitActions\Common\PopupEffect.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\Resupply\ResupplyAction.cs">
       <SubType>Code</SubType>
     </Compile>

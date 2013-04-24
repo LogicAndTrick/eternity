@@ -15,13 +15,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Buil
             _buildType = buildType;
         }
 
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
             var unit = new Unit(_builder.Army, _buildType, _builder.Army.GetUnitStyle(_buildType));
             _builder.UnitMaterial--;
             _builder.Army.Units.Add(unit);
             _builder.LoadWith(unit);
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }

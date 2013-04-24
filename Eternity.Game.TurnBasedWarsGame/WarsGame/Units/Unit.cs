@@ -278,6 +278,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
 
         /// <summary>
         /// Test if this unit can move on a tile, taking into account movement costs, move points, and fuel.
+        /// Tiles with fog are assumed to be movable.
         /// </summary>
         /// <param name="tile">The tile to move to</param>
         /// <param name="currentCost">The current cost of the path</param>
@@ -285,7 +286,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         public bool CanMove(Tile tile, int currentCost)
         {
             if (tile == null || !CanMoveOn(tile.Type)) return false; 
-            if (tile.Unit != null && tile.Unit.Army.ArmyRules.Name != Army.ArmyRules.Name) return false;
+            if (!tile.Fog && tile.Unit != null && tile.Unit.Army.ArmyRules.Name != Army.ArmyRules.Name) return false;
             var newCost = GetMovementCost(tile.Type) + currentCost;
             return newCost <= UnitRules.MovePoints && newCost <= CurrentFuel;
         }
@@ -358,6 +359,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         /// <summary>
         /// Gets the list of attackable tiles from the specified tile with the specified path cost.
         /// Indirect weapons can only attack tiles if they haven't moved or if they can fire after moving.
+        /// Tiles with fog cannot be attacked.
         /// </summary>
         /// <param name="tile">The tile from attack from</param>
         /// <param name="hasMoved">Whether the unit has moved or not</param>
@@ -369,12 +371,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             if (tile.Unit != null && tile.Unit != this) return list;
             if (PrimaryWeapon != null)
             {
-                var primaryTiles = tile.Parent.Tiles.Where(x => PrimaryWeapon.InRange(tile, x));
+                var primaryTiles = tile.Parent.Tiles.Where(x => PrimaryWeapon.InRange(tile, x) && !x.Fog);
                 list.AddRange(primaryTiles.Where(x => CanAttack(x.Unit, PrimaryWeapon, hasMoved)));
             }
             if (SecondaryWeapon != null)
             {
-                var secondaryTiles = tile.Parent.Tiles.Where(x => SecondaryWeapon.InRange(tile, x));
+                var secondaryTiles = tile.Parent.Tiles.Where(x => SecondaryWeapon.InRange(tile, x) && !x.Fog);
                 list.AddRange(secondaryTiles.Where(x => CanAttack(x.Unit, SecondaryWeapon, hasMoved)));
             }
             return list;

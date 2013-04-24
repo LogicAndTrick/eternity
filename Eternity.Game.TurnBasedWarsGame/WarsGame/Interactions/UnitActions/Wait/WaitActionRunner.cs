@@ -5,9 +5,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Wait
 {
     public class WaitActionRunner : IUnitActionRunner
     {
-        public void Execute(Action callback)
+        public void Execute(Action<ExecutionState> callback)
         {
-            callback();
+            callback(ExecutionState.Empty);
         }
     }
 }
