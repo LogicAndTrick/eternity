@@ -11,7 +11,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Wait
         public bool IsValidFor(ContextQueue queue)
         {
             var context = queue.Last();
-            if (context.Tile.Unit != null && context.Tile.Unit != context.Unit) return false;
+            if (!context.Tile.Fog && context.Tile.Unit != null && context.Tile.Unit != context.Unit) return false;
             return true;
         }
 
