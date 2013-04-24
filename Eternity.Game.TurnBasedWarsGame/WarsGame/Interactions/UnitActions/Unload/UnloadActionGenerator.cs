@@ -28,7 +28,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
 
             // Must be able to move the loaded units onto empty adjacent tiles with no other units already unloading onto them
             var adjacent = context.Tile.GetAdjacentTiles()
-                .Where(x => x != null && (x.Unit == null || x.Unit == context.Unit || x.Fog))
+                .Where(x => x != null && (!x.HasVisibleUnit(context.Unit.Army) || x.Unit == context.Unit))
                 .Where(x => unloads.All(y => y.MoveTile != x))
                 .ToList();
             return context.Unit.LoadedUnits.Any(x => adjacent.Any(y => x.CanMoveOn(y.Type)));
@@ -43,7 +43,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
                 .SelectMany(x => x.GetMoveSet())
                 .ToList();
             var adjacent = context.Tile.GetAdjacentTiles()
-                .Where(x => x != null && (x.Unit == null || x.Unit == context.Unit || x.Fog))
+                .Where(x => x != null && (!x.HasVisibleUnit(context.Unit.Army) || x.Unit == context.Unit))
                 .ToList();
             return context.Unit.LoadedUnits
                 .Where(x => adjacent.Any(y => x.CanMoveOn(y.Type)))

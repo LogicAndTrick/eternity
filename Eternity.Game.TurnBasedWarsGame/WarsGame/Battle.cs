@@ -34,9 +34,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             {
                 Armies.Add(new Army(new CO(), army));
             }
-            Map = new Map(this, mapDefinition);
             Day = 1;
-            CurrentTurn = new Turn(this, 1, Armies.First());
+            CurrentTurn = new Turn(this, Day, Armies.First());
+            Map = new Map(this, mapDefinition);
             _interaction = null;
         }
 
@@ -85,11 +85,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             {
                 _interaction.TileMouseDown(e, tile);
             }
-            else if (tile.Fog)
-            {
-                // Can't interact with fogged tiles
-            }
-            else if (tile.Unit != null)
+            else if (tile.HasVisibleUnit(CurrentTurn.Army))
             {
                 if (e.Button == MouseButton.Left) _interaction = new UnitActionSet(tile.Unit);
                 else if (e.Button == MouseButton.Right) _interaction = new UnitRangeHighlight(tile.Unit);

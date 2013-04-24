@@ -85,6 +85,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         /// </summary>
         public bool HasMoved { get; set; }
 
+        public bool IsHidden { get; set; }
+
         /// <summary>
         /// Create a unit from an army and a resource definition from a map file.
         /// </summary>
@@ -286,7 +288,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
         public bool CanMove(Tile tile, int currentCost)
         {
             if (tile == null || !CanMoveOn(tile.Type)) return false; 
-            if (!tile.Fog && tile.Unit != null && tile.Unit.Army.ArmyRules.Name != Army.ArmyRules.Name) return false;
+            if (tile.HasVisibleUnit(Army) && tile.Unit.Army != Army) return false;
             var newCost = GetMovementCost(tile.Type) + currentCost;
             return newCost <= UnitRules.MovePoints && newCost <= CurrentFuel;
         }
@@ -371,12 +373,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             if (tile.Unit != null && tile.Unit != this) return list;
             if (PrimaryWeapon != null)
             {
-                var primaryTiles = tile.Parent.Tiles.Where(x => PrimaryWeapon.InRange(tile, x) && !x.Fog);
+                var primaryTiles = tile.Parent.Tiles.Where(x => PrimaryWeapon.InRange(tile, x) && x.HasVisibleUnit(Army));
                 list.AddRange(primaryTiles.Where(x => CanAttack(x.Unit, PrimaryWeapon, hasMoved)));
             }
             if (SecondaryWeapon != null)
             {
-                var secondaryTiles = tile.Parent.Tiles.Where(x => SecondaryWeapon.InRange(tile, x) && !x.Fog);
+                var secondaryTiles = tile.Parent.Tiles.Where(x => SecondaryWeapon.InRange(tile, x) && x.HasVisibleUnit(Army));
                 list.AddRange(secondaryTiles.Where(x => CanAttack(x.Unit, SecondaryWeapon, hasMoved)));
             }
             return list;

@@ -125,7 +125,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
                 {
                     _unit.Tile = this;
                 }
-                UpdateUnitLayers();
+                UpdateUnitLayers(Parent.Battle);
             }
         }
 
@@ -152,7 +152,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
                     }
                     BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.FromArgb(128, 128, 128));
                 }
-                UpdateUnitLayers();
+                UpdateUnitLayers(Parent.Battle);
             }
         }
 
@@ -163,12 +163,17 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             return true;
         }
 
-        public void UpdateUnitLayers()
+        public bool HasVisibleUnit(Army army)
+        {
+            return !Fog && Unit != null && (!Unit.IsHidden || Unit.Army == army);
+        }
+
+        public void UpdateUnitLayers(Battle battle)
         {
             BaseGroups.RemoveLayers("Unit");
             OverlayGroups.RemoveLayers("UnitHealth");
             OverlayGroups.RemoveLayers("UnitStatus");
-            if (_unit == null || Fog) return;
+            if (!HasVisibleUnit(battle.CurrentTurn.Army)) return;
 
             BaseGroups.AddLayer("Unit", "Unit", _unit.Style,
                 new SpriteDrawingOptions { MirrorX = _unit.Army.ArmyRules.MirrorX, Colour = _unit.HasMoved ? Color.Gray : Color.White });

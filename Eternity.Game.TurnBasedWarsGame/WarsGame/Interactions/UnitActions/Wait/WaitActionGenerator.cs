@@ -6,12 +6,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Wait
 {
     public class WaitActionGenerator : IUnitActionGenerator
     {
-        public UnitActionType ActionType { get { return UnitActionType.Wait; } }
-
         public bool IsValidFor(ContextQueue queue)
         {
             var context = queue.Last();
-            if (!context.Tile.Fog && context.Tile.Unit != null && context.Tile.Unit != context.Unit) return false;
+            if (context.Tile.HasVisibleUnit(context.Unit.Army) && context.Tile.Unit != context.Unit) return false;
             return true;
         }
 

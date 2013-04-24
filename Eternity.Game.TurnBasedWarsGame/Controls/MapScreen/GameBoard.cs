@@ -109,7 +109,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public void UpdateHealthOverlays()
         {
-            Battle.Map.Tiles.ForEach(x => x.UpdateUnitLayers());
+            Battle.Map.Tiles.ForEach(x => x.UpdateUnitLayers(Battle));
         }
 
         public void SetFogOfWar()
