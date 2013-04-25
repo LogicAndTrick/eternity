@@ -50,6 +50,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
                        : new MoveSet(_state.Unit, new[] {Move.CreateUnload(_unloadTile, _state.Tile, _unitToUnload)});
         }
 
+        public void ClearEffects()
+        {
+            
+        }
+
         public void Cancel()
         {
             //

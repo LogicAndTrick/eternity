@@ -45,6 +45,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Take
             return _set;
         }
 
+        public void ClearEffects()
+        {
+            
+        }
+
         public void Cancel()
         {
             _unitToTakeOff.Tile = null;

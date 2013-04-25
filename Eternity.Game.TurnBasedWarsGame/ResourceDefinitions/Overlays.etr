@@ -167,6 +167,24 @@ SpriteSheet
 }
 SpriteSheet
 {
+    Name: RangeCursorTileSheet
+    Group: Overlays
+    Resource: RangeCursor.png
+    SpriteWidth: 24
+    SpriteHeight: 24
+    SheetWidth: 3
+    SheetHeight: 1
+    
+    SpriteOrder: RangeCursorN RangeCursorNE RangeCursorE
+
+    Sprite
+    {
+        Name: RangeCursorN RangeCursorNE RangeCursorE
+        Group: Overlays
+    }
+}
+SpriteSheet
+{
     Name: PopupTileSheet
     Group: Overlays
     Resource: Popups.png

@@ -266,6 +266,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             OverlayGroups.Groups.Add(new TileGroup("UnitHealth", "Overlays"));
             OverlayGroups.Groups.Add(new TileGroup("UnitStatus", "Overlays"));
             OverlayGroups.Groups.Add(new TileGroup("Highlight", "Overlays"));
+            OverlayGroups.Groups.Add(new TileGroup("RangeCursor", "Overlays"));
             OverlayGroups.Groups.Add(new TileGroup("Arrow", "Overlays"));
             OverlayGroups.Groups.Add(new TileGroup("UnitAnimations", "UnitAnimations"));
         }

@@ -219,6 +219,37 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             return result;
         }
 
+        public void SetRangeCursor(Tile center, int radius)
+        {
+            ClearRangeCursor();
+            var list = new List<Point>();
+            for (var i = 0; i < radius; i++)
+            {
+                list.Add(new Point(radius - i, i)); // East, moving SW
+                list.Add(new Point(-i, radius - i)); // South, moving NW
+                list.Add(new Point(-radius + i, -i)); // West, moving NE
+                list.Add(new Point(i, -radius + i)); // North, moving SE
+            }
+            foreach (var point in list)
+            {
+                var loc = center.Location + point;
+                var tile = Battle.Map.GetTile(loc);
+                if (tile == null) continue;
+
+                var sprite = "RangeCursorNE";
+                if (point.X == 0) sprite = "RangeCursorN";
+                else if (point.Y == 0) sprite = "RangeCursorE";
+
+                var options = new SpriteDrawingOptions { MirrorX = point.X < 0, MirrorY = point.Y > 0 };
+                tile.OverlayGroups.AddLayer("RangeCursor", "RangeCursor", sprite, options);
+            }
+        }
+
+        public void ClearRangeCursor()
+        {
+            Battle.Map.Tiles.ForEach(x => x.OverlayGroups.RemoveLayers("RangeCursor"));
+        }
+
         public void AnimatePath(Unit unit, MoveSet path, Action callback = null)
         {
             if (path.Count <= 1)

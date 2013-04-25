@@ -18,7 +18,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
         {
             _state = state;
             _set = new MoveSet(state.Unit);
-            _set.TryMovePathTo(Move.CreateMove(state.Tile, state.Unit));
+            UpdateMoveSet(state.Tile);
         }
 
         public bool IsValidTile(Tile tile)
@@ -35,6 +35,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
         public void UpdateMoveSet(Tile tile)
         {
             _set.TryMovePathTo(Move.CreateMove(tile, _state.Unit));
+            if (_set.Unit.CanAttackIndirectly(true))
+            {
+                _state.Tile.Parent.Battle.GameBoard.SetRangeCursor(
+                    _set.Last(x => x.MoveType == MoveType.Move).MoveTile,
+                    _state.Unit.PrimaryWeapon.WeaponRules.MaxRange);
+            }
         }
 
         public MoveSet GetMoveSet()
@@ -42,9 +48,14 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
             return _set;
         }
 
+        public void ClearEffects()
+        {
+            _state.Tile.Parent.Battle.GameBoard.ClearRangeCursor();
+        }
+
         public void Cancel()
         {
-            // 
+
         }
 
         public string GetName()

@@ -37,6 +37,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Join
             return null;
         }
 
+        public void ClearEffects()
+        {
+            
+        }
+
         public void Cancel()
         {
             // 

@@ -48,7 +48,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
                                         // AW 4
                                         // CO (on a base)
-                                        // Build (APC)
 
                                         // AW 2/3/4
                                         // Launch (silo)
@@ -91,7 +90,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
         public void TileMouseUp(EternityEvent e, Tile tile)
         {
-            if (_disabled) _battle.EndUnitAction();
+            if (_disabled)
+            {
+                _currentAction.ClearEffects();
+                _currentAction.Cancel();
+                _battle.EndUnitAction();
+            }
         }
 
         public void TileHovered(Tile tile)
@@ -121,6 +125,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             // Queue up all the context states
             var actions = _currentAction.CreateContextStates().ToList();
             actions.ForEach(_contextQueue.Enqueue);
+
+            _currentAction.ClearEffects();
 
             var newContext = _contextQueue.Last();
             if (newContext.Unit != _currentContextUnit)
@@ -231,6 +237,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
         private void Cancel()
         {
+            _currentAction.ClearEffects();
+            _currentAction.Cancel();
             if (_contextQueue.All(x => x.Type == UnitActionType.None))
             {
                 // If the only remaining context is the base state, cancel the entire action
@@ -239,7 +247,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             else
             {
                 // Otherwise, pop the context queue of all states with the last action and carry on
-                _currentAction.Cancel();
                 var act = _contextQueue.Pop().Action;
                 while (_contextQueue.Last().Action == act) _contextQueue.Pop();
 

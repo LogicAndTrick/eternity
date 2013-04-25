@@ -42,6 +42,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire
                        : new MoveSet(_state.Unit, new[] {Move.CreateAttack(_attackTile, _state.Unit)});
         }
 
+        public void ClearEffects()
+        {
+            
+        }
+
         public void Cancel()
         {
             // 
@@ -54,6 +59,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire
 
         public IEnumerable<ContextState> CreateContextStates()
         {
+            if (_attackTile == null) yield break;
             yield return new ContextState(UnitActionType.Fire, _state.Unit, _state.Tile, this, new FireActionRunner(_state.Unit, _attackTile.Unit));
         }
 

@@ -34,6 +34,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
         MoveSet GetMoveSet();
 
         /// <summary>
+        /// Clear any effects that this action may have applied.
+        /// </summary>
+        void ClearEffects();
+
+        /// <summary>
         /// Cancel this action and undo any state that it may have set.
         /// </summary>
         void Cancel();
