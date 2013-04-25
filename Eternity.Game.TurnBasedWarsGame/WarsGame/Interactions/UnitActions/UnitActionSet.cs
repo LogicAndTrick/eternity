@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.BuildStructure;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.BuildUnit;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capture;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
@@ -41,6 +42,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                                         new WaitActionGenerator(),
                                         new HideActionGenerator(),
                                         new ShowActionGenerator(),
+                                        new BuildStructureActionGenerator(),
 
                                         // TODO
 
@@ -54,8 +56,6 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
                                         // AW3
                                         // Repair (black boat)
                                         // Explode (black bomb)
-                                        // Hide (stealth)
-                                        // Appear (stealth)
                                     };
         }
 

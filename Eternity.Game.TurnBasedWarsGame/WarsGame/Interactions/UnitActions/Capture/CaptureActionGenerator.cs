@@ -14,6 +14,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capt
             return queue.All(x => x.Type == UnitActionType.None || x.Type == UnitActionType.Move)
                    && context.Tile.Type.IsCapturable()
                    && context.Tile.Structure != null
+                   && !context.Tile.Structure.IsUnderConstruction
                    && context.Tile.Structure.Army != context.Unit.Army
                    && context.Unit.UnitType.CanCapture();
         }

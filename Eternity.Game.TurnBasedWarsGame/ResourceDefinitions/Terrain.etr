@@ -267,6 +267,17 @@ SpriteSheet
 
     AnimatedSprite
     {
+        Name: RedTemporaryAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryAirport
+        Sequence: RedTAirportOn RedTAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
         Name: BlueCity
         Group: Terrain
         Type: Terrain

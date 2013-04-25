@@ -52,8 +52,17 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
 
             if (startTile != endTile && startTile.Structure != null)
             {
-                // If the unit is moving off a structure tile, reset that structure's capture points
-                startTile.Structure.ResetCapturePoints();
+                // If the unit is moving off a structure tile
+                if (startTile.Structure.IsUnderConstruction)
+                {
+                    // If the structure is being built, delete it
+                    startTile.Structure = null;
+                }
+                else
+                {
+                    // Otherwise just reset that structure's capture points
+                    startTile.Structure.ResetCapturePoints();
+                }
             }
 
             var board = actualSet.Unit.Tile.Parent.Battle.GameBoard;

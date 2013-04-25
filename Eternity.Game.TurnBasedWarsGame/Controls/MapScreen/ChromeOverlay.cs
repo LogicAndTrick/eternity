@@ -133,7 +133,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             ctrl.Add(new Label(tile.Type.ToString(), Color.White));
             var rules = RuleSet.GetTerrainRules(tile.Type);
             var str = tile.Structure;
-            if (str != null)
+            if (str != null && !tile.Structure.IsUnderConstruction)
             {
                 var army = "Neutral";
                 if (str.Army != null) army = str.Army.ArmyRules.Name;

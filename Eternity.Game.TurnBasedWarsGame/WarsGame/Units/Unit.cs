@@ -453,5 +453,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
                    && UnitRules.BuildBuildings[type].Count > 0
                    && BuildingMaterial > 0;
         }
+
+        public TileType GetBuildingType(TileType type)
+        {
+            return UnitRules.BuildBuildings[type].First();
+        }
     }
 }

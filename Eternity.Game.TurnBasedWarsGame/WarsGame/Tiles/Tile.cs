@@ -99,7 +99,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
         public TileGroupCollection OverlayGroups { get; private set; }
         
         public Map Parent { get; private set; }
-        public TileType Type { get; private set; }
+
         public Point Location { get; private set; }
 
         public bool CanMoveTo { get; set; }
@@ -110,6 +110,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
 
         private Unit _unit;
         private bool _fog;
+        private TileType _type;
 
         public Unit Unit
         {
@@ -129,6 +130,19 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             }
         }
 
+        public TileType Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                if (Structure != null)
+                {
+                    Structure.Tile = this;
+                }
+            }
+        }
+
         public bool Fog
         {
             get { return _fog; }
@@ -136,7 +150,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             {
                 if (_fog == value) return;
                 BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.White);
-                if (Structure != null)
+                if (Structure != null && !Structure.IsUnderConstruction)
                 {
                     var colour = Structure.Army == null ? "Neutral" : Structure.Army.ArmyRules.Colour;
                     BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
@@ -145,7 +159,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
                 _fog = value;
                 if (_fog)
                 {
-                    if (Structure != null && Type != TileType.Headquarters)
+                    if (Structure != null && Type != TileType.Headquarters && !Structure.IsUnderConstruction)
                     {
                         BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
                         BaseGroups.AddLayer("Terrain", "TerrainOverlay", "Neutral" + Type);
@@ -159,7 +173,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
         public bool ShouldHaveFog(Army army)
         {
             if (Unit != null && Unit.Army == army) return false;
-            if (Structure != null && Structure.Army == army) return false;
+            if (Structure != null && Structure.Army == army && !Structure.IsUnderConstruction) return false;
             return true;
         }
 

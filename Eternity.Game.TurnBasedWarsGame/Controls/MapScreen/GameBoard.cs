@@ -118,7 +118,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             foreach (var tile in Battle.Map.Tiles)
             {
                 var uv = tile.Unit != null && tile.Unit.Army == Battle.CurrentTurn.Army ? tile.Unit.UnitRules.Vision + tile.Rules.GetVisionBonus(tile.Unit.UnitRules.MoveType) : 0;
-                var sv = tile.Structure != null && tile.Structure.Army == Battle.CurrentTurn.Army ? tile.Structure.Rules.Vision : 0;
+                var sv = tile.Structure != null && tile.Structure.Army == Battle.CurrentTurn.Army && !tile.Structure.IsUnderConstruction ? tile.Structure.Rules.Vision : 0;
                 if (uv == 0 && sv == 0) continue;
                 RevealFogOfWar(tile, uv, sv);
             }

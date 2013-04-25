@@ -121,7 +121,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
                     BuildingMaterial = material;
                     foreach (var tt in Enum.GetValues(typeof(TileType)).OfType<TileType>())
                     {
-                        var val = def.GetData(tt.ToString());
+                        var val = cons.GetData(tt.ToString());
                         if (!String.IsNullOrWhiteSpace(val))
                         {
                             BuildBuildings.Add(tt, new List<TileType>());
