@@ -34,3 +34,24 @@ Sprite
 	Group: MainMenu
 	Resource: campaign.png
 }
+SpriteSheet
+{
+    Name: HeartbeatTileSheet
+    Group: MainMenu
+    Resource: Heartbeat.png
+    SpriteWidth: 32
+    SpriteHeight: 25
+    SheetWidth: 1
+    SheetHeight: 4
+
+    SpriteOrder: Heartbeat1 Heartbeat2 Heartbeat3 Heartbeat4
+
+    AnimatedSprite
+    {
+        Name: Heartbeat
+        Group: MainMenu
+        Sequence: Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat1 Heartbeat2 Heartbeat2 Heartbeat2 Heartbeat3 Heartbeat3 Heartbeat4
+        FrameSpeed: 15
+        AnimationStyle: Reverse
+    }
+}

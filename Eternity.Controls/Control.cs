@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Eternity.Controls.Animations;
 using Eternity.Controls.Easings;
@@ -8,6 +9,8 @@ using Eternity.DataStructures.Primitives;
 using Eternity.Game;
 using Eternity.Graphics;
 using Eternity.Input;
+using Point = Eternity.DataStructures.Primitives.Point;
+using Size = Eternity.DataStructures.Primitives.Size;
 
 namespace Eternity.Controls
 {
@@ -38,6 +41,7 @@ namespace Eternity.Controls
         public Size ActualSize {get { return new Size(_box.Width, _box.Height); }}
         public int NumChildren { get { return Children.Count; } }
         public Size PreferredSize { get; set; }
+        public Color BackgroundColour { get; set; }
 
         public bool OnFocusPath { get; private set; }
 
@@ -51,6 +55,7 @@ namespace Eternity.Controls
             AnimationQueue = new AnimationQueue();
             EffectQueue = new EffectQueue();
             Clip = false;
+            BackgroundColour = Color.Empty;
         }
 
         public virtual Size GetPreferredSize()
@@ -338,6 +343,19 @@ namespace Eternity.Controls
         {
             if (Clip) context.SetScissor(0, 0, Box.Width, Box.Height);
             OnRender(context);
+            if (!BackgroundColour.IsEmpty)
+            {
+                context.DisableTextures();
+                context.StartQuads();
+                context.SetColour(BackgroundColour);
+                context.Point2(0, 0);
+                context.Point2(0, Box.Height);
+                context.Point2(Box.Width, Box.Height);
+                context.Point2(Box.Width, 0);
+                context.SetColour(Color.White);
+                context.End();
+                context.EnableTextures();
+            }
             foreach (var control in Children)
             {
                 context.Translate(control.Box.X, control.Box.Y);

@@ -10,13 +10,13 @@ using Size = Eternity.DataStructures.Primitives.Size;
 
 namespace Eternity.Controls.Controls
 {
-    public class ScrollPanel : LayoutControl
+    public class VerticalScrollPanel : LayoutControl
     {
-        private class ScrollLayout : ILayout
+        private class VerticalScrollLayout : ILayout
         {
-            private readonly ScrollPanel _panel;
+            private readonly VerticalScrollPanel _panel;
 
-            public ScrollLayout(ScrollPanel panel)
+            public VerticalScrollLayout(VerticalScrollPanel panel)
             {
                 _panel = panel;
             }
@@ -41,19 +41,25 @@ namespace Eternity.Controls.Controls
         private Size _preferred;
         private int _offset;
 
-        public ScrollPanel(Size maximumSize, LayoutControl child) : base(null)
+        public VerticalScrollPanel(Size maximumSize, LayoutControl child) : base(null)
         {
             Clip = true;
-            SetLayout(new ScrollLayout(this));
+            SetLayout(new VerticalScrollLayout(this));
             _maximumSize = maximumSize;
             _child = child;
-            _preferred = _child.GetPreferredSize();
+            CalculatePreferred();
             Add(_child);
         }
 
         public override void OnChildSizeChanged()
         {
-            _preferred = _child.GetPreferredSize();
+            CalculatePreferred();
+        }
+
+        private void CalculatePreferred()
+        {
+            var ps = _child.GetPreferredSize();
+            _preferred = new Size(_maximumSize.Width, ps.Height);
         }
 
         public override Size GetPreferredSize()
@@ -63,8 +69,8 @@ namespace Eternity.Controls.Controls
 
         public override void OnMouseWheel(EternityEvent e)
         {
-            var maxOffset = _preferred.Height - _maximumSize.Height;
-            var newOffset = -e.Delta * 20;
+            var maxOffset = _preferred.Height - Box.Height;
+            var newOffset = -e.Delta * 40;
             var currentOffset = _offset;
             _offset = Math.Max(0, Math.Min(_offset + newOffset, maxOffset));
             DoLayout();

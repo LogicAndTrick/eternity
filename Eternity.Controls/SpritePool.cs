@@ -57,5 +57,12 @@ namespace Eternity.Controls
             if (!Providers.ContainsKey(key)) AddProvider(context, group, name);
             if (Providers.ContainsKey(key)) Providers[key].DrawSprite(context, name, box, options);
         }
+
+        public static void DrawSprite(IRenderContext context, SpriteReference sprite, Box box, SpriteDrawingOptions options)
+        {
+            var key = sprite.Group + "___" + sprite.Name;
+            if (!Providers.ContainsKey(key)) AddProvider(context, sprite.Group, sprite.Name);
+            if (Providers.ContainsKey(key)) Providers[key].DrawSprite(context, sprite.Name, box, options);
+        }
     }
 }

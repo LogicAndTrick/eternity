@@ -1,7 +1,4 @@
-﻿using System;
-using Eternity.Controls.Animations;
-using Eternity.Controls.Easings;
-using Eternity.Controls.Layouts;
+﻿using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.Controls;
 using Eternity.Game.TurnBasedWarsGame.Controls.MainMenu;
@@ -16,6 +13,7 @@ namespace Eternity.Game.TurnBasedWarsGame
 {
     public class MainMenuMode : IGameMode
     {
+
         private LayoutControl _root;
 
         public void StartUp(IRenderContext context)
@@ -37,11 +35,21 @@ namespace Eternity.Game.TurnBasedWarsGame
             _root.Add(new ScrollingBackgroundImage(TextureManager.GetTexture("MainMenu", "Background2"), 5, 5, 0.4, 0.4));
             _root.Add(new ScrollingBackgroundImage(TextureManager.GetTexture("MainMenu", "Background3"), 5, 5, 0.3, 0.3));
             _root.Add(new ScrollingBackgroundImage(TextureManager.GetTexture("MainMenu", "BackgroundLogos"), 5, 5, -0.2, 0.2));
+            _root.Add(new RepeatingSpriteControl("MainMenu", "Heartbeat") { RepeatX = true });
 
-            var topLayer = new LayoutControl(new BorderLayout(new Insets(0, 0, 0, 0)));
-            topLayer.Add(new MenuControl {Box = new Box(0, 0, 250, 378)}, Direction.Center);
+            var topLayer = new LayoutControl(new BorderLayout());
+            topLayer.Add(new MenuControl(), Direction.Center);
             _root.Add(topLayer);
+
             _root.SetUp(context);
+
+            //heartbeat
+            // 17 flat line
+            // 3 stage1
+            // 2 stage2
+            // 1 stage3
+            // 2 stage2
+            // 3 stage1
         }
 
         public void ShutDown()

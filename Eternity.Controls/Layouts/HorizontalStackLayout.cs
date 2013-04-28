@@ -35,7 +35,7 @@ namespace Eternity.Controls.Layouts
             double y = _insets.Top;
             var width = parent.Box.Width - _insets.Right - _insets.Left;
             var height = parent.Box.Height - _insets.Bottom - _insets.Top;
-            var total = width - (_gap * children.Count);
+            var total = width - (_gap * (children.Count - 1));
             var sizes = children.ToDictionary(c => c, c => c.GetPreferredSize());
             var preferred = sizes.Select(kv => kv.Value.Width).Sum();
             var ratio = Math.Min(1, total / (float) preferred);

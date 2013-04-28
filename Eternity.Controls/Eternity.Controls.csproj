@@ -48,7 +48,8 @@
     <Compile Include="Control.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Label.cs" />
-    <Compile Include="Controls\ScrollPanel.cs" />
+    <Compile Include="Controls\VerticalScrollPanel.cs" />
+    <Compile Include="Controls\SpriteControl.cs" />
     <Compile Include="Easings\BackEasing.cs" />
     <Compile Include="Easings\BounceEasing.cs" />
     <Compile Include="Easings\CircEasing.cs" />
