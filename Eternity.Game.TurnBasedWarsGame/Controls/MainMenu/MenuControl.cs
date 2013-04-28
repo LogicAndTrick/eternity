@@ -11,7 +11,8 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MainMenu
 {
     public class MenuControl : LayoutControl
     {
-        public MenuControl() : base(new VerticalStackLayout(new Insets(24, 4, 4, 4), 0))
+        public MenuControl()
+            : base(new VerticalStackLayout(new Insets(24, 4, 4, 4), 0))
         {
             for (var i = 0; i < 5; i++)
             {

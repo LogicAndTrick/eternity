@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MainMenu\DebugControl.cs" />
+    <Compile Include="Controls\MainMenu\MenuHeaderControl.cs" />
     <Compile Include="Controls\MapScreen\EffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\MenuDialog.cs" />
     <Compile Include="Controls\MapScreen\ChromeOverlay.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Controls\MapScreen\RootPanel.cs" />
     <Compile Include="Controls\MapScreen\ScrollingMapPanel.cs" />
     <Compile Include="Controls\MapScreen\TileControl.cs" />
+    <Compile Include="TestMenuMode.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\BuildUnit\BuildUnitAction.cs">
       <SubType>Code</SubType>
     </Compile>

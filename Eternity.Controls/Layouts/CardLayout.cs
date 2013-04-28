@@ -12,7 +12,13 @@ namespace Eternity.Controls.Layouts
 
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            throw new NotImplementedException();
+            int w = 0, h = 0;
+            foreach (var ps in children.Select(child => child.GetPreferredSize()))
+            {
+                w = Math.Max(w, ps.Width);
+                h = Math.Max(h, ps.Height);
+            }
+            return new Size(w, h);
         }
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)

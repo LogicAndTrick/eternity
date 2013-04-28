@@ -266,7 +266,7 @@ namespace Eternity.Controls
 
         // EVENTS
 
-        protected void EventBubbleDown(EternityEvent ee)
+        protected internal void EventBubbleDown(EternityEvent ee)
         {
             // Check intercepting overlays
             var overlays = Overlays.OfType<IOverlayControl>().ToList();
@@ -336,7 +336,7 @@ namespace Eternity.Controls
 
         public void Render(IRenderContext context)
         {
-            if (Clip) context.SetScissor(Box.X, Box.Y, Box.Width, Box.Height);
+            if (Clip) context.SetScissor(0, 0, Box.Width, Box.Height);
             OnRender(context);
             foreach (var control in Children)
             {

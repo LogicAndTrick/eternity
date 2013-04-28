@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Eternity.Graphics.Textures;
@@ -12,10 +13,16 @@ namespace Eternity.Graphics
         public int ScreenWidth { get; set; }
         public int ScreenHeight { get; set; }
 
+        private Stack<Rectangle> _scissorStack;
+        private Point _translation;
+
         public GLRenderContext(int screenWidth, int screenHeight)
         {
             ScreenWidth = screenWidth;
             ScreenHeight = screenHeight;
+
+            _scissorStack = new Stack<Rectangle>();
+            _translation = Point.Empty;
         }
 
         public void Clear()
@@ -152,18 +159,35 @@ namespace Eternity.Graphics
 
         public void Translate(int x, int y)
         {
+            _translation = new Point(_translation.X + x, _translation.Y + y);
             GL.Translate(x, y, 0);
         }
 
+
         public void SetScissor(int x, int y, int width, int height)
         {
-            GL.Enable(EnableCap.ScissorTest);
-            GL.Scissor(x, y, width, height);
+            if (_scissorStack.Count == 0) GL.Enable(EnableCap.ScissorTest);
+
+            var rec = new Rectangle(_translation.X + x, ScreenHeight - (_translation.Y + y + height), width, height);
+            _scissorStack.Push(rec);
+
+            Scissor();
         }
 
         public void RemoveScissor()
         {
-            GL.Disable(EnableCap.ScissorTest);
+            _scissorStack.Pop();
+
+            Scissor();
+
+            if (_scissorStack.Count == 0) GL.Disable(EnableCap.ScissorTest);
+        }
+
+        private void Scissor()
+        {
+            if (_scissorStack.Count == 0) return;
+            var r = _scissorStack.Peek();
+            GL.Scissor(r.X, r.Y, r.Width, r.Height);
         }
     }
 }

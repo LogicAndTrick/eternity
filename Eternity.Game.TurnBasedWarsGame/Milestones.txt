@@ -1,22 +1,30 @@
 ﻿
 1. AW4
 
+Controls
+  Separate game board from game logic
+  Move all tile layer visibility information into the tile control
 Graphics
+  Show cursor
 Animations
   Explosions
 Unit Actions
-  Refactor the UAS
-  Dive
-  Rise
-  Takeoff
   CO
-  Build
+  Launch (silo)
 Turns/Days
+  Daily fuel usage, funds, health
 Funds
 Factories
+CO
+  Implicit bonus (all units)
+  Explicit bonus (all units within CO range)
+  CO power
+Main Menu
+  Fix control system to support flexible menus
 
 
 2. Pluggable Rules
 
 3. AW1-3
 
+4. Battle animations

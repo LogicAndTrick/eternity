@@ -47,8 +47,8 @@ namespace Eternity.Controls
 
         public void DoLayout()
         {
-            Children.OfType<LayoutControl>().ToList().ForEach(x => x.DoLayout());
             if (_layout != null) _layout.DoLayout(this, Children, _constraints);
+            Children.OfType<LayoutControl>().ToList().ForEach(x => x.DoLayout());
             OnDoLayout();
         }
 

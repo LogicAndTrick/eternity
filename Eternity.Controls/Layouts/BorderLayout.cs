@@ -21,9 +21,9 @@ namespace Eternity.Controls.Layouts
     {
         private readonly Insets _insets;
 
-        public BorderLayout(Insets insets)
+        public BorderLayout(Insets insets = null)
         {
-            _insets = insets;
+            _insets = insets ?? Insets.All(0);
         }
 
         protected virtual Direction ExtractDirection(object constraints)
@@ -34,7 +34,22 @@ namespace Eternity.Controls.Layouts
 
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            throw new NotImplementedException();
+            int t = 0, b = 0, l = 0, r = 0;
+            int cw = 0, ch = 0;
+            foreach (var child in children)
+            {
+                var ps = child.GetPreferredSize();
+                var dir = ExtractDirection(constraints.Where(kv => kv.Key == child).Select(kv => kv.Value).FirstOrDefault());
+
+                if (dir.HasFlag(Direction.Top)) t += ps.Height;
+                else if (dir.HasFlag(Direction.Bottom)) b += ps.Height;
+                else ch = Math.Max(ch, ps.Height);
+
+                if (dir.HasFlag(Direction.Left)) l += ps.Width;
+                else if (dir.HasFlag(Direction.Right)) r += ps.Width;
+                else cw = Math.Max(cw, ps.Width);
+            }
+            return new Size(l + r + cw, t + b + ch);
         }
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
@@ -44,38 +59,42 @@ namespace Eternity.Controls.Layouts
             var top = _insets.Top;
             var bottom = parent.Box.Bottom.Start.Y - _insets.Bottom;
             var center = new Point(left + (right - left) / 2, top + (bottom - top) / 2);
+            var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
+            // todo when the size isn't the preferred one
             foreach (var child in children)
             {
+                var ps = child.GetPreferredSize();
                 var dir = ExtractDirection(constraints.Where(kv => kv.Key == child).Select(kv => kv.Value).FirstOrDefault());
-                var x = center.X - child.Box.Width / 2;
-                var y = center.Y - child.Box.Height / 2;
-                if ((dir & Direction.Fill) == Direction.Fill)
+
+                var x = center.X - ps.Width / 2;
+                var y = center.Y - ps.Height / 2;
+                if (dir.HasFlag(Direction.Fill))
                 {
                     child.ResizeSafe(new Box(0, 0, parent.Box.Width, parent.Box.Height));
                 }
                 else
                 {
-                    if ((dir & Direction.Left) == Direction.Left)
+                    if (dir.HasFlag(Direction.Left))
                     {
                         x = left;
-                        left += child.Box.Width;
+                        left += ps.Width;
                     }
-                    else if ((dir & Direction.Right) == Direction.Right)
+                    else if (dir.HasFlag(Direction.Right))
                     {
-                        x = right - child.Box.Width;
-                        right -= child.Box.Width;
+                        x = right - ps.Width;
+                        right -= ps.Width;
                     }
-                    if ((dir & Direction.Top) == Direction.Top)
+                    if (dir.HasFlag(Direction.Top))
                     {
                         y = top;
-                        top += child.Box.Height;
+                        top += ps.Height;
                     }
-                    else if ((dir & Direction.Bottom) == Direction.Bottom)
+                    else if (dir.HasFlag(Direction.Bottom))
                     {
-                        y = bottom - child.Box.Height;
-                        bottom -= child.Box.Height;
+                        y = bottom - ps.Height;
+                        bottom -= ps.Height;
                     }
-                    child.ResizeSafe(new Box(x, y, child.Box.Width, child.Box.Height));
+                    child.ResizeSafe(new Box(x, y, ps.Width, ps.Height));
                 }
             }
         }

@@ -19,7 +19,15 @@ namespace Eternity.Controls.Layouts
 
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            throw new NotImplementedException();
+            int w = 0, h = 0;
+            foreach (var ps in children.Select(child => child.GetPreferredSize()))
+            {
+                w = Math.Max(w, ps.Width);
+                h += ps.Height;
+            }
+            w += _insets.TotalX;
+            h += _insets.TotalY + _gap * (children.Count - 1);
+            return new Size(w, h);
         }
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
@@ -29,9 +37,13 @@ namespace Eternity.Controls.Layouts
             var width = parent.Box.Width - _insets.Right - _insets.Left;
             var height = parent.Box.Height - _insets.Bottom - _insets.Top;
             var total = height - (_gap * children.Count);
-            var itemHeight = total / (double)children.Count;
+            var sizes = children.ToDictionary(c => c, c => c.GetPreferredSize());
+            var preferred = sizes.Select(kv => kv.Value.Height).Sum();
+            var ratio = Math.Min(1, total / (float) preferred);
             foreach (var child in children)
             {
+                var ps = sizes[child];
+                var itemHeight = ratio * ps.Height;
                 child.ResizeSafe(new Box(x, (int)y, width, (int)itemHeight));
                 y += _gap + itemHeight;
             }
