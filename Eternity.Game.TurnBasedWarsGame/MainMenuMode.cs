@@ -1,4 +1,9 @@
-﻿using Eternity.Controls.Layouts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Eternity.Controls.Animations;
+using Eternity.Controls.Easings;
+using Eternity.Controls.Effects;
+using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.Controls;
 using Eternity.Game.TurnBasedWarsGame.Controls.MainMenu;
@@ -13,8 +18,10 @@ namespace Eternity.Game.TurnBasedWarsGame
 {
     public class MainMenuMode : IGameMode
     {
-
         private LayoutControl _root;
+        private Control _cursor;
+        private RepeatingSpriteControl _heartbeat;
+        private Stack<MenuScreen> _screens;
 
         public void StartUp(IRenderContext context)
         {
@@ -35,21 +42,76 @@ namespace Eternity.Game.TurnBasedWarsGame
             _root.Add(new ScrollingBackgroundImage(TextureManager.GetTexture("MainMenu", "Background2"), 5, 5, 0.4, 0.4));
             _root.Add(new ScrollingBackgroundImage(TextureManager.GetTexture("MainMenu", "Background3"), 5, 5, 0.3, 0.3));
             _root.Add(new ScrollingBackgroundImage(TextureManager.GetTexture("MainMenu", "BackgroundLogos"), 5, 5, -0.2, 0.2));
-            _root.Add(new RepeatingSpriteControl("MainMenu", "Heartbeat") { RepeatX = true });
+            _root.Add(_heartbeat = new RepeatingSpriteControl("MainMenu", "Heartbeat") { RepeatX = true });
+            
+            _screens = new Stack<MenuScreen>();
+            PushScreen(new MenuControl());
 
-            var topLayer = new LayoutControl(new BorderLayout());
-            topLayer.Add(new MenuControl(), Direction.Center);
-            _root.Add(topLayer);
+            _root.AddOverlay(_cursor = new MenuCursor());
 
             _root.SetUp(context);
+        }
 
-            //heartbeat
-            // 17 flat line
-            // 3 stage1
-            // 2 stage2
-            // 1 stage3
-            // 2 stage2
-            // 3 stage1
+        private void PushScreen(MenuScreen screen)
+        {
+            var container = _root.GetChildren().FirstOrDefault(x => x.NumChildren == 1 && x.GetChildren().All(y => y is MenuScreen));
+
+            _screens.Push(screen);
+            var newContainer = new LayoutControl(new BorderLayout());
+            newContainer.Add(screen, Direction.Center);
+            _root.Add(newContainer);
+
+            if (container != null)
+            {
+                var currentScreen = container.GetChildren().OfType<MenuScreen>().First();
+                currentScreen.FocusControl -= FocusControl;
+                currentScreen.ChangeScreen -= ChangeScreen;
+                newContainer.ResizeSafe(new Box(_root.Box.Width, 0, _root.Box.Width, _root.Box.Height));
+                _root.AddEffect(new CardSwipeEffect(container,
+                                                    newContainer, 600,
+                                                    new EasingInOut(new BackEasing()),
+                                                    () =>
+                                                        {
+                                                            _root.Remove(container);
+                                                            screen.ChangeScreen += ChangeScreen;
+                                                            screen.FocusControl += FocusControl;
+                                                        }));
+            }
+            else
+            {
+                screen.ChangeScreen += ChangeScreen;
+                screen.FocusControl += FocusControl;
+            }
+        }
+
+
+        private void ChangeScreen(object sender, ChangeScreenEventArgs e)
+        {
+            PushScreen(e.Screen);
+        }
+
+        private void FocusControl(object sender, FocusControlEventArgs e)
+        {
+            var pos = e.Control.GetLocationInTree() - _root.GetLocationInTree();
+
+            var st = _cursor.Margin.Top;
+            var sl = _cursor.Margin.Left;
+            var ft = pos.Y - 4;
+            var fl = pos.X - 4;
+            var ss = _cursor.Box.Size;
+            var fs = e.Control.Box.Size + new Size(pos.X + 4, pos.Y + 4);
+            //_root.StopAnimations();
+            _root.AddAnimation(
+                new Animation<int>(0, 100, 200, new EasingOut(new QuintEasing()),
+                                   x =>
+                                       {
+                                           _cursor.Margin = new Insets((int)(st + (ft - st) * x / 100f), 0, 0, (int)(sl + (fl - sl) * x / 100f));
+                                           _cursor.Box = new Box(Point.Zero, new Size((int)(ss.Width + (fs.Width - ss.Width) * x / 100f), (int)(ss.Height + (fs.Height - ss.Height) * x / 100f)));
+                                       }));
+            _root.AddAnimation(new Animation<int>(_heartbeat.Margin.Top,
+                                                       pos.Y + (e.Control.Box.Height - _heartbeat.Sprite.Height) / 2,
+                                                       600, new EasingOut(new QuintEasing()),
+                                                       t => _heartbeat.Margin = new Insets(t, 0, 0, 0)));
         }
 
         public void ShutDown()

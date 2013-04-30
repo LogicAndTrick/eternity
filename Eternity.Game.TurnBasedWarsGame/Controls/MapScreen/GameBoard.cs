@@ -28,7 +28,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         private Dictionary<MoveSet, Animation<double>> _pathAnimations; 
 
-        public GameBoard(Battle battle) : base(new GridLayout(battle.Map.Width, battle.Map.Height, new Insets(0, 0, 0, 0)))
+        public GameBoard(Battle battle) : base(new GridLayout(battle.Map.Width, battle.Map.Height))
         {
             battle.GameBoard = this;
             Battle = battle;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Eternity.Controls.Animations;
+using Eternity.Controls.Borders;
 using Eternity.Controls.Easings;
 using Eternity.Controls.Effects;
 using Eternity.DataStructures.Primitives;
@@ -38,6 +39,34 @@ namespace Eternity.Controls
             }
         }
 
+        public Insets Margin { get; set; }
+        public Border Border { get; set; }
+        public Insets Padding { get; set; }
+
+        public Insets TotalInsets
+        {
+            get
+            {
+                return new Insets(
+                    Margin.Top + Border.Top + Padding.Top,
+                    Margin.Right + Border.Right + Padding.Right,
+                    Margin.Bottom + Border.Bottom + Padding.Bottom,
+                    Margin.Left + Border.Left + Padding.Left);
+            }
+        }
+
+        public Box InnerBox
+        {
+            get
+            {
+                return new Box(
+                    Margin.Left + Border.Left + Padding.Left,
+                    Margin.Top + Border.Top + Padding.Top,
+                    Box.Width - (Margin.TotalX + Border.TotalX + Padding.TotalX),
+                    Box.Height - (Margin.TotalY + Border.TotalY + Padding.TotalY));
+            }
+        }
+
         public Size ActualSize {get { return new Size(_box.Width, _box.Height); }}
         public int NumChildren { get { return Children.Count; } }
         public Size PreferredSize { get; set; }
@@ -56,6 +85,10 @@ namespace Eternity.Controls
             EffectQueue = new EffectQueue();
             Clip = false;
             BackgroundColour = Color.Empty;
+
+            Margin = Insets.All(0);
+            Padding = Insets.All(0);
+            Border = new EmptyBorder(Insets.All(0));
         }
 
         public virtual Size GetPreferredSize()
@@ -184,6 +217,11 @@ namespace Eternity.Controls
         //                ? Overlays.Where(x => x is IOverlayControl && ((IOverlayControl) x).IsModal).Take(1)
         //                : Children;
         // }
+
+        public IEnumerable<Control> GetChildren()
+        {
+            return Children;
+        }
 
         protected IEnumerable<Control> GetAllChildren()
         {
@@ -345,16 +383,21 @@ namespace Eternity.Controls
             OnRender(context);
             if (!BackgroundColour.IsEmpty)
             {
+                var ib = new Box(InnerBox.TopLeft - new Point(Padding.Left, Padding.Top), InnerBox.Size + new Size(Padding.TotalX, Padding.TotalY));
                 context.DisableTextures();
                 context.StartQuads();
                 context.SetColour(BackgroundColour);
-                context.Point2(0, 0);
-                context.Point2(0, Box.Height);
-                context.Point2(Box.Width, Box.Height);
-                context.Point2(Box.Width, 0);
+                context.Point2(ib.X, ib.Y);
+                context.Point2(ib.X, ib.Y + ib.Height);
+                context.Point2(ib.X + ib.Width, ib.Y + ib.Height);
+                context.Point2(ib.X + ib.Width, ib.Y);
                 context.SetColour(Color.White);
                 context.End();
                 context.EnableTextures();
+            }
+            if (Border != null)
+            {
+                Border.Draw(this, context);
             }
             foreach (var control in Children)
             {

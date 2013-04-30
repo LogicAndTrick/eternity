@@ -45,6 +45,9 @@
     <Compile Include="Animations\AnimationPool.cs" />
     <Compile Include="Animations\AnimationQueue.cs" />
     <Compile Include="Animations\IAnimation.cs" />
+    <Compile Include="Border.cs" />
+    <Compile Include="Borders\EmptyBorder.cs" />
+    <Compile Include="Borders\LineBorder.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Label.cs" />

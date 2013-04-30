@@ -55,3 +55,21 @@ SpriteSheet
         AnimationStyle: Reverse
     }
 }
+SpriteSheet
+{
+    Name: MenuCursorSheet
+    Group: MainMenu
+    Resource: MenuCursor.png
+    SpriteWidth: 8
+    SpriteHeight: 8
+    SheetWidth: 2
+    SheetHeight: 2
+
+    SpriteOrder: MenuCursorNW MenuCursorNE MenuCursorSW MenuCursorSE
+
+    Sprite
+    {
+        Name: MenuCursorNW MenuCursorNE MenuCursorSW MenuCursorSE
+        Group: MainMenu
+    }
+}

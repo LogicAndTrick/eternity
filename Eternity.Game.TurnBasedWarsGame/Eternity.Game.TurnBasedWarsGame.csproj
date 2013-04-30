@@ -42,8 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MainMenu\ChangeScreenEventArgs.cs" />
     <Compile Include="Controls\MainMenu\DebugControl.cs" />
+    <Compile Include="Controls\MainMenu\FocusControlEventArgs.cs" />
+    <Compile Include="Controls\MainMenu\MenuCursor.cs" />
     <Compile Include="Controls\MainMenu\MenuHeaderControl.cs" />
+    <Compile Include="Controls\MainMenu\MenuElement.cs" />
+    <Compile Include="Controls\MainMenu\MenuScreen.cs" />
     <Compile Include="Controls\MainMenu\RepeatingSpriteControl.cs" />
     <Compile Include="Controls\MapScreen\EffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\MenuDialog.cs" />

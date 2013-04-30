@@ -19,13 +19,6 @@ namespace Eternity.Controls.Layouts
 
     public class BorderLayout : ILayout
     {
-        private readonly Insets _insets;
-
-        public BorderLayout(Insets insets = null)
-        {
-            _insets = insets ?? Insets.All(0);
-        }
-
         protected virtual Direction ExtractDirection(object constraints)
         {
             if (constraints is Direction) return (Direction)constraints;
@@ -34,7 +27,8 @@ namespace Eternity.Controls.Layouts
 
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            int t = 0, b = 0, l = 0, r = 0;
+            var insets = parent.TotalInsets;
+            int t = insets.Top, b = insets.Bottom, l = insets.Left, r = insets.Right;
             int cw = 0, ch = 0;
             foreach (var child in children)
             {
@@ -54,10 +48,11 @@ namespace Eternity.Controls.Layouts
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            var left = _insets.Left;
-            var right = parent.Box.Right.Start.X - _insets.Right;
-            var top = _insets.Top;
-            var bottom = parent.Box.Bottom.Start.Y - _insets.Bottom;
+            var insets = parent.TotalInsets;
+            var left = insets.Left;
+            var right = parent.Box.Right.Start.X - insets.Right;
+            var top = insets.Top;
+            var bottom = parent.Box.Bottom.Start.Y - insets.Bottom;
             var center = new Point(left + (right - left) / 2, top + (bottom - top) / 2);
             var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
             // todo when the size isn't the preferred one

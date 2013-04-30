@@ -18,6 +18,9 @@ namespace Eternity.Controls.Layouts
                 w = Math.Max(w, ps.Width);
                 h = Math.Max(h, ps.Height);
             }
+            var insets = parent.TotalInsets;
+            w += insets.TotalX;
+            h += insets.TotalY;
             return new Size(w, h);
         }
 
@@ -26,7 +29,7 @@ namespace Eternity.Controls.Layouts
             var ac = ActiveChild ?? children.FirstOrDefault();
             foreach (var control in children)
             {
-                control.ResizeSafe(control == ac || true ? parent.Box : new Box(0, 0, 0, 0));
+                control.ResizeSafe(parent.InnerBox);
             }
         }
     }

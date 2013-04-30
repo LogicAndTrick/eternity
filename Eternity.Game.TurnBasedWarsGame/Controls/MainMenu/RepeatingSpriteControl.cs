@@ -37,8 +37,9 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MainMenu
 
         public override void OnRender(IRenderContext context)
         {
+            var ib = InnerBox;
             var offset = RepeatX ? OffsetX - Sprite.Width : OffsetX;
-            for (var i = Box.X + offset; i < Box.Width; i += Sprite.Width)
+            for (var i = ib.X + offset; i < ib.X + ib.Width; i += Sprite.Width)
             {
                 DrawVertical(context, i);
                 if (!RepeatX) break;
@@ -47,8 +48,9 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MainMenu
 
         private void DrawVertical(IRenderContext context, int x)
         {
+            var ib = InnerBox;
             var offset = RepeatY ? OffsetY - Sprite.Height : OffsetY;
-            for (var i = Box.Y + offset; i < Box.Height; i += Sprite.Height)
+            for (var i = ib.Y + offset; i < ib.Y + ib.Height; i += Sprite.Height)
             {
                 Draw(context, x, i);
                 if (!RepeatY) break;

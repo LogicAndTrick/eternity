@@ -7,12 +7,10 @@ namespace Eternity.Controls.Layouts
 {
     public class HorizontalStackLayout : ILayout
     {
-        private readonly Insets _insets;
         private int _gap;
 
-        public HorizontalStackLayout(Insets insets, int gap)
+        public HorizontalStackLayout(int gap)
         {
-            _insets = insets;
             _gap = gap;
         }
 
@@ -24,17 +22,19 @@ namespace Eternity.Controls.Layouts
                 w += ps.Width;
                 h = Math.Max(h, ps.Height);
             }
-            w += _insets.TotalX + _gap * (children.Count - 1);
-            h += _insets.TotalY;
+            var insets = parent.TotalInsets;
+            w += insets.TotalX + _gap * (children.Count - 1);
+            h += insets.TotalY;
             return new Size(w, h);
         }
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            double x = _insets.Left;
-            double y = _insets.Top;
-            var width = parent.Box.Width - _insets.Right - _insets.Left;
-            var height = parent.Box.Height - _insets.Bottom - _insets.Top;
+            var insets = parent.TotalInsets;
+            double x = insets.Left;
+            double y = insets.Top;
+            var width = parent.Box.Width - insets.Right - insets.Left;
+            var height = parent.Box.Height - insets.Bottom - insets.Top;
             var total = width - (_gap * (children.Count - 1));
             var sizes = children.ToDictionary(c => c, c => c.GetPreferredSize());
             var preferred = sizes.Select(kv => kv.Value.Width).Sum();

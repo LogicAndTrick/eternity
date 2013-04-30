@@ -34,7 +34,8 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         public MenuDialog(Box parent, Box target, params MenuDialogAction[] actions)
         {
             // Create the menu and buttons
-            var container = new LayoutControl(new VerticalStackLayout(new Insets(1, 1, 1, 1), 1));
+            var container = new LayoutControl(new VerticalStackLayout(1));
+            container.Padding = Insets.All(1);
 
             var buttons = actions.Select(action => new Button(action.Callback, action.Text, Color.White)).ToList();
 

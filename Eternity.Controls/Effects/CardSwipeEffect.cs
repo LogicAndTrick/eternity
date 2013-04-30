@@ -17,18 +17,25 @@ namespace Eternity.Controls.Effects
         private Control _exit;
         private Control _enter;
         private long _speed;
+        private Action _callback;
 
-        public CardSwipeEffect(Control exit, Control enter, long speed, IEasing easing)
+        public CardSwipeEffect(Control exit, Control enter, long speed, IEasing easing, Action callback = null)
         {
             _animations = new List<IAnimation>();
             _exit = exit;
             _enter = enter;
             _easing = easing;
             _speed = speed;
-            if (_exit != null)
-            {
-                _animations.Add(new Animation<int>(_exit.Box.X, _exit.Box.X - _exit.Box.Width, speed, easing, ExitProgress, ExitComplete));
-            }
+            _callback = callback;
+            if (_enter == null && _exit == null) throw new Exception();
+
+            if (_exit != null) _animations.Add(new Animation<int>(_exit.Box.X, _exit.Box.X - _exit.Box.Width, speed, easing, ExitProgress, ExitComplete));
+            if (_enter != null) _animations.Add(new Animation<int>(_enter.Box.X, _enter.Box.X - _enter.Box.Width, speed, easing, EnterProgress));
+        }
+
+        private void EnterProgress(int obj)
+        {
+            _enter.ResizeSafe(new Box(obj, _enter.Box.Y, _enter.Box.Width, _enter.Box.Height));
         }
 
         private void ExitProgress(int obj)
@@ -38,7 +45,10 @@ namespace Eternity.Controls.Effects
 
         private void ExitComplete(int obj)
         {
-            //
+            if (_callback != null)
+            {
+                _callback();
+            }
         }
 
         public void Update(FrameInfo info, IInputState state)

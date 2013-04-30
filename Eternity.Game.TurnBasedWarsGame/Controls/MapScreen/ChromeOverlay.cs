@@ -108,7 +108,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
     public class ChromeBorderLayout : BorderLayout
     {
-        public ChromeBorderLayout() : base(new Insets(0,0,0,0))
+        public ChromeBorderLayout() : base()
         {
         }
 
@@ -121,7 +121,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
     public class TileInfoChromeControl : LayoutControl
     {
-        public TileInfoChromeControl() : base(new HorizontalStackLayout(Insets.All(0), 0))
+        public TileInfoChromeControl() : base(new HorizontalStackLayout(0))
         {
         }
 
@@ -129,7 +129,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         {
             Children.ForEach(x => x.Dispose());
             Children.Clear();
-            var ctrl = new LayoutControl(new VerticalStackLayout(Insets.All(0), 1));// { Box = new Box(0, 0, 50, 50) };
+            var ctrl = new LayoutControl(new VerticalStackLayout(1));// { Box = new Box(0, 0, 50, 50) };
             ctrl.Add(new Label(tile.Type.ToString(), Color.White));
             var rules = RuleSet.GetTerrainRules(tile.Type);
             var str = tile.Structure;
