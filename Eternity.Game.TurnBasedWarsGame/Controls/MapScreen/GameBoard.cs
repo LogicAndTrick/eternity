@@ -361,13 +361,25 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         public override void OnMouseDown(EternityEvent e)
         {
             var tc = GetChildAt(e.X, e.Y) as TileControl;
-            if (tc != null) OnTileMouseDown(tc.Tile, e);
+            if (tc != null)
+            {
+                e = e.Clone();
+                var shift = tc.GetLocationInTree() - GetLocationInTree();
+                e.Translate(shift.X, shift.Y);
+                OnTileMouseDown(tc.Tile, e);
+            }
         }
 
         public override void OnMouseUp(EternityEvent e)
         {
             var tc = GetChildAt(e.X, e.Y) as TileControl;
-            if (tc != null) OnTileMouseUp(tc.Tile, e);
+            if (tc != null)
+            {
+                e = e.Clone();
+                var shift = tc.GetLocationInTree() - GetLocationInTree();
+                e.Translate(shift.X, shift.Y);
+                OnTileMouseUp(tc.Tile, e);
+            }
         }
     }
 }

@@ -20,11 +20,21 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
         public List<Army> Armies { get; private set; }
         public Turn CurrentTurn { get; private set; }
         public int Day { get; private set; }
-        public GameBoard GameBoard { get; set; }
+
+        public GameBoard GameBoard
+        {
+            get { return _gameBoard; }
+            set
+            {
+                _gameBoard = value;
+                _gameBoard.SetFogOfWar(this);
+            }
+        }
 
         public TileInfoChromeControl TileInfoChromeControl { get; set; }
 
         private ITileInteraction _interaction;
+        private GameBoard _gameBoard;
 
         public Battle(ResourceDefinition mapDefinition)
         {
