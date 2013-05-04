@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Eternity.DataStructures.Primitives;
 
 namespace Eternity.Controls.Layouts
@@ -16,7 +18,14 @@ namespace Eternity.Controls.Layouts
 
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            throw new System.NotImplementedException();
+            var x = 0;
+            var y = 0;
+            foreach (var ps in children.Select(child => child.GetPreferredSize()))
+            {
+                x = Math.Max(x, ps.Width);
+                y = Math.Max(y, ps.Height);
+            }
+            return new Size(x * _width, y * _height);
         }
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)

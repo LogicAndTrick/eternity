@@ -2,7 +2,7 @@
 {
     public class BackEasing : IEasing
     {
-        public virtual double CalculateEasing(double p)
+        public double CalculateEasing(double p)
         {
             // https://github.com/jquery/jquery-ui/ [ui/jquery.effects.core.js]
             return p * p * (3 * p - 2);

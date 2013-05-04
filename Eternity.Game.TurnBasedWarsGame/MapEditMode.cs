@@ -9,6 +9,8 @@ using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.Controls.MapEdit;
 using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.COs;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Rules;
 using Eternity.Graphics;
 using Eternity.Graphics.Sprites;
@@ -24,10 +26,24 @@ namespace Eternity.Game.TurnBasedWarsGame
     {
         private LayoutControl _root;
         private Map _map;
+        private readonly List<Army> _armies;
 
         public MapEditMode(ResourceDefinition mapDefinition)
         {
-            _map = null;
+            _armies = new List<Army>();
+            _map = new Map(GetArmy, mapDefinition);
+        }
+
+        private Army GetArmy(string army)
+        {
+            if (army == "N") return null;
+            var a = _armies.FirstOrDefault(x => x.ArmyRules.Name == army);
+            if (a == null)
+            {
+                a = new Army(new CO(), army);
+                _armies.Add(a);
+            }
+            return a;
         }
 
         public void StartUp(IRenderContext context)
@@ -54,11 +70,20 @@ namespace Eternity.Game.TurnBasedWarsGame
                 Box = new Box(new Point(0, 0), new Point(context.ScreenWidth, context.ScreenHeight))
             };
 
-            _root.Add(new GradientBackground(Color.Cyan, Color.Black));
+            _root.Add(new GradientBackground(Color.White, Color.MediumPurple));
+
+            var gameBoard = new GameBoard(_map);
+            foreach (var tile in _map.Tiles)
+            {
+                gameBoard.Add(new TileControl(tile), tile.Location);
+            }
+
+            var scrollingMapPanel = new ScrollingMapPanel();
+            scrollingMapPanel.Add(gameBoard);
 
             var container = new LayoutControl(new BorderLayout());
-
             container.Add(new TerrainList(), Direction.Left);
+            container.Add(scrollingMapPanel, Direction.Center);
 
             _root.Add(container);
             _root.SetUp(context);

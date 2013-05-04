@@ -41,12 +41,12 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
                 SpriteControl c;
                 if (underlay != "")
                 {
-                    c = new SpriteControl("Terrain", underlay);
-                    c.DrawingOptions.DockY = SpriteDrawingOptions.Dock.Bottom;
+                    c = new SpriteControl("Terrain", underlay)
+                            {DrawingOptions = {DockY = SpriteDrawingOptions.Dock.Bottom}};
                     card.Add(c);
                 }
-                c = new SpriteControl("Terrain", res.GetData("Name"));
-                c.DrawingOptions.DockY = SpriteDrawingOptions.Dock.Bottom;
+                c = new SpriteControl("Terrain", res.GetData("Name"))
+                        {DrawingOptions = {DockY = SpriteDrawingOptions.Dock.Bottom}};
                 card.Add(c);
 
                 Add(card);

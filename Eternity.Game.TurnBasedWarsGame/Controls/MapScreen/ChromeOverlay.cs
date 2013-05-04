@@ -24,7 +24,6 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public override void OnMouseMove(Input.EternityEvent e)
         {
-            var point = new Point(e.X, e.Y);
             var chasers = Children
                 .Select(x => new {Control = x as TileInfoChromeControl, Constraints = GetConstraints(x) as ChromeConstraints})
                 .Where(x => x.Constraints != null && x.Control != null && x.Constraints.AvoidCursor && !x.Constraints.Animating)
@@ -81,7 +80,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                         x => control.ResizeSafe(new Box(isVertical ? midX : x, isVertical ? x : midY, width, height)),
                         x =>
                             {
-                                constraints.CurrentDirection = newVert | newHor;
+                                constraints.CurrentDirection = newHor; // todo.
                                 control.ResizeSafe(new Box(newStartX, newStartY, width, height));
                             }),
                     new Animation<int>(

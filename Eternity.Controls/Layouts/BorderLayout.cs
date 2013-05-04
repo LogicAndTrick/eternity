@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Eternity.DataStructures.Primitives;
 
 namespace Eternity.Controls.Layouts
 {
-    [Flags]
     public enum Direction
     {
-        Top = 0x01,
-        Left = 0x02,
-        Right = 0x04,
-        Bottom = 0x08,
-        Center = 0x10,
-        Fill = 0x20
+        Top,
+        Left,
+        Right,
+        Bottom,
+        Center
     }
 
     public class BorderLayout : ILayout
@@ -22,82 +19,119 @@ namespace Eternity.Controls.Layouts
         protected virtual Direction ExtractDirection(object constraints)
         {
             if (constraints is Direction) return (Direction)constraints;
-            return Direction.Top | Direction.Left;
+            return Direction.Center;
         }
 
-        public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
+        private Size CalculatePreferredSize(Control parent, IEnumerable<Control> children, Dictionary<Control, object> constraints, IDictionary<Control, Size> preferred)
         {
             var insets = parent.TotalInsets;
             int t = insets.Top, b = insets.Bottom, l = insets.Left, r = insets.Right;
             int cw = 0, ch = 0;
             foreach (var child in children)
             {
-                var ps = child.GetPreferredSize();
+                var ps = preferred[child];
                 var dir = ExtractDirection(constraints.Where(kv => kv.Key == child).Select(kv => kv.Value).FirstOrDefault());
 
-                if (dir.HasFlag(Direction.Top)) t += ps.Height;
-                else if (dir.HasFlag(Direction.Bottom)) b += ps.Height;
-                else ch = Math.Max(ch, ps.Height);
-
-                if (dir.HasFlag(Direction.Left)) l += ps.Width;
-                else if (dir.HasFlag(Direction.Right)) r += ps.Width;
-                else cw = Math.Max(cw, ps.Width);
+                switch (dir)
+                {
+                    case Direction.Top:
+                        t += ps.Height;
+                        break;
+                    case Direction.Bottom:
+                        b += ps.Height;
+                        break;
+                    case Direction.Left:
+                        l += ps.Width;
+                        break;
+                    case Direction.Right:
+                        r += ps.Width;
+                        break;
+                    case Direction.Center:
+                        cw = Math.Max(cw, ps.Width);
+                        ch = Math.Max(ch, ps.Height);
+                        break;
+                }
             }
             return new Size(l + r + cw, t + b + ch);
         }
 
+        public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
+        {
+            var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
+            return CalculatePreferredSize(parent, children, constraints, preferred);
+        }
+
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            var insets = parent.TotalInsets;
-            var left = insets.Left;
-            var right = parent.Box.Right.Start.X - insets.Right;
-            var top = insets.Top;
-            var bottom = parent.Box.Bottom.Start.Y - insets.Bottom;
-            var center = new Point(left + (right - left) / 2, top + (bottom - top) / 2);
             var ib = parent.InnerBox;
+            var left = ib.X;
+            var right = left + ib.Width;
+            var top = ib.Y;
+            var bottom = top + ib.Height;
+
             var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
-            // todo when the size isn't the preferred one
+            var center = new List<Control>();
+
+            var ideal = CalculatePreferredSize(parent, children, constraints, preferred);
+            var actual = ib.Size;
+
+            var xratio = actual.Width >= ideal.Width ? 1f : actual.Width / (float)ideal.Width;
+            var yratio = actual.Height >= ideal.Height ? 1f : actual.Height / (float)ideal.Height;
+
             foreach (var child in children)
             {
-                var ps = child.GetPreferredSize();
+                var ps = preferred[child];
+                var act = new Size((int) (ps.Width * xratio), (int) (ps.Height * yratio));
                 var dir = ExtractDirection(constraints.Where(kv => kv.Key == child).Select(kv => kv.Value).FirstOrDefault());
 
-                var x = center.X - ps.Width / 2;
-                var y = center.Y - ps.Height / 2;
-                if (dir.HasFlag(Direction.Fill))
+                if (dir == Direction.Center)
                 {
-                    child.ResizeSafe(new Box(0, 0, parent.Box.Width, parent.Box.Height));
+                    center.Add(child);
+                    continue;
                 }
-                else
+
+                var x = left;
+                var y = top;
+                var wid = act.Width;
+                var hei = act.Height;
+                switch (dir)
                 {
-                    if (dir.HasFlag(Direction.Left))
-                    {
+                    case Direction.Left:
                         x = left;
-                        left += ps.Width;
-                    }
-                    else if (dir.HasFlag(Direction.Right))
-                    {
-                        x = right - ps.Width;
-                        right -= ps.Width;
-                    }
-                    if (dir.HasFlag(Direction.Top))
-                    {
                         y = top;
-                        top += ps.Height;
-                    }
-                    else if (dir.HasFlag(Direction.Bottom))
-                    {
-                        y = bottom - ps.Height;
-                        bottom -= ps.Height;
-                    }
-                    if (x < 0) x = 0;
-                    if (y < 0) y = 0;
-                    var wid = ps.Width;
-                    var hei = ps.Height;
-                    if (x + ps.Width > ib.Width) wid = ib.Width;
-                    if (y + ps.Height > ib.Height) hei = ib.Height;
-                    child.ResizeSafe(new Box(x, y, wid, hei));
+                        wid = act.Width;
+                        hei = bottom - top;
+                        left += act.Width;
+                        break;
+                    case Direction.Right:
+                        x = right - act.Width;
+                        y = top;
+                        wid = act.Width;
+                        hei = bottom - top;
+                        right -= act.Width;
+                        break;
+                    case Direction.Top:
+                        x = left;
+                        y = top;
+                        wid = right - left;
+                        hei = act.Height;
+                        top += act.Height;
+                        break;
+                    case Direction.Bottom:
+                        x = left;
+                        y = bottom - act.Height;
+                        wid = right - left;
+                        hei = act.Height;
+                        bottom -= act.Height;
+                        break;
                 }
+
+                child.ResizeSafe(new Box(x, y, wid, hei));
+            }
+
+            foreach (var child in center)
+            {
+                child.ResizeSafe(new Box(left, top, right - left, bottom - top));
             }
         }
     }

@@ -10,19 +10,13 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 {
     public class ScrollingMapPanel : LayoutControl
     {
-        public Insets Border { get; private set; }
         private Point _controlPosition;
         private int _scrollX;
         private int _scrollY;
 
-        public ScrollingMapPanel() : this(new Insets(40, 40, 40, 40))
+        public ScrollingMapPanel() : base(null)
         {
-            // Nothing
-        }
-
-        public ScrollingMapPanel(Insets border) : base(null)
-        {
-            Border = border;
+            Margin = Insets.All(40);
             _controlPosition = new Point(0, 0);
             _scrollX = _scrollX = 0;
             AddAnimation(new Animation<Point>(_controlPosition, 10, ScrollCalculate, ScrollCallback));
@@ -34,6 +28,11 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             {
                 throw new Exception("The ScrollingMapPanel can only have one child.");
             }
+        }
+
+        public override Size GetPreferredSize()
+        {
+            return Children.Any() ? Children[0].GetPreferredSize() : base.GetPreferredSize();
         }
 
         public override void OnMouseMove(EternityEvent ee)

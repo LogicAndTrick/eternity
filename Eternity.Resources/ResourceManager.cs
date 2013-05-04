@@ -46,7 +46,7 @@ namespace Eternity.Resources
         {
             foreach (var file in dir.GetFiles("*.etr"))
             {
-                AddResource(file.FullName); ;
+                AddResource(file.FullName);
             }
         }
 

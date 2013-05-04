@@ -65,13 +65,7 @@ namespace Eternity.Controls.Animations
 
         public Animation<T> Queue(Action<IAnimation> add, Func<T> val, Func<T> targetVal, long animationTimeInMilliseconds, IEasing easing, Action<T> progressCallback = null, Action<T> completedCallback = null)
         {
-            var cc = _completedCallback;
             var anim = new Animation<T>(val, targetVal, animationTimeInMilliseconds, easing, progressCallback, completedCallback);
-            /*_completedCallback = x =>
-                                     {
-                                         add(anim);
-                                         if (cc != null) cc(x);
-                                     };*/
             _completedCallback = x => add(anim);
             return anim;
         }

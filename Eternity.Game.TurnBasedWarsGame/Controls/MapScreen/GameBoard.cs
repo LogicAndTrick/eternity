@@ -149,6 +149,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         /// <summary>
         /// Reveals the fog of war around this tile, as viewed by the provided unit.
         /// </summary>
+        /// <param name="battle">The battle</param>
         /// <param name="tile">The tile the unit is on</param>
         /// <param name="unit">The unit that is viewing from the tile</param>
         public void RevealFogOfWar(Battle battle, Tile tile, Unit unit)
@@ -161,6 +162,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         /// <summary>
         /// Reveals the fog of war around this tile, as viewed by the provided structure.
         /// </summary>
+        /// <param name="battle">The battle</param>
         /// <param name="tile">The tile the structure is on</param>
         /// <param name="structure">The structure that is viewing from the tile</param>
         public void RevealFogOfWar(Battle battle, Tile tile, Structure structure)

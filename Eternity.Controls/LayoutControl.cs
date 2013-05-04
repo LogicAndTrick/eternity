@@ -42,7 +42,9 @@ namespace Eternity.Controls
 
         public override DataStructures.Primitives.Size GetPreferredSize()
         {
-            return _layout.GetPreferredSize(this, Children, _constraints);
+            return _layout == null
+                       ? base.GetPreferredSize()
+                       : _layout.GetPreferredSize(this, Children, _constraints);
         }
 
         public void DoLayout()

@@ -26,7 +26,6 @@ namespace Eternity.Controls.Layouts
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            var ac = ActiveChild ?? children.FirstOrDefault();
             foreach (var control in children)
             {
                 control.ResizeSafe(parent.InnerBox);

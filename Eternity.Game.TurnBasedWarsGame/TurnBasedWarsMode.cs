@@ -73,7 +73,7 @@ namespace Eternity.Game.TurnBasedWarsGame
                            {
                                AvoidCursor = true,
                                StickyDirection = Direction.Top,
-                               CurrentDirection = Direction.Top | Direction.Left
+                               CurrentDirection = Direction.Left
                            });
 
             _battle.TileInfoChromeControl = tileInfo;
