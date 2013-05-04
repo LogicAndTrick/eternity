@@ -75,5 +75,12 @@ namespace Eternity.DataStructures.Primitives
         {
             return new Box(X + x, Y + y, Width, Height);
         }
+
+        public double DistanceFrom(Point p)
+        {
+            var xd = p.X < X ? X - p.X : (p.X > X + Width ? p.X - (X + Width) : 0);
+            var yd = p.Y < Y ? Y - p.Y : (p.Y > Y + Height ? p.Y - (Y + Height) : 0);
+            return Math.Sqrt(xd * xd + yd * yd);
+        }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Controls\MainMenu\MenuElement.cs" />
     <Compile Include="Controls\MainMenu\MenuScreen.cs" />
     <Compile Include="Controls\MainMenu\RepeatingSpriteControl.cs" />
+    <Compile Include="Controls\MapEdit\TerrainList.cs" />
     <Compile Include="Controls\MapScreen\EffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\MenuDialog.cs" />
     <Compile Include="Controls\MapScreen\ChromeOverlay.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Controls\MapScreen\RootPanel.cs" />
     <Compile Include="Controls\MapScreen\ScrollingMapPanel.cs" />
     <Compile Include="Controls\MapScreen\TileControl.cs" />
+    <Compile Include="MapEditMode.cs" />
     <Compile Include="MainMenuMode.cs" />
     <Compile Include="WarsGame\Interactions\UnitActions\BuildUnit\BuildUnitAction.cs">
       <SubType>Code</SubType>

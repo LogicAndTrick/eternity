@@ -66,9 +66,11 @@ namespace Eternity.Shell
 
             _renderContext = new GLRenderContext(640, 480);
             _inputState = new OTKInputState(this);
-            var battle = new Battle(ResourceManager.GetResourceDefinition("Map", "Bean Island"));
-            _gameState = new GameState(new TurnBasedWarsMode(battle));
-            _gameState = new GameState(new MainMenuMode());
+            var map = ResourceManager.GetResourceDefinition("Map", "Bean Island");
+            var battle = new Battle(map);
+            //_gameState = new GameState(new TurnBasedWarsMode(battle));
+            //_gameState = new GameState(new MainMenuMode());
+            _gameState = new GameState(new MapEditMode(map));
 
             Load += (sender, e) => StartUp();
             Unload += (sender, e) => ShutDown();

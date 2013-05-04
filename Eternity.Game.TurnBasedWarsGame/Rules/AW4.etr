@@ -57,6 +57,12 @@
 
     Terrain
     {
+        Name: DestroyedPipeSeam
+        DisplayName: Dest. Seam
+    }
+
+    Terrain
+    {
         Name: Wood
         Defense: 3
         Infantry: 1
@@ -140,6 +146,7 @@
     Terrain
     {
         Name: PipeSeam
+        DisplayName: Seam
         Pipe: 1
         Health: 99
     }
@@ -175,6 +182,7 @@
     Terrain
     {
         Name: RoughSea
+        DisplayName: Rough Sea
         Defense: 2
         Air: 1
         Ship: 2
@@ -184,6 +192,7 @@
     Terrain
     {
         Name: FoggySea
+        DisplayName: Foggy Sea
         Defense: 1
         Air: 1
         Ship: 1
@@ -262,13 +271,27 @@
 
     Terrain
     {
+        Name: CommsTower
+        DisplayName: Comm. Tower
+    }
+
+    Terrain
+    {
         Name: City Silo
         Defense: 2
     }
 
     Terrain
     {
-        Name: TemporaryAirport TemporaryPort
+        Name: TemporaryAirport
+        DisplayName: T. Airport
+        Defense: 1
+    }
+
+    Terrain
+    {
+        Name: TemporaryPort
+        DisplayName: T. Port
         Defense: 1
     }
 

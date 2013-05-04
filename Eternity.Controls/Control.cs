@@ -338,7 +338,8 @@ namespace Eternity.Controls
                 case EventType.MouseMove:
                     OnMouseMove(ee);
                     var line = new Line(new Point(ee.LastX, ee.LastY), new Point(ee.X, ee.Y));
-                    foreach (var control in Children)
+                    // Sort by distance from line start (if we've moved across multiple controls, want to get the order correct)
+                    foreach (var control in Children.OrderBy(x => x.Box.DistanceFrom(line.Start)))
                     {
                         Point p1, p2;
                         if (!line.Intersects(control.Box, out p1, out p2)) continue;

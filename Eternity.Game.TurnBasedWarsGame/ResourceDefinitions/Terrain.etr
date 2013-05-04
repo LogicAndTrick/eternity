@@ -47,6 +47,14 @@
         Type: Terrain
         TerrainType: Road
     }
+
+    Sprite
+    {
+        Name: BridgeNS BridgeES BridgeWS BridgeEWN BridgeEN BridgeEW BridgeWN BridgeEWS BridgeENS BridgeEWNS BridgeWNS
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Bridge
+    }
     
     // Rivers
     Sprite
@@ -232,6 +240,36 @@ SpriteSheet
         Underlay: Plain1
     }
 
+    Sprite
+    {
+        Name: Fog1 Fog2 Fog3 Fog4A Fog4B Fog4C
+        Group: Terrain
+        Type: Terrain
+        TerrainType: FoggySea
+        TerrainFrequency: 1
+        Underlay: Sea
+    }
+
+    AnimatedSprite
+    {
+        Name: Fire
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Fire
+        Sequence: Fire1 Fire2 Fire3 Fire4 Fire5 Fire6
+        FrameSpeed: 66
+        AnimationStyle: Loop
+        Underlay: Wasteland6
+    }
+
+    Sprite
+    {
+        Name: SiloUnfired SiloFired
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Silo
+    }
+
     AnimatedSprite
     {
         Name: RedCity
@@ -256,6 +294,28 @@ SpriteSheet
 
     AnimatedSprite
     {
+        Name: RedPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Port
+        Sequence: RedPortOn RedPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: RedAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Airport
+        Sequence: RedAirportOn RedAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
         Name: RedHeadquarters
         Group: Terrain
         Type: Terrain
@@ -272,6 +332,39 @@ SpriteSheet
         Type: Terrain
         TerrainType: TemporaryAirport
         Sequence: RedTAirportOn RedTAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: RedTemporaryPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryPort
+        Sequence: RedTPortOn RedTPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: RedRadar
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Radar
+        Sequence: RedRadarOn RedRadarOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: RedCommsTower
+        Group: Terrain
+        Type: Terrain
+        TerrainType: CommsTower
+        Sequence: RedCommsTowerOn RedCommsTowerOff
         FrameSpeed: 1200
         AnimationStyle: Loop
     }

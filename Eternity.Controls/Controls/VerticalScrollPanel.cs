@@ -36,7 +36,7 @@ namespace Eternity.Controls.Controls
         }
 
         private readonly Size _maximumSize;
-        private readonly LayoutControl _child;
+        protected LayoutControl Child { get; private set; }
 
         private Size _preferred;
         private int _offset;
@@ -46,9 +46,9 @@ namespace Eternity.Controls.Controls
             Clip = true;
             SetLayout(new VerticalScrollLayout(this));
             _maximumSize = maximumSize;
-            _child = child;
+            Child = child;
             CalculatePreferred();
-            Add(_child);
+            Add(Child);
         }
 
         public override void OnChildSizeChanged()
@@ -58,12 +58,13 @@ namespace Eternity.Controls.Controls
 
         private void CalculatePreferred()
         {
-            var ps = _child.GetPreferredSize();
+            var ps = Child.GetPreferredSize();
             _preferred = new Size(_maximumSize.Width, ps.Height);
         }
 
         public override Size GetPreferredSize()
         {
+            CalculatePreferred();
             return new Size(Math.Min(_preferred.Width, _maximumSize.Width), Math.Min(_preferred.Height, _maximumSize.Height));
         }
 

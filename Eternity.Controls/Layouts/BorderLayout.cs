@@ -54,6 +54,7 @@ namespace Eternity.Controls.Layouts
             var top = insets.Top;
             var bottom = parent.Box.Bottom.Start.Y - insets.Bottom;
             var center = new Point(left + (right - left) / 2, top + (bottom - top) / 2);
+            var ib = parent.InnerBox;
             var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
             // todo when the size isn't the preferred one
             foreach (var child in children)
@@ -89,7 +90,13 @@ namespace Eternity.Controls.Layouts
                         y = bottom - ps.Height;
                         bottom -= ps.Height;
                     }
-                    child.ResizeSafe(new Box(x, y, ps.Width, ps.Height));
+                    if (x < 0) x = 0;
+                    if (y < 0) y = 0;
+                    var wid = ps.Width;
+                    var hei = ps.Height;
+                    if (x + ps.Width > ib.Width) wid = ib.Width;
+                    if (y + ps.Height > ib.Height) hei = ib.Height;
+                    child.ResizeSafe(new Box(x, y, wid, hei));
                 }
             }
         }

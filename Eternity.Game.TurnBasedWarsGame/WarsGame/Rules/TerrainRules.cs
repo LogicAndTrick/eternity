@@ -10,6 +10,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
 {
     public class TerrainRules
     {
+        public string DisplayName { get; set; }
         public TileType TileType { get; private set; }
         public int Defense { get; private set; }
         public int Vision { get; private set; }
@@ -24,6 +25,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
             TileType tt;
             Enum.TryParse(def.GetData("Name"), out tt);
             TileType = tt;
+
+            DisplayName = def.GetData("DisplayName", tt.ToString());
 
             Defense = int.Parse(def.GetData("Defense", "0"));
             Vision = int.Parse(def.GetData("Vision", "0"));

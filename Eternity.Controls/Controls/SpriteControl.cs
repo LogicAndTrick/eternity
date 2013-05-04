@@ -17,6 +17,7 @@ namespace Eternity.Controls.Controls
         public SpriteControl(string group, string name)
         {
             Sprite = new SpriteReference(group, name);
+            DrawingOptions = new SpriteDrawingOptions();
         }
 
         public override Size GetPreferredSize()
@@ -26,7 +27,7 @@ namespace Eternity.Controls.Controls
 
         public override void OnRender(Graphics.IRenderContext context)
         {
-            SpriteManager.DrawSprite(context, Sprite.Group, Sprite.Name, new Box(0, 0, Sprite.Width, Sprite.Height), DrawingOptions);
+            SpritePool.DrawSprite(context, Sprite.Group, Sprite.Name, new Box(Box.X, Box.Y, Box.Width, Box.Height), DrawingOptions);
         }
     }
 }
