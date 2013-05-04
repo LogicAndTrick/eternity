@@ -54,11 +54,15 @@ namespace Eternity.Game.TurnBasedWarsGame
 
             _root.Add(new GradientBackground(Color.Cyan, Color.Black));
             var scrollingMapPanel = new ScrollingMapPanel();
-            var gameBoard = new GameBoard(_battle);
+            var gameBoard = new GameBoard(_battle.Map);
             foreach (var tile in _battle.Map.Tiles)
             {
                 gameBoard.Add(new TileControl(tile), tile.Location);
             }
+            _battle.GameBoard = gameBoard;
+            gameBoard.TileHovered += (s, e) => _battle.TileHovered(e.Tile);
+            gameBoard.TileMouseDown += (s, e) => _battle.TileMouseDown(e.Event, e.Tile);
+            gameBoard.TileMouseUp += (s, e) => _battle.TileMouseUp(e.Event, e.Tile);
             scrollingMapPanel.Add(gameBoard);
             _root.Add(scrollingMapPanel);
 

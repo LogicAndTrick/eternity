@@ -236,7 +236,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             if (unitToAttack.CurrentHealth <= 0)
             {
                 // Defending unit is dead
-                unitToAttack.Tile.Unit = null;
+                unitToAttack.Tile.SetUnit(null, null);
             }
             else if (unitToAttack.CanCounterAttack(this))
             {
@@ -255,7 +255,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Units
             unitToCounter.CurrentHealth -= dmg;
             if (unitToCounter.CurrentHealth <= 0)
             {
-                unitToCounter.Tile.Unit = null;
+                unitToCounter.Tile.SetUnit(null, null);
             }
         }
 

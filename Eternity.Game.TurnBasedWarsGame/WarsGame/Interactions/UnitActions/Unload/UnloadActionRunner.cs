@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
@@ -19,9 +20,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
             _targetTile = targetTile;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
-            var board = _parent.Tile.Parent.Battle.GameBoard;
             var moveset = new MoveSet(_child, new[]
                                                   {
                                                       Move.CreateMove(_parent.Tile, _child)
@@ -31,28 +31,28 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
 
             if (!trap) moveset.Add(Move.CreateMove(_targetTile, _child));
 
-            board.AnimatePath(_child, moveset,
+            gameboard.AnimatePath(_child, moveset,
                               () =>
                                   {
                                       var es = new ExecutionState {StopExecution = trap};
                                       if (trap)
                                       {
-                                          board.AddEffect(new PopupEffect
+                                          gameboard.AddEffect(new PopupEffect
                                                               {
-                                                                  Board = board,
+                                                                  Board = gameboard,
                                                                   Time = 500,
                                                                   TileSprites = new Dictionary<Tile, string> {{_parent.Tile, "TrapRight"}}
                                                               });
-                                          board.Delay(500, () => callback(es));
+                                          gameboard.Delay(500, () => callback(es));
                                       }
                                       else
                                       {
                                           _parent.LoadedUnits.Remove(_child);
-                                          _targetTile.Unit = _child;
+                                          _targetTile.SetUnit(battle, _child);
                                           _child.HasMoved = true;
                                           foreach (var move in moveset)
                                           {
-                                              board.RevealFogOfWar(move.MoveTile, move.UnitToMove);
+                                              gameboard.RevealFogOfWar(battle, move.MoveTile, move.UnitToMove);
                                           }
                                           callback(ExecutionState.Empty);
                                       }

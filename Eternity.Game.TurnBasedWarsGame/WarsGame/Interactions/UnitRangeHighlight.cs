@@ -14,10 +14,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions
 
         private readonly Battle _battle;
 
-        public UnitRangeHighlight(Unit unit)
+        public UnitRangeHighlight(Battle battle, Unit unit)
         {
             Unit = unit;
-            _battle = unit.Tile.Parent.Battle;
+            _battle = battle;
             var states = MoveSet.AllPossibleAttackPositions(Unit, Unit.Tile, true);
             states.ForEach(x =>
                                {
@@ -46,7 +46,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions
         public void Complete()
         {
             Unit.Tile.Parent.Tiles.ForEach(x => x.CanAttack = x.CanMoveTo = false);
-            Unit.Tile.Parent.Battle.GameBoard.DeselectUnit(Unit);
+            _battle.GameBoard.DeselectUnit(Unit);
         }
     }
 }

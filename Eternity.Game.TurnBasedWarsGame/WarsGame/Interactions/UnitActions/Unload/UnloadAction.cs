@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
@@ -38,7 +39,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
                 .Select(x => new ValidTile { MoveType = MoveType.Move, Tile = x}).ToList();
         }
 
-        public void UpdateMoveSet(Tile tile)
+        public void UpdateMoveSet(Battle battle, GameBoard gameboard, Tile tile)
         {
             _unloadTile = tile;
         }
@@ -50,7 +51,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Unlo
                        : new MoveSet(_state.Unit, new[] {Move.CreateUnload(_unloadTile, _state.Tile, _unitToUnload)});
         }
 
-        public void ClearEffects()
+        public void ClearEffects(Battle battle, GameBoard gameboard)
         {
             
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 
@@ -17,7 +18,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             throw new NotImplementedException();
         }
 
-        public void UpdateMoveSet(Tile tile)
+        public void UpdateMoveSet(Battle battle, GameBoard gameboard, Tile tile)
         {
             throw new NotImplementedException();
         }
@@ -27,7 +28,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             return null;
         }
 
-        public void ClearEffects()
+        public void ClearEffects(Battle battle, GameBoard gameboard)
         {
             
         }
@@ -57,7 +58,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             throw new NotImplementedException();
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             callback(ExecutionState.Empty);
         }

@@ -1,4 +1,5 @@
 using System;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 
@@ -13,7 +14,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Hide
             _unit = unit;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             _unit.IsHidden = true;
             // Todo animations

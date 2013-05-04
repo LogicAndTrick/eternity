@@ -36,7 +36,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             }
             Day = 1;
             CurrentTurn = new Turn(this, Day, Armies.First());
-            Map = new Map(this, mapDefinition);
+            Map = new Map(GetArmy, mapDefinition);
             _interaction = null;
         }
 
@@ -60,8 +60,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             CurrentTurn.Army.Units.ForEach(x => x.HasMoved = false);
             CurrentTurn = CurrentTurn.CreateNextTurn();
             GameBoard.HideDialog();
-            GameBoard.UpdateHealthOverlays();
-            GameBoard.SetFogOfWar();
+            GameBoard.UpdateHealthOverlays(this);
+            GameBoard.SetFogOfWar(this);
             NewTurnOverlay();
         }
 
@@ -76,7 +76,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             if (_interaction == null) return;
             _interaction.Complete();
             _interaction = null;
-            GameBoard.UpdateHealthOverlays();
+            GameBoard.UpdateHealthOverlays(this);
         }
 
         public void TileMouseDown(EternityEvent e, Tile tile)
@@ -87,8 +87,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             }
             else if (tile.HasVisibleUnit(CurrentTurn.Army))
             {
-                if (e.Button == MouseButton.Left) _interaction = new UnitActionSet(tile.Unit);
-                else if (e.Button == MouseButton.Right) _interaction = new UnitRangeHighlight(tile.Unit);
+                if (e.Button == MouseButton.Left) _interaction = new UnitActionSet(this, tile.Unit);
+                else if (e.Button == MouseButton.Right) _interaction = new UnitRangeHighlight(this, tile.Unit);
             }
             else if (e.Button == MouseButton.Right)
             {

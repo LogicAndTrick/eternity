@@ -1,4 +1,5 @@
 using System;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
@@ -16,13 +17,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Capt
             _structure = structure;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             var points = _structure.CapturePoints - _capturer.HealthOutOfTen;
             if (points <= 0)
             {
                 _structure.Capture(_capturer.Army);
-                _capturer.Tile.Parent.Battle.GameBoard.RevealFogOfWar(_structure.Tile, _structure);
+                gameboard.RevealFogOfWar(battle, _structure.Tile, _structure);
             }
             else
             {

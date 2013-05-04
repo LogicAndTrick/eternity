@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 
 namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common
@@ -24,8 +25,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
         /// <summary>
         /// Update an action set's current move set to point to the given tile.
         /// </summary>
+        /// <param name="battle"> </param>
+        /// <param name="gameboard"> </param>
         /// <param name="tile">The tile to point the move set to</param>
-        void UpdateMoveSet(Tile tile);
+        void UpdateMoveSet(Battle battle, GameBoard gameboard, Tile tile);
 
         /// <summary>
         /// Get the action's move set, if it has one.
@@ -36,7 +39,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
         /// <summary>
         /// Clear any effects that this action may have applied.
         /// </summary>
-        void ClearEffects();
+        /// <param name="battle"> </param>
+        /// <param name="gameboard"> </param>
+        void ClearEffects(Battle battle, GameBoard gameboard);
 
         /// <summary>
         /// Cancel this action and undo any state that it may have set.

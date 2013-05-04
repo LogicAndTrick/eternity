@@ -1,4 +1,5 @@
 using System;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 
@@ -15,7 +16,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Join
             _joinUnit = joinUnit;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             _baseUnit.JoinWith(_joinUnit);
             callback(ExecutionState.Empty);

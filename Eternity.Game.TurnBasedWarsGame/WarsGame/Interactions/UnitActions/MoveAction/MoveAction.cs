@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
@@ -14,11 +15,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
         private readonly MoveSet _set;
         private readonly ContextState _state;
 
-        public MoveAction(ContextState state)
+        public MoveAction(Battle battle, ContextState state)
         {
             _state = state;
             _set = new MoveSet(state.Unit);
-            UpdateMoveSet(state.Tile);
+            UpdateMoveSet(battle, battle.GameBoard, state.Tile);
         }
 
         public bool IsValidTile(Tile tile)
@@ -32,12 +33,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
             return ms.Select(x => new ValidTile {MoveType = x.MoveType, Tile = x.MoveTile}).ToList();
         }
 
-        public void UpdateMoveSet(Tile tile)
+        public void UpdateMoveSet(Battle battle, GameBoard gameboard, Tile tile)
         {
             _set.TryMovePathTo(Move.CreateMove(tile, _state.Unit));
             if (_set.Unit.CanAttackIndirectly(true))
             {
-                _state.Tile.Parent.Battle.GameBoard.SetRangeCursor(
+                gameboard.SetRangeCursor(
                     _set.Last(x => x.MoveType == MoveType.Move).MoveTile,
                     _state.Unit.PrimaryWeapon.WeaponRules.MaxRange);
             }
@@ -48,9 +49,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
             return _set;
         }
 
-        public void ClearEffects()
+        public void ClearEffects(Battle battle, GameBoard gameboard)
         {
-            _state.Tile.Parent.Battle.GameBoard.ClearRangeCursor();
+            gameboard.ClearRangeCursor();
         }
 
         public void Cancel()

@@ -8,8 +8,6 @@ using Eternity.Controls.Easings;
 using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.WarsGame;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
@@ -17,29 +15,61 @@ using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
 using Eternity.Graphics;
 using Eternity.Graphics.Sprites;
 using Eternity.Graphics.Textures;
+using Eternity.Input;
 using Point = Eternity.DataStructures.Primitives.Point;
 
 namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 {
     public class GameBoard : LayoutControl
     {
-        public Battle Battle { get; private set; }
+        public class TileEventArgs : EventArgs
+        {
+            public Tile Tile { get; set; }
+            public EternityEvent Event { get; set; }
+        }
+
+        public event EventHandler<TileEventArgs> TileHovered;
+        public event EventHandler<TileEventArgs> TileMouseUp;
+        public event EventHandler<TileEventArgs> TileMouseDown;
+
+        private void OnTileHovered(Tile tile, EternityEvent e)
+        {
+            if (TileHovered != null)
+            {
+                TileHovered.Invoke(this, new TileEventArgs { Tile = tile, Event = e });
+            }
+        }
+
+        private void OnTileMouseUp(Tile tile, EternityEvent e)
+        {
+            if (TileMouseUp != null)
+            {
+                TileMouseUp.Invoke(this, new TileEventArgs { Tile = tile, Event = e });
+            }
+        }
+
+        private void OnTileMouseDown(Tile tile, EternityEvent e)
+        {
+            if (TileMouseDown != null)
+            {
+                TileMouseDown.Invoke(this, new TileEventArgs { Tile = tile, Event = e });
+            }
+        }
+
+        public Map Map { get; private set; }
         public int GridSize { get; private set; }
 
-        private Dictionary<MoveSet, Animation<double>> _pathAnimations; 
+        private readonly Dictionary<MoveSet, Animation<double>> _pathAnimations; 
 
-        public GameBoard(Battle battle) : base(new GridLayout(battle.Map.Width, battle.Map.Height))
+        public GameBoard(Map map) : base(new GridLayout(map.Width, map.Height))
         {
-            battle.GameBoard = this;
-            Battle = battle;
+            Map = map;
             GridSize = 24;
-            Box = new Box(0, 0, battle.Map.Width * GridSize, battle.Map.Height * GridSize);
+            Box = new Box(0, 0, Map.Width * GridSize, Map.Height * GridSize);
             _pathAnimations = new Dictionary<MoveSet, Animation<double>>();
 
             var bgi = new ScrollingBackgroundImage(TextureManager.GetTexture("Overlays", "Clouds"), 5, 5, 0.03, -0.06);
             AddOverlay(bgi);
-
-            SetFogOfWar();
         }
 
         public MenuDialog ShowDialog(params MenuDialog.MenuDialogAction[] actions)
@@ -71,16 +101,14 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public void DeselectUnit(Unit u)
         {
-            foreach (var tile in Battle.Map.Tiles)
+            foreach (var tile in Map.Tiles)
             {
-                tile.OverlayGroups.RemoveLayers("Highlight");
-                tile.OverlayGroups.RemoveLayers("Arrow");
-                tile.OverlayGroups.RemoveLayers("UnitAnimations");
+                tile.ClearHighlight();
+                tile.ClearArrow();
+                tile.ClearUnitAnimation();
                 if (u != null && tile.Unit == u)
                 {
-                    tile.BaseGroups.SetGroupVisibility("Unit", true);
-                    tile.OverlayGroups.SetGroupVisibility("UnitHealth", true);
-                    tile.OverlayGroups.SetGroupVisibility("UnitStatus", true);
+                    tile.ShowUnit();
                 }
             }
         }
@@ -88,39 +116,33 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         public void SelectUnit(Unit u, Tile t = null)
         {
             if (t == null) t = u.Tile;
-            if (t == u.Tile)
-            {
-                t.BaseGroups.SetGroupVisibility("Unit", false);
-                t.OverlayGroups.SetGroupVisibility("UnitHealth", false);
-                t.OverlayGroups.SetGroupVisibility("UnitStatus", false);
-            }
-            t.OverlayGroups.AddLayer("UnitAnimations", "Animation", u.Style + "W_24",
-                                     new SpriteDrawingOptions { DockX = SpriteDrawingOptions.Dock.Center, MirrorX = true });
+            if (t == u.Tile) t.HideUnit();
+            t.AddUnitAnimation(u.Style);
         }
 
         public void UpdateTileHighlights()
         {
-            Battle.Map.Tiles.ForEach(x => x.OverlayGroups.RemoveLayers("Highlight"));
-            foreach (var tile in Battle.Map.Tiles.Where(x => x.CanMoveTo || x.CanAttack))
+            Map.Tiles.ForEach(x => x.ClearHighlight());
+            foreach (var tile in Map.Tiles.Where(x => x.CanMoveTo || x.CanAttack))
             {
-                tile.OverlayGroups.AddLayer("Highlight", "Highlight", tile.CanMoveTo ? "MoveTile" : "AttackTile");
+                tile.AddHighlight(tile.CanMoveTo ? "MoveTile" : "AttackTile");
             }
         }
 
-        public void UpdateHealthOverlays()
+        public void UpdateHealthOverlays(Battle battle)
         {
-            Battle.Map.Tiles.ForEach(x => x.UpdateUnitLayers(Battle));
+            Map.Tiles.ForEach(x => x.UpdateUnitLayers(battle));
         }
 
-        public void SetFogOfWar()
+        public void SetFogOfWar(Battle battle)
         {
-            Battle.Map.Tiles.ForEach(x => x.Fog = x.ShouldHaveFog(Battle.CurrentTurn.Army));
-            foreach (var tile in Battle.Map.Tiles)
+            Map.Tiles.ForEach(x => x.SetFog(battle, x.ShouldHaveFog(battle.CurrentTurn.Army)));
+            foreach (var tile in Map.Tiles)
             {
-                var uv = tile.Unit != null && tile.Unit.Army == Battle.CurrentTurn.Army ? tile.Unit.UnitRules.Vision + tile.Rules.GetVisionBonus(tile.Unit.UnitRules.MoveType) : 0;
-                var sv = tile.Structure != null && tile.Structure.Army == Battle.CurrentTurn.Army && !tile.Structure.IsUnderConstruction ? tile.Structure.Rules.Vision : 0;
+                var uv = tile.Unit != null && tile.Unit.Army == battle.CurrentTurn.Army ? tile.Unit.UnitRules.Vision + tile.Rules.GetVisionBonus(tile.Unit.UnitRules.MoveType) : 0;
+                var sv = tile.Structure != null && tile.Structure.Army == battle.CurrentTurn.Army && !tile.Structure.IsUnderConstruction ? tile.Structure.Rules.Vision : 0;
                 if (uv == 0 && sv == 0) continue;
-                RevealFogOfWar(tile, uv, sv);
+                RevealFogOfWar(battle, tile, uv, sv);
             }
         }
 
@@ -129,10 +151,10 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         /// </summary>
         /// <param name="tile">The tile the unit is on</param>
         /// <param name="unit">The unit that is viewing from the tile</param>
-        public void RevealFogOfWar(Tile tile, Unit unit)
+        public void RevealFogOfWar(Battle battle, Tile tile, Unit unit)
         {
             var uv = unit.UnitRules.Vision + tile.Rules.GetVisionBonus(unit.UnitRules.MoveType);
-            if (uv > 0) RevealFogOfWar(tile, uv, 0);
+            if (uv > 0) RevealFogOfWar(battle, tile, uv, 0);
         }
 
 
@@ -141,13 +163,13 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         /// </summary>
         /// <param name="tile">The tile the structure is on</param>
         /// <param name="structure">The structure that is viewing from the tile</param>
-        public void RevealFogOfWar(Tile tile, Structure structure)
+        public void RevealFogOfWar(Battle battle, Tile tile, Structure structure)
         {
             var sv = structure.Rules.Vision;
-            if (sv > 0) RevealFogOfWar(tile, 0, sv);
+            if (sv > 0) RevealFogOfWar(battle, tile, 0, sv);
         }
 
-        private static void RevealFogOfWar(Tile tile, int unitVision, int structureVision)
+        private static void RevealFogOfWar(Battle battle, Tile tile, int unitVision, int structureVision)
         {
             var states = Search.GetAllStates(Tuple.Create(tile, true),
                                              (x, i) => TileVision(x, i, unitVision, structureVision),
@@ -155,7 +177,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                                              x => 1);
             foreach (var tuple in states.Where(x => x.Item2))
             {
-                tuple.Item1.Fog = false;
+                tuple.Item1.SetFog(battle, false);
             }
         }
 
@@ -169,7 +191,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public void CalculateArrowOverlays(MoveSet set)
         {
-            Battle.Map.Tiles.ForEach(x => x.OverlayGroups.RemoveLayers("Arrow"));
+            Map.Tiles.ForEach(x => x.ClearArrow());
             if (set == null) return;
             var path = set.GetMovementMoves();
             if (path.Count >= 2)
@@ -186,18 +208,13 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                     if (bef == null) arrow = "ArrowStart" + next;
                     else if (after == null) arrow = "ArrowEnd" + prev;
                     else arrow = "ArrowLine" + OrderDirections(prev, next);
-                    path[i].MoveTile.OverlayGroups.AddLayer("Arrow", "Arrow", arrow);
+                    path[i].MoveTile.AddArrow(arrow);
                 }
             }
             var attack = set.GetAttackMove();
             if (attack != null)
             {
-                attack.MoveTile.OverlayGroups.AddLayer("Arrow", "Arrow", "Crosshair",
-                                                       new SpriteDrawingOptions()
-                                                           {
-                                                               DockX = SpriteDrawingOptions.Dock.Center,
-                                                               DockY = SpriteDrawingOptions.Dock.Center
-                                                           });
+                attack.MoveTile.AddArrow("Crosshair");
             }
             var unload = set.GetUnloadMoves();
             foreach (var ul in unload)
@@ -205,7 +222,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                 var start = ul.LoaderTile.Location;
                 var end = ul.MoveTile.Location;
                 var dir = start.X == end.X ? (start.Y > end.Y ? "N" : "S") : (start.X > end.X ? "W" : "E");
-                ul.MoveTile.OverlayGroups.AddLayer("Arrow", "Arrow", "UnloadArrowEnd" + dir);
+                ul.MoveTile.AddArrow("UnloadArrowEnd" + dir);
             }
         }
 
@@ -233,21 +250,20 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             foreach (var point in list)
             {
                 var loc = center.Location + point;
-                var tile = Battle.Map.GetTile(loc);
+                var tile = Map.GetTile(loc);
                 if (tile == null) continue;
 
                 var sprite = "RangeCursorNE";
                 if (point.X == 0) sprite = "RangeCursorN";
                 else if (point.Y == 0) sprite = "RangeCursorE";
 
-                var options = new SpriteDrawingOptions { MirrorX = point.X < 0, MirrorY = point.Y > 0 };
-                tile.OverlayGroups.AddLayer("RangeCursor", "RangeCursor", sprite, options);
+                tile.AddRangeCursor(sprite, point.X < 0, point.Y > 0);
             }
         }
 
         public void ClearRangeCursor()
         {
-            Battle.Map.Tiles.ForEach(x => x.OverlayGroups.RemoveLayers("RangeCursor"));
+            Map.Tiles.ForEach(x => x.ClearRangeCursor());
         }
 
         public void AnimatePath(Unit unit, MoveSet path, Action callback = null)
@@ -263,24 +279,14 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                                                                              AnimationComplete(path);
                                                                              if (callback != null) callback();
                                                                          });
-            if (path.Unit.Tile != null)
-            {
-                path.Unit.Tile.BaseGroups.SetGroupVisibility("Unit", false);
-                path.Unit.Tile.OverlayGroups.SetGroupVisibility("UnitHealth", false);
-                path.Unit.Tile.OverlayGroups.SetGroupVisibility("UnitStatus", false);
-            }
+            if (path.Unit.Tile != null) path.Unit.Tile.HideUnit();
             _pathAnimations.Add(path, animation);
             AddAnimation(animation);
         }
 
         private void AnimationComplete(MoveSet path)
         {
-            if (path.Unit.Tile != null)
-            {
-                path.Unit.Tile.BaseGroups.SetGroupVisibility("Unit", true);
-                path.Unit.Tile.OverlayGroups.SetGroupVisibility("UnitHealth", true);
-                path.Unit.Tile.OverlayGroups.SetGroupVisibility("UnitStatus", true);
-            }
+            if (path.Unit.Tile != null) path.Unit.Tile.ShowUnit();
             _pathAnimations.Remove(path);
         }
 
@@ -346,10 +352,22 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             DrawAnimation(context);
         }
 
-        public override void OnMouseMove(Input.EternityEvent e)
+        public override void OnMouseMove(EternityEvent e)
         {
             var tc = GetChildAt(e.X, e.Y) as TileControl;
-            if (tc != null) Battle.TileHovered(tc.Tile);
+            if (tc != null) OnTileHovered(tc.Tile, e);
+        }
+
+        public override void OnMouseDown(EternityEvent e)
+        {
+            var tc = GetChildAt(e.X, e.Y) as TileControl;
+            if (tc != null) OnTileMouseDown(tc.Tile, e);
+        }
+
+        public override void OnMouseUp(EternityEvent e)
+        {
+            var tc = GetChildAt(e.X, e.Y) as TileControl;
+            if (tc != null) OnTileMouseUp(tc.Tile, e);
         }
     }
 }

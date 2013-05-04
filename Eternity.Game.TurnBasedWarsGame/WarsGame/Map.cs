@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eternity.DataStructures.Primitives;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
@@ -11,7 +12,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
 {
     public class Map
     {
-        public Battle Battle { get; set; }
+        //public Battle Battle { get; set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
         public List<Tile> Tiles { get; private set; }
@@ -23,9 +24,8 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             Tiles = tiles;
         }
 
-        public Map(Battle battle, ResourceDefinition def)
+        public Map(Func<string, Army> armyGetter, ResourceDefinition def)
         {
-            Battle = battle;
             Width = int.Parse(def.GetData("Width"));
             Height = int.Parse(def.GetData("Height"));
             Tiles = new List<Tile>();
@@ -45,15 +45,13 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
                 var underlay = baseResource == null ? "" : baseResource.GetData("Underlay");
 
                 var tile = new Tile(this, tt, location);
-                if (underlay != "") tile.BaseGroups.AddLayer("Terrain", "TerrainUnderlay", underlay);
-                tile.BaseGroups.AddLayer("Terrain", "TerrainBase", style);
-                if (overlay != "") tile.BaseGroups.AddLayer("Terrain", "TerrainOverlay", overlay);
+                tile.UpdateTerrain(underlay, style, overlay);
 
                 var structure = rd.ChildrenDefinitions.FirstOrDefault(x => x.DefinitionType == "Structure");
                 if (structure != null)
                 {
                     var army = structure.GetData("Army");
-                    var tstructure = new Structure(tile) {Army = battle.GetArmy(army)};
+                    var tstructure = new Structure(tile) {Army = armyGetter(army)};
                     tile.Structure = tstructure;
                 }
 
@@ -69,10 +67,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
                                                                     }).FirstOrDefault();
                     if (unitRd != null)
                     {
-                        var tunit = new Unit(battle.GetArmy(army), unitRd);
+                        var tunit = new Unit(armyGetter(army), unitRd);
                         var hlth = unit.GetData("Health");
                         if (!String.IsNullOrWhiteSpace(hlth)) tunit.CurrentHealth = int.Parse(hlth);
-                        tile.Unit = tunit;
+                        tile.SetUnit(null, tunit);
                     }
                 }
                 Tiles.Add(tile);

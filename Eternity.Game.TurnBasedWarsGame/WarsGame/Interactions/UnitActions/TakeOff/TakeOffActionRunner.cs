@@ -1,4 +1,5 @@
 using System;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Units;
@@ -18,10 +19,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Take
             _moveTile = moveTile;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             _parent.LoadedUnits.Remove(_child);
-            _moveTile.Unit = _child;
+            _moveTile.SetUnit(battle, _child);
             callback(ExecutionState.Empty);
         }
     }

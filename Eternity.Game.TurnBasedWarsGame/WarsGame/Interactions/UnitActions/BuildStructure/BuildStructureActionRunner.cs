@@ -1,4 +1,5 @@
 using System;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Structures;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
@@ -17,7 +18,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Buil
             _tile = tile;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             if (_tile.Structure == null)
             {
@@ -31,7 +32,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Buil
             {
                 _tile.Type = _builder.GetBuildingType(_tile.Type);
                 _tile.Structure.Capture(_builder.Army);
-                _builder.Tile.Parent.Battle.GameBoard.RevealFogOfWar(_tile.Structure.Tile, _tile.Structure);
+                gameboard.RevealFogOfWar(battle, _tile.Structure.Tile, _tile.Structure);
             }
             else
             {

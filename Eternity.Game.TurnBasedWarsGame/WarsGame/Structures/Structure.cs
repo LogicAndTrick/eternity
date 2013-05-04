@@ -32,7 +32,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Structures
         public Structure(Tile tile)
         {
             Tile = tile;
-            Army = null; // Neutral to start, TODO: Fix this
+            Army = null; // Neutral to start, TODO: Fix this?
             Health = 100;
             CapturePoints = 20;
         }
@@ -43,8 +43,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Structures
             IsUnderConstruction = false;
             Army = army;
             var colour = army == null ? "Neutral" : army.ArmyRules.Colour;
-            Tile.BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
-            Tile.BaseGroups.AddLayer("Terrain", "TerrainOverlay", colour+Tile.Type);
+            Tile.UpdateTerrain(null, null, colour + Tile.Type);
         }
 
         public void ResetCapturePoints()

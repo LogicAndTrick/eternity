@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Fire;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.MoveAction;
@@ -35,7 +36,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Take
             return ms.Select(x => new ValidTile { MoveType = x.MoveType, Tile = x.MoveTile }).ToList();
         }
 
-        public void UpdateMoveSet(Tile tile)
+        public void UpdateMoveSet(Battle battle, GameBoard gameboard, Tile tile)
         {
             _set.TryMovePathTo(Move.CreateMove(tile, _unitToTakeOff));
         }
@@ -45,7 +46,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Take
             return _set;
         }
 
-        public void ClearEffects()
+        public void ClearEffects(Battle battle, GameBoard gameboard)
         {
             
         }

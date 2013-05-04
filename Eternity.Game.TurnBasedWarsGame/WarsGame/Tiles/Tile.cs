@@ -115,19 +115,20 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
         public Unit Unit
         {
             get { return _unit; }
-            set
+        }
+
+        public void SetUnit(Battle battle, Unit unit)
+        {
+            if (_unit != null)
             {
-                if (_unit != null)
-                {
-                    _unit.Tile = null;
-                }
-                _unit = value;
-                if (_unit != null)
-                {
-                    _unit.Tile = this;
-                }
-                UpdateUnitLayers(Parent.Battle);
+                _unit.Tile = null;
             }
+            _unit = unit;
+            if (_unit != null)
+            {
+                _unit.Tile = this;
+            }
+            UpdateUnitLayers(battle);
         }
 
         public TileType Type
@@ -146,28 +147,29 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
         public bool Fog
         {
             get { return _fog; }
-            set
+        }
+
+        public void SetFog(Battle battle, bool fog)
+        {
+            if (_fog == fog) return;
+            BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.White);
+            if (Structure != null && !Structure.IsUnderConstruction)
             {
-                if (_fog == value) return;
-                BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.White);
-                if (Structure != null && !Structure.IsUnderConstruction)
-                {
-                    var colour = Structure.Army == null ? "Neutral" : Structure.Army.ArmyRules.Colour;
-                    BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
-                    BaseGroups.AddLayer("Terrain", "TerrainOverlay", colour + Type);
-                }
-                _fog = value;
-                if (_fog)
-                {
-                    if (Structure != null && Type != TileType.Headquarters && !Structure.IsUnderConstruction)
-                    {
-                        BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
-                        BaseGroups.AddLayer("Terrain", "TerrainOverlay", "Neutral" + Type);
-                    }
-                    BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.FromArgb(128, 128, 128));
-                }
-                UpdateUnitLayers(Parent.Battle);
+                var colour = Structure.Army == null ? "Neutral" : Structure.Army.ArmyRules.Colour;
+                BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
+                BaseGroups.AddLayer("Terrain", "TerrainOverlay", colour + Type);
             }
+            _fog = fog;
+            if (_fog)
+            {
+                if (Structure != null && Type != TileType.Headquarters && !Structure.IsUnderConstruction)
+                {
+                    BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
+                    BaseGroups.AddLayer("Terrain", "TerrainOverlay", "Neutral" + Type);
+                }
+                BaseGroups.Groups.First(x => x.GroupName == "Terrain").Layers.ForEach(x => x.DrawingOptions.Colour = Color.FromArgb(128, 128, 128));
+            }
+            UpdateUnitLayers(battle);
         }
 
         public bool ShouldHaveFog(Army army)
@@ -187,7 +189,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             BaseGroups.RemoveLayers("Unit");
             OverlayGroups.RemoveLayers("UnitHealth");
             OverlayGroups.RemoveLayers("UnitStatus");
-            if (!HasVisibleUnit(battle.CurrentTurn.Army)) return;
+            if (Unit == null || (battle != null && !HasVisibleUnit(battle.CurrentTurn.Army))) return;
 
             BaseGroups.AddLayer("Unit", "Unit", _unit.Style,
                 new SpriteDrawingOptions { MirrorX = _unit.Army.ArmyRules.MirrorX, Colour = _unit.HasMoved ? Color.Gray : Color.White });
@@ -269,6 +271,86 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             OverlayGroups.Groups.Add(new TileGroup("RangeCursor", "Overlays"));
             OverlayGroups.Groups.Add(new TileGroup("Arrow", "Overlays"));
             OverlayGroups.Groups.Add(new TileGroup("UnitAnimations", "UnitAnimations"));
+        }
+
+        public void UpdateTerrain(string underlay, string style, string overlay)
+        {
+            if (!String.IsNullOrWhiteSpace(underlay))
+            {
+                BaseGroups.RemoveLayer("Terrain", "TerrainUnderlay");
+                BaseGroups.AddLayer("Terrain", "TerrainUnderlay", underlay);
+            }
+            if (!String.IsNullOrWhiteSpace(style))
+            {
+                BaseGroups.RemoveLayer("Terrain", "TerrainBase");
+                BaseGroups.AddLayer("Terrain", "TerrainBase", style);
+            }
+            if (!String.IsNullOrWhiteSpace(overlay))
+            {
+                BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
+                BaseGroups.AddLayer("Terrain", "TerrainOverlay", overlay);
+            }
+        }
+
+        public void ClearHighlight()
+        {
+            OverlayGroups.RemoveLayers("Highlight");
+        }
+
+        public void ClearArrow()
+        {
+            OverlayGroups.RemoveLayers("Arrow");
+        }
+
+        public void ClearUnitAnimation()
+        {
+            OverlayGroups.RemoveLayers("UnitAnimations");
+        }
+
+        public void ClearRangeCursor()
+        {
+            OverlayGroups.RemoveLayers("RangeCursor");
+        }
+
+        public void AddHighlight(string style)
+        {
+            OverlayGroups.AddLayer("Highlight", "Highlight", style);
+        }
+
+        public void AddArrow(string style)
+        {
+            OverlayGroups.AddLayer("Arrow", "Arrow", style,
+                                   new SpriteDrawingOptions
+                                       {
+                                           DockX = SpriteDrawingOptions.Dock.Center,
+                                           DockY = SpriteDrawingOptions.Dock.Center
+                                       });
+        }
+
+        public void AddUnitAnimation(string style)
+        {
+            OverlayGroups.AddLayer("UnitAnimations", "Animation", style + "W_24",
+                                   new SpriteDrawingOptions {DockX = SpriteDrawingOptions.Dock.Center, MirrorX = true});
+        }
+
+        public void AddRangeCursor(string style, bool mirrorx, bool mirrory)
+        {
+            var options = new SpriteDrawingOptions { MirrorX = mirrorx, MirrorY = mirrory };
+            OverlayGroups.AddLayer("RangeCursor", "RangeCursor", style, options);
+        }
+
+        public void HideUnit()
+        {
+            BaseGroups.SetGroupVisibility("Unit", false);
+            OverlayGroups.SetGroupVisibility("UnitHealth", false);
+            OverlayGroups.SetGroupVisibility("UnitStatus", false);
+        }
+
+        public void ShowUnit()
+        {
+            BaseGroups.SetGroupVisibility("Unit", true);
+            OverlayGroups.SetGroupVisibility("UnitHealth", true);
+            OverlayGroups.SetGroupVisibility("UnitStatus", true);
         }
 
         private static TileType GetType(Tile t, TileType def)

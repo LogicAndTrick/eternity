@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Eternity.Input
 {
-    public class EternityEvent
+    public class EternityEvent : EventArgs
     {
         public EventType Type { get; set; }
         public MouseButton Button { get; set; }

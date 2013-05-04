@@ -67,10 +67,10 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
         private readonly bool _disabled;
 
-        public UnitActionSet(Unit unit)
+        public UnitActionSet(Battle battle, Unit unit)
         {
             _currentContextUnit = unit;
-            _battle = unit.Tile.Parent.Battle;
+            _battle = battle;
             _committing = false;
             _contextQueue = new ContextQueue();
 
@@ -82,7 +82,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             _battle.GameBoard.SelectUnit(_currentContextUnit);
 
             // Always start with the move action
-            SelectAction(new MoveAction.MoveAction(_contextQueue.Last()));
+            SelectAction(new MoveAction.MoveAction(_battle, _contextQueue.Last()));
 
             // Allow the UAS on moved units, but don't allow any movements if it's disabled
             _disabled = unit.HasMoved || unit.Army != _battle.CurrentTurn.Army;
@@ -92,7 +92,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
         {
             if (_disabled)
             {
-                _currentAction.ClearEffects();
+                _currentAction.ClearEffects(_battle, _battle.GameBoard);
                 _currentAction.Cancel();
                 _battle.EndUnitAction();
             }
@@ -104,7 +104,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             if (_currentAction != null && _currentAction.IsValidTile(tile))
             {
                 // Update the current action
-                _currentAction.UpdateMoveSet(tile);
+                _currentAction.UpdateMoveSet(_battle, _battle.GameBoard, tile);
                 CalculateArrowOverlays();
             }
         }
@@ -126,7 +126,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
             var actions = _currentAction.CreateContextStates().ToList();
             actions.ForEach(_contextQueue.Enqueue);
 
-            _currentAction.ClearEffects();
+            _currentAction.ClearEffects(_battle, _battle.GameBoard);
 
             var newContext = _contextQueue.Last();
             if (newContext.Unit != _currentContextUnit)
@@ -237,7 +237,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
 
         private void Cancel()
         {
-            _currentAction.ClearEffects();
+            _currentAction.ClearEffects(_battle, _battle.GameBoard);
             _currentAction.Cancel();
             if (_contextQueue.All(x => x.Type == UnitActionType.None))
             {
@@ -273,14 +273,14 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions
         private void CommitCallback(ExecutionState executionState)
         {
             // Each action might change the unit overlays, so update each time
-            _battle.GameBoard.UpdateHealthOverlays();
+            _battle.GameBoard.UpdateHealthOverlays(_battle);
 
             if (_contextQueue.Any() && !executionState.StopExecution)
             {
                 // While the queue has items, run each action
                 var state = _contextQueue.Dequeue();
                 _currentContextUnit = state.Unit;
-                state.ActionRunner.Execute(CommitCallback); // Recursively use this method as the callback
+                state.ActionRunner.Execute(_battle, _battle.GameBoard, CommitCallback); // Recursively use this method as the callback
             }
             else
             {

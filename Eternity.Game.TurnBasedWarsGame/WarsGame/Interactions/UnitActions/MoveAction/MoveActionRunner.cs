@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Common;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 
@@ -34,7 +35,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
             return false;
         }
 
-        public void Execute(Action<ExecutionState> callback)
+        public void Execute(Battle battle, GameBoard gameboard, Action<ExecutionState> callback)
         {
             // Fog of war traps: target is the last valid move, not the last tile in the set.
             // When FOW is disabled, the set will not be invalid, however this method works as expected either way.
@@ -65,26 +66,25 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Move
                 }
             }
 
-            var board = actualSet.Unit.Tile.Parent.Battle.GameBoard;
-            board.AnimatePath(actualSet.Unit, actualSet.GetMovementMoves(),
+            gameboard.AnimatePath(actualSet.Unit, actualSet.GetMovementMoves(),
                               () =>
                                   {
-                                      if (startTile.Unit == actualSet.Unit) startTile.Unit = null;
-                                      if (endTile.Unit == null) endTile.Unit = actualSet.Unit;
+                                      if (startTile.Unit == actualSet.Unit) startTile.SetUnit(battle, null);
+                                      if (endTile.Unit == null) endTile.SetUnit(battle, actualSet.Unit);
                                       foreach (var move in actualSet)
                                       {
-                                          board.RevealFogOfWar(move.MoveTile, move.UnitToMove);
+                                          gameboard.RevealFogOfWar(battle, move.MoveTile, move.UnitToMove);
                                       }
                                       var es = new ExecutionState {StopExecution = trap};
                                       if (trap)
                                       {
-                                          board.AddEffect(new PopupEffect
+                                          gameboard.AddEffect(new PopupEffect
                                                               {
-                                                                  Board = board,
+                                                                  Board = gameboard,
                                                                   Time = 500,
                                                                   TileSprites = new Dictionary<Tile, string> { { endTile, "TrapRight" } }
                                                               });
-                                          board.Delay(500, () => callback(es));
+                                          gameboard.Delay(500, () => callback(es));
                                       }
                                       else
                                       {
