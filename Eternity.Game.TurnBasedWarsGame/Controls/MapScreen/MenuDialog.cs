@@ -36,7 +36,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             // Create the menu and buttons
             var container = new LayoutControl(new VerticalStackLayout(1)) {Padding = Insets.All(1)};
 
-            var buttons = actions.Select(action => new Button(action.Callback, action.Text, Color.White)).ToList();
+            var buttons = actions.Select(action => new LabelButton(action.Callback, action.Text, Color.White)).ToList();
 
             var maxWidth = buttons.Max(b => b.Box.Width);
             var maxHeight = buttons.Max(b => b.Box.Height);

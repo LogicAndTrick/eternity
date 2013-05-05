@@ -196,7 +196,7 @@ SpriteSheet
     SpriteOrder: BlueTAirportOff BlueTPortOff BlueRadarOff BlueHeadquartersOff .
     SpriteOrder: YellowTAirportOff YellowTPortOff YellowRadarOff YellowHeadquartersOff .
     SpriteOrder: BlackTAirportOff BlackTPortOff BlackRadarOff BlackHeadquartersOff .
-    SpriteOrder: NeutralTAirport NeutralTPort NeutralRadar NeutralHeadquarters .
+    SpriteOrder: NeutralTemporaryAirport NeutralTemporaryPort NeutralRadar NeutralHeadquarters .
     SpriteOrder: RedCityOff RedBaseOff RedAirportOff RedPortOff RedCommsTowerOff
     SpriteOrder: BlueCityOff BlueBaseOff BlueAirportOff BluePortOff BlueCommsTowerOff
     SpriteOrder: YellowCityOff YellowBaseOff YellowAirportOff YellowPortOff YellowCommsTowerOff
@@ -379,7 +379,7 @@ SpriteSheet
         FrameSpeed: 1200
         AnimationStyle: Loop
     }
-    
+
     AnimatedSprite
     {
         Name: BlueBase
@@ -393,11 +393,275 @@ SpriteSheet
 
     AnimatedSprite
     {
+        Name: BluePort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Port
+        Sequence: BluePortOn BluePortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Airport
+        Sequence: BlueAirportOn BlueAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
         Name: BlueHeadquarters
         Group: Terrain
         Type: Terrain
         TerrainType: Headquarters
         Sequence: BlueHeadquartersOn BlueHeadquartersOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueTemporaryAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryAirport
+        Sequence: BlueTAirportOn BlueTAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueTemporaryPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryPort
+        Sequence: BlueTPortOn BlueTPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueRadar
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Radar
+        Sequence: BlueRadarOn BlueRadarOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlueCommsTower
+        Group: Terrain
+        Type: Terrain
+        TerrainType: CommsTower
+        Sequence: BlueCommsTowerOn BlueCommsTowerOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowCity
+        Group: Terrain
+        Type: Terrain
+        TerrainType: City
+        Sequence: YellowCityOn YellowCityOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowBase
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Base
+        Sequence: YellowBaseOn YellowBaseOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Port
+        Sequence: YellowPortOn YellowPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Airport
+        Sequence: YellowAirportOn YellowAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowHeadquarters
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Headquarters
+        Sequence: YellowHeadquartersOn YellowHeadquartersOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowTemporaryAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryAirport
+        Sequence: YellowTAirportOn YellowTAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowTemporaryPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryPort
+        Sequence: YellowTPortOn YellowTPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowRadar
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Radar
+        Sequence: YellowRadarOn YellowRadarOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: YellowCommsTower
+        Group: Terrain
+        Type: Terrain
+        TerrainType: CommsTower
+        Sequence: YellowCommsTowerOn YellowCommsTowerOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackCity
+        Group: Terrain
+        Type: Terrain
+        TerrainType: City
+        Sequence: BlackCityOn BlackCityOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackBase
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Base
+        Sequence: BlackBaseOn BlackBaseOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Port
+        Sequence: BlackPortOn BlackPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Airport
+        Sequence: BlackAirportOn BlackAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackHeadquarters
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Headquarters
+        Sequence: BlackHeadquartersOn BlackHeadquartersOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackTemporaryAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryAirport
+        Sequence: BlackTAirportOn BlackTAirportOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackTemporaryPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryPort
+        Sequence: BlackTPortOn BlackTPortOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackRadar
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Radar
+        Sequence: BlackRadarOn BlackRadarOff
+        FrameSpeed: 1200
+        AnimationStyle: Loop
+    }
+
+    AnimatedSprite
+    {
+        Name: BlackCommsTower
+        Group: Terrain
+        Type: Terrain
+        TerrainType: CommsTower
+        Sequence: BlackCommsTowerOn BlackCommsTowerOff
         FrameSpeed: 1200
         AnimationStyle: Loop
     }
@@ -416,5 +680,61 @@ SpriteSheet
         Group: Terrain
         Type: Terrain
         TerrainType: Base
+    }
+
+    Sprite
+    {
+        Name: NeutralPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Port
+    }
+
+    Sprite
+    {
+        Name: NeutralAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Airport
+    }
+
+    Sprite
+    {
+        Name: NeutralHeadquarters
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Headquarters
+    }
+
+    Sprite
+    {
+        Name: NeutralTemporaryAirport
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryAirport
+    }
+
+    Sprite
+    {
+        Name: NeutralTemporaryPort
+        Group: Terrain
+        Type: Terrain
+        TerrainType: TemporaryPort
+    }
+
+    Sprite
+    {
+        Name: NeutralRadar
+        Group: Terrain
+        Type: Terrain
+        TerrainType: Radar
+    }
+
+    Sprite
+    {
+        Name: NeutralCommsTower
+        Group: Terrain
+        Type: Terrain
+        TerrainType: CommsTower
     }
 }

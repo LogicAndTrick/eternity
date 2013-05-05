@@ -42,6 +42,13 @@
         InfantryStyle: B
     }
 
+    Army
+    {
+        Name: N
+        FullName: Neutral
+        Colour: Neutral
+    }
+
     // Terrrain
     Terrain
     {

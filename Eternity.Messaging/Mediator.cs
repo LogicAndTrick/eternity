@@ -39,16 +39,18 @@ namespace Eternity.Messaging
             public void Call(params object[] parameters)
             {
                 if (!IsAlive) return;
-                var m = ObjectType.GetMethod(Method);
+                var m = ObjectType.GetMethod(Method, Flags);
                 var target = IsStatic ? null : Reference.Target;
                 m.Invoke(target, UseParams ? new object[] { parameters } : new object[0]);
             }
         }
-        private static readonly Dictionary<Messages, List<WeakAction>> Subscribers;
+        private static readonly Dictionary<string, List<WeakAction>> Subscribers;
+
+        private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
         static Mediator()
         {
-            Subscribers = new Dictionary<Messages, List<WeakAction>>();
+            Subscribers = new Dictionary<string, List<WeakAction>>();
             foreach (var t in AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("Eternity")).SelectMany(a => a.GetTypes()))
             {
                 foreach (var method in t.GetMethods(BindingFlags.Static))
@@ -63,29 +65,31 @@ namespace Eternity.Messaging
             }
         }
 
-        private static void AddSubscription(Messages message, Type t, string action, bool useparams)
+        private static void AddSubscription(object message, Type t, string action, bool useparams)
         {
-            if (!Subscribers.ContainsKey(message))
+            var str = message.ToString();
+            if (!Subscribers.ContainsKey(str))
             {
-                Subscribers.Add(message, new List<WeakAction>());
+                Subscribers.Add(str, new List<WeakAction>());
             }
-            var lst = Subscribers[message];
+            var lst = Subscribers[str];
             lst.Add(new WeakAction(t, action, useparams));
         }
 
-        private static void AddSubscription(Messages message, object o, string action, bool useparams)
+        private static void AddSubscription(object message, object o, string action, bool useparams)
         {
-            if (!Subscribers.ContainsKey(message))
+            var str = message.ToString();
+            if (!Subscribers.ContainsKey(str))
             {
-                Subscribers.Add(message, new List<WeakAction>());
+                Subscribers.Add(str, new List<WeakAction>());
             }
-            var lst = Subscribers[message];
+            var lst = Subscribers[str];
             lst.Add(new WeakAction(o, action, useparams));
         }
 
         public static void Subscribe(object sub)
         {
-            foreach (var method in sub.GetType().GetMethods())
+            foreach (var method in sub.GetType().GetMethods(Flags))
             {
                 foreach (var attr in method.GetCustomAttributes(typeof(SubscribeAttribute), true).Select(a => (SubscribeAttribute)a))
                 {
@@ -96,13 +100,16 @@ namespace Eternity.Messaging
             }
         }
 
-        public static void Message(Messages message, params object[] parameters)
+        public static void Message(object message, params object[] parameters)
         {
-            if (!Subscribers.ContainsKey(message)) return;
-            var lst = Subscribers[message];
+            var str = message.ToString();
+            if (!Subscribers.ContainsKey(str)) return;
+            var lst = Subscribers[str];
             lst.RemoveAll(a => !a.IsAlive);
             // Spool messages in new threads
-            lst.ForEach(a => Task.Factory.StartNew(() => a.Call(parameters)));
+            //lst.ForEach(a => Task.Factory.StartNew(() => a.Call(parameters)));
+            // Spooling into threads caused marshalling issues with OpenGL, keep it single threaded for now.
+            lst.ForEach(a => a.Call(parameters));
         }
     }
 }

@@ -50,6 +50,8 @@
     <Compile Include="Borders\LineBorder.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\LabelButton.cs" />
+    <Compile Include="Controls\CenterPanel.cs" />
     <Compile Include="Controls\Label.cs" />
     <Compile Include="Controls\VerticalScrollPanel.cs" />
     <Compile Include="Controls\SpriteControl.cs" />

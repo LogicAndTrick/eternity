@@ -61,6 +61,11 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Rules
             return _armyRules[army];
         }
 
+        public static IEnumerable<ArmyRules> GetAllArmyRules()
+        {
+            return _armyRules.Select(x => x.Value);
+        }
+
         public static DamageTable GetDamageTable()
         {
             return _damageTable;

@@ -186,6 +186,10 @@
       <Project>{6D42971E-D09F-48A1-965F-990D80E69B65}</Project>
       <Name>Eternity.Input</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eternity.Messaging\Eternity.Messaging.csproj">
+      <Project>{7611870E-DBC4-4655-97F6-44EDA6FCEDB5}</Project>
+      <Name>Eternity.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eternity.Resources\Eternity.Resources.csproj">
       <Project>{EFDE4A72-1798-4CB1-8A37-2C94DAB5E798}</Project>
       <Name>Eternity.Resources</Name>
@@ -251,6 +255,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Test.etr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ResourceDefinitions\MapEdit.etr">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ResourceDefinitions\UnitAnimations.etr">

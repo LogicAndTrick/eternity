@@ -22,7 +22,7 @@ namespace Eternity.Controls.Layouts
             return Direction.Center;
         }
 
-        private Size CalculatePreferredSize(Control parent, IEnumerable<Control> children, Dictionary<Control, object> constraints, IDictionary<Control, Size> preferred)
+        private Size CalculatePreferredSize(Control parent, IEnumerable<Control> children, Dictionary<Control, object> constraints, IDictionary<Control, Size> preferred, bool skipcenter)
         {
             var insets = parent.TotalInsets;
             int t = insets.Top, b = insets.Bottom, l = insets.Left, r = insets.Right;
@@ -47,6 +47,7 @@ namespace Eternity.Controls.Layouts
                         r += ps.Width;
                         break;
                     case Direction.Center:
+                        if (skipcenter) break;
                         cw = Math.Max(cw, ps.Width);
                         ch = Math.Max(ch, ps.Height);
                         break;
@@ -58,7 +59,7 @@ namespace Eternity.Controls.Layouts
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
             var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
-            return CalculatePreferredSize(parent, children, constraints, preferred);
+            return CalculatePreferredSize(parent, children, constraints, preferred, false);
         }
 
         public void DoLayout(Control parent, List<Control> children, Dictionary<Control, object> constraints)
@@ -72,7 +73,7 @@ namespace Eternity.Controls.Layouts
             var preferred = children.ToDictionary(x => x, x => x.GetPreferredSize());
             var center = new List<Control>();
 
-            var ideal = CalculatePreferredSize(parent, children, constraints, preferred);
+            var ideal = CalculatePreferredSize(parent, children, constraints, preferred, true);
             var actual = ib.Size;
 
             var xratio = actual.Width >= ideal.Width ? 1f : actual.Width / (float)ideal.Width;

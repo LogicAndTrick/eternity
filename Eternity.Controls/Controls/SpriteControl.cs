@@ -27,7 +27,7 @@ namespace Eternity.Controls.Controls
 
         public override void OnRender(Graphics.IRenderContext context)
         {
-            SpritePool.DrawSprite(context, Sprite.Group, Sprite.Name, new Box(Box.X, Box.Y, Box.Width, Box.Height), DrawingOptions);
+            SpritePool.DrawSprite(context, Sprite.Group, Sprite.Name, new Box(0, 0, Box.Width, Box.Height), DrawingOptions);
         }
     }
 }

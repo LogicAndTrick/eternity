@@ -1,0 +1,18 @@
+﻿SpriteSheet
+{
+    Name: ArmyIconsSpriteSheet
+    Group: MapEdit
+    Resource: ArmyIcons.png
+    SpriteWidth: 16
+    SpriteHeight: 16
+    SheetWidth: 1
+    SheetHeight: 5
+
+    SpriteOrder: OS BM YC BH N
+
+    Sprite
+    {
+        Name: OS BM YC BH N
+        Group: MapEdit
+    }
+}

@@ -36,7 +36,6 @@ namespace Eternity.Game.TurnBasedWarsGame
 
         private Army GetArmy(string army)
         {
-            if (army == "N") return null;
             var a = _armies.FirstOrDefault(x => x.ArmyRules.Name == army);
             if (a == null)
             {
@@ -60,6 +59,9 @@ namespace Eternity.Game.TurnBasedWarsGame
             SpriteManager.RegisterResourceGroup(context, "Overlays");
             TextureManager.RegisterResourceGroup(context, "Overlays");
 
+            SpriteManager.RegisterResourceGroup(context, "MapEdit");
+            TextureManager.RegisterResourceGroup(context, "MapEdit");
+
             InitialiseControls(context);
         }
 
@@ -81,8 +83,12 @@ namespace Eternity.Game.TurnBasedWarsGame
             var scrollingMapPanel = new ScrollingMapPanel();
             scrollingMapPanel.Add(gameBoard);
 
+            var sidebar = new LayoutControl(new BorderLayout());
+            sidebar.Add(new ArmyList(), Direction.Bottom);
+            sidebar.Add(new TerrainList(), Direction.Center);
+
             var container = new LayoutControl(new BorderLayout());
-            container.Add(new TerrainList(), Direction.Left);
+            container.Add(sidebar, Direction.Left);
             container.Add(scrollingMapPanel, Direction.Center);
 
             _root.Add(container);

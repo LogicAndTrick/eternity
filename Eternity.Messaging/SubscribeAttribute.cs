@@ -4,11 +4,11 @@ namespace Eternity.Messaging
 {
     public class SubscribeAttribute : Attribute
     {
-        public Messages Message { get; set; }
+        public string Message { get; set; }
 
-        public SubscribeAttribute(Messages message)
+        public SubscribeAttribute(object message)
         {
-            Message = message;
+            Message = message.ToString();
         }
     }
 }
