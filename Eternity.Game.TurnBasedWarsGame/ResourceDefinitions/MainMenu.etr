@@ -73,3 +73,9 @@ SpriteSheet
         Group: MainMenu
     }
 }
+Sprite
+{
+	Name: MenuCursorCircle
+	Group: MainMenu
+	Resource: MenuCursor2.png
+}

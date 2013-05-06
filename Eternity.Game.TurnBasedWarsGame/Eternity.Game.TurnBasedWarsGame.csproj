@@ -50,6 +50,9 @@
     <Compile Include="Controls\MainMenu\MenuElement.cs" />
     <Compile Include="Controls\MainMenu\MenuScreen.cs" />
     <Compile Include="Controls\MainMenu\RepeatingSpriteControl.cs" />
+    <Compile Include="Controls\MapEdit\ArmyList.cs" />
+    <Compile Include="Controls\MapEdit\MapEditMessages.cs" />
+    <Compile Include="Controls\MapEdit\CircleMenuCursor.cs" />
     <Compile Include="Controls\MapEdit\TerrainList.cs" />
     <Compile Include="Controls\MapScreen\EffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\MenuDialog.cs" />
