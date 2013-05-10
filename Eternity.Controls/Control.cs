@@ -223,7 +223,7 @@ namespace Eternity.Controls
             return Children;
         }
 
-        protected IEnumerable<Control> GetAllChildren()
+        public IEnumerable<Control> GetAllChildren()
         {
             return Children.Union(Overlays);
         }

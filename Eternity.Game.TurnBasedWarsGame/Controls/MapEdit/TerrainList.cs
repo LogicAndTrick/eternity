@@ -103,13 +103,22 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
 
         private void AddTiles()
         {
+            TileType? sel = null;
+            var cursor = Child.GetChildren().SelectMany(x => x.GetAllChildren()).FirstOrDefault(x => x is IOverlayControl);
+            if (cursor != null && cursor.Parent is TerrainButton)
+            {
+                var selected = cursor.Parent;
+                sel = ((TerrainButton) selected).TileType;
+            }
             Child.Remove(x => true);
             foreach (TileType tt in Enum.GetValues(typeof (TileType)))
             {
                 var rules = RuleSet.GetTerrainRules(tt);
                 if (rules == null) continue;
                 if (tt == TileType.Pipe || tt == TileType.DestroyedPipeSeam || tt == TileType.PipeSeam) continue;
-                Child.Add(new TerrainButton(tt, rules.DisplayName, CurrentArmy));
+                var button = new TerrainButton(tt, rules.DisplayName, CurrentArmy);
+                Child.Add(button);
+                if (tt == sel) Mediator.Message(MapEditMessages.FocusCursor, button);
             }
         }
 

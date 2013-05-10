@@ -16,6 +16,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public ScrollingMapPanel() : base(null)
         {
+            Clip = true;
             Margin = Insets.All(40);
             _controlPosition = new Point(0, 0);
             _scrollX = _scrollX = 0;
@@ -32,7 +33,12 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         public override Size GetPreferredSize()
         {
-            return Children.Any() ? Children[0].GetPreferredSize() : base.GetPreferredSize();
+            if (Children.Any())
+            {
+                var ti = TotalInsets;
+                return Children[0].GetPreferredSize() + new Size(ti.TotalX, ti.TotalY);
+            }
+            return base.GetPreferredSize();
         }
 
         public override void OnMouseMove(EternityEvent ee)
@@ -43,14 +49,11 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
             if (!Children.Any()) return;
 
-            var loc = GetLocationInTree();
-            var mse = new Point(ee.X - loc.X, ee.Y - loc.Y);
+            if (ee.X >= 0 && ee.X <= scrollZone) _scrollX = -1; // Scroll LEFT
+            else if (ee.X >= Box.Width - scrollZone && ee.X <= Box.Width) _scrollX = 1; // Scroll RIGHT
 
-            if (mse.X >= 0 && mse.X <= scrollZone) _scrollX = -1; // Scroll LEFT
-            else if (mse.X >= Box.Width - scrollZone && mse.X <= Box.Width) _scrollX = 1; // Scroll RIGHT
-
-            if (mse.Y >= 0 && mse.Y <= scrollZone) _scrollY = -1; // Scroll UP
-            else if (mse.Y >= Box.Height - scrollZone && mse.Y <= Box.Height) _scrollY = 1; // Scroll DOWN
+            if (ee.Y >= 0 && ee.Y <= scrollZone) _scrollY = -1; // Scroll UP
+            else if (ee.Y >= Box.Height - scrollZone && ee.Y <= Box.Height) _scrollY = 1; // Scroll DOWN
         }
 
         private Point ScrollCalculate(Point pt)
@@ -58,14 +61,16 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             if (!Children.Any()) return pt;
             if (_scrollX == 0 && _scrollY == 0) return pt;
 
+            var ib = InnerBox;
+
             var x = _scrollX * 3;
             var y = _scrollY * 3;
             if (_scrollX < 0 && pt.X <= 0) x = 0;
             if (_scrollY < 0 && pt.Y <= 0) y = 0;
 
             var child = Children.First();
-            if (_scrollX > 0 && pt.X >= child.Box.Width - Box.Width + Border.TotalX) x = 0;
-            if (_scrollY > 0 && pt.Y >= child.Box.Height - Box.Height + Border.TotalY) y = 0;
+            if (_scrollX > 0 && pt.X >= child.Box.Width - ib.Width) x = 0;
+            if (_scrollY > 0 && pt.Y >= child.Box.Height - ib.Height) y = 0;
 
             return new Point(pt.X + x, pt.Y + y);
         }
@@ -91,17 +96,16 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
         protected override void OnDoLayout()
         {
-            var availWid = Box.Width - Border.TotalX;
-            var availHei = Box.Height - Border.TotalY;
+            var ib = InnerBox;
             foreach (var child in Children)
             {
                 int x, y;
 
-                if (child.Box.Width > availWid) x = Border.Left - _controlPosition.X;
-                else x = Border.Left + (availWid - child.Box.Width) / 2;
+                if (child.Box.Width > ib.Width) x = ib.X - _controlPosition.X;
+                else x = ib.X + (ib.Width - child.Box.Width) / 2;
 
-                if (child.Box.Height > availHei) y = Border.Top - _controlPosition.Y;
-                else y = Border.Top + (availHei - child.Box.Height) / 2;
+                if (child.Box.Height > ib.Height) y = ib.Y - _controlPosition.Y;
+                else y = ib.Y + (ib.Height - child.Box.Height) / 2;
 
                 child.ResizeSafe(new Box(x, y, child.Box.Width, child.Box.Height));
             }
