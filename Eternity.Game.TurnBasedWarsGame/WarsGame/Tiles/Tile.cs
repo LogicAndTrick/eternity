@@ -249,7 +249,12 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
 
         public IEnumerable<Tile> GetAdjacentTiles()
         {
-            return new[] {North, South, East, West}.Where(x => x != null);
+            return new[] { North, South, East, West }.Where(x => x != null);
+        }
+
+        public IEnumerable<Tile> GetNeighbouringTiles()
+        {
+            return new[] { North, South, East, West, NorthWest, NorthEast, SouthWest, SouthEast }.Where(x => x != null);
         }
         #endregion
 
@@ -275,19 +280,19 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
 
         public void UpdateTerrain(string underlay, string style, string overlay)
         {
+            BaseGroups.RemoveLayer("Terrain", "TerrainUnderlay");
             if (!String.IsNullOrWhiteSpace(underlay))
             {
-                BaseGroups.RemoveLayer("Terrain", "TerrainUnderlay");
                 BaseGroups.AddLayer("Terrain", "TerrainUnderlay", underlay);
             }
+            BaseGroups.RemoveLayer("Terrain", "TerrainBase");
             if (!String.IsNullOrWhiteSpace(style))
             {
-                BaseGroups.RemoveLayer("Terrain", "TerrainBase");
                 BaseGroups.AddLayer("Terrain", "TerrainBase", style);
             }
+            BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
             if (!String.IsNullOrWhiteSpace(overlay))
             {
-                BaseGroups.RemoveLayer("Terrain", "TerrainOverlay");
                 BaseGroups.AddLayer("Terrain", "TerrainOverlay", overlay);
             }
         }
@@ -360,6 +365,9 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
 
         public void CalculateOverlays()
         {
+            OverlayGroups.RemoveLayer("TerrainOverlays", "MountainOverlay");
+            OverlayGroups.RemoveLayer("TerrainOverlays", "OceanOverlay");
+
             var n = GetType(North, TileType.Sea);
             var w = GetType(West, TileType.Sea);
             var nw = GetType(NorthWest, TileType.Sea);

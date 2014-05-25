@@ -53,7 +53,7 @@ namespace Eternity.Messaging
             Subscribers = new Dictionary<string, List<WeakAction>>();
             foreach (var t in AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("Eternity")).SelectMany(a => a.GetTypes()))
             {
-                foreach (var method in t.GetMethods(BindingFlags.Static))
+                foreach (var method in t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
                 {
                     foreach (var attr in method.GetCustomAttributes(typeof(SubscribeAttribute), true).Select(a => (SubscribeAttribute)a))
                     {

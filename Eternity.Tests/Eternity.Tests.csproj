@@ -50,6 +50,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntersectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithms.cs" />
     <Compile Include="ResourceDefinitionTest.cs" />
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\Eternity.Algorithms\Eternity.Algorithms.csproj">
       <Project>{491174EC-E341-40BC-9A90-D45121C9DCB0}</Project>
       <Name>Eternity.Algorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eternity.DataStructures\Eternity.DataStructures.csproj">
+      <Project>{54257FD4-80F9-4A63-9916-420A6BFE58CB}</Project>
+      <Name>Eternity.DataStructures</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eternity.Resources\Eternity.Resources.csproj">
       <Project>{EFDE4A72-1798-4CB1-8A37-2C94DAB5E798}</Project>

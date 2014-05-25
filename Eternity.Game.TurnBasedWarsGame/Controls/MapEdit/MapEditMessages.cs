@@ -5,6 +5,9 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
         ChangeTerrain,
         ChangeArmy,
         FocusCursor,
+        HighlightCursor,
+        UnhighlightCursor,
 
+        ApplyTerrain,
     }
 }

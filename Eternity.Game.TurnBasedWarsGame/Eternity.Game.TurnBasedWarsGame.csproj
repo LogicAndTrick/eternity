@@ -53,6 +53,7 @@
     <Compile Include="Controls\MapEdit\ArmyList.cs" />
     <Compile Include="Controls\MapEdit\MapEditMessages.cs" />
     <Compile Include="Controls\MapEdit\CircleMenuCursor.cs" />
+    <Compile Include="Controls\MapEdit\SquareCursor.cs" />
     <Compile Include="Controls\MapEdit\TerrainList.cs" />
     <Compile Include="Controls\MapScreen\EffectOverlay.cs" />
     <Compile Include="Controls\MapScreen\MenuDialog.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="WarsGame\Rules\TerrainRules.cs" />
     <Compile Include="WarsGame\Rules\RuleSet.cs" />
     <Compile Include="WarsGame\Rules\UnitRules.cs" />
+    <Compile Include="WarsGame\Tiles\TerrainController.cs" />
     <Compile Include="WarsGame\Tiles\TilePath.cs" />
     <Compile Include="WarsGame\Tiles\TileType.cs" />
     <Compile Include="WarsGame\Tiles\Tile.cs" />

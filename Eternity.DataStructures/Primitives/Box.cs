@@ -41,8 +41,8 @@ namespace Eternity.DataStructures.Primitives
         {
             var minx = Math.Min(start.X, end.X);
             var miny = Math.Min(start.Y, end.Y);
-            var maxx = Math.Max(start.X, end.X);
-            var maxy = Math.Max(start.Y, end.Y);
+            var maxx = Math.Max(Math.Max(start.X, end.X) - 1, minx);
+            var maxy = Math.Max(Math.Max(start.Y, end.Y) - 1, miny);
 
             TopLeft = new Point(minx, miny);
             TopRight = new Point(maxx, miny);
@@ -56,14 +56,14 @@ namespace Eternity.DataStructures.Primitives
 
             X = minx;
             Y = miny;
-            Width = maxx - minx;
-            Height = maxy - miny;
+            Width = (maxx - minx) + 1;
+            Height = (maxy - miny) + 1;
         }
 
         public bool Contains(Point p)
         {
-            return X <= p.X && (X + Width) >= p.X &&
-                   Y <= p.Y && (Y + Height) >= p.Y;
+            return X <= p.X && (X + Width) > p.X &&
+                   Y <= p.Y && (Y + Height) > p.Y;
         }
 
         public Point GetCenter()

@@ -125,7 +125,7 @@ namespace Eternity.Controls
             }
             child.Parent = this;
             Overlays.Add(child);
-            child.Box = Box;
+            child.Box = new Box(0, 0, Box.Width, Box.Height);
         }
 
         public void ResizeSafe(Box box)
@@ -345,6 +345,7 @@ namespace Eternity.Controls
                         if (!line.Intersects(control.Box, out p1, out p2)) continue;
                         if (p1 != null) control.OnMouseEnter(ee);
                         if (p2 != null) control.OnMouseLeave(ee);
+                        //if (p1 != null && p2 != null && line.Length() < 3) throw new Exception();
                         bubbleChildren.Add(control);
                     }
                     break;

@@ -65,14 +65,12 @@ namespace Eternity.DataStructures.Primitives
         /// <returns></returns>
         public bool Intersects(Box that, out Point entryPoint, out Point exitPoint)
         {
-            var lowerLeft = that.BottomLeft;
-            var upperRight = that.TopRight;
             // Check if it is inside
-            var startInside = Start.X > lowerLeft.X && Start.X < upperRight.X && Start.Y < lowerLeft.Y && Start.Y > upperRight.Y;
-            var endInside = End.X > lowerLeft.X && End.X < upperRight.X && End.Y < lowerLeft.Y && End.Y > upperRight.Y;
-            // completely inside, no in/out 
+            var startInside = that.Contains(Start);
+            var endInside = that.Contains(End);
             if (startInside && endInside)
             {
+                // Completely inside, no in/out 
                 entryPoint = exitPoint = null;
                 return true;
             }
@@ -100,6 +98,13 @@ namespace Eternity.DataStructures.Primitives
             if (endInside) exitPoint = null;
 
             return true;
+        }
+
+        public decimal Length()
+        {
+            var x = End.X - Start.X;
+            var y = End.Y - Start.Y;
+            return (decimal) Math.Sqrt(x * x + y * y);
         }
     }
 }

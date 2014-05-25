@@ -3,8 +3,10 @@ using System.Linq;
 using Eternity.Controls;
 using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
+using Eternity.Game.TurnBasedWarsGame.Controls.MapEdit;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Graphics;
+using Eternity.Messaging;
 
 namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 {
@@ -43,6 +45,21 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                 }
                 context.SetColour(Color.White);
             }
+        }
+
+        public override void OnMouseEnter(Input.EternityEvent e)
+        {
+            Mediator.Message(MapEditMessages.HighlightCursor, this);
+        }
+
+        public override void OnMouseLeave(Input.EternityEvent e)
+        {
+            Mediator.Message(MapEditMessages.UnhighlightCursor, this);
+        }
+
+        public override void OnMouseDown(Input.EternityEvent e)
+        {
+            Mediator.Message(MapEditMessages.ApplyTerrain, this);
         }
     }
 }

@@ -4,9 +4,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Eternity.Controls;
+using Eternity.Controls.Animations;
 using Eternity.Controls.Borders;
 using Eternity.Controls.Controls;
+using Eternity.Controls.Easings;
 using Eternity.Controls.Layouts;
+using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Rules;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Graphics.Sprites;
@@ -80,6 +83,16 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
             {
                 Mediator.Message(MapEditMessages.ChangeTerrain, TileType);
                 Mediator.Message(MapEditMessages.FocusCursor, this);
+            }
+
+            public override void OnMouseEnter(Input.EternityEvent e)
+            {
+                Mediator.Message(MapEditMessages.HighlightCursor, this);
+            }
+
+            public override void OnMouseLeave(Input.EternityEvent e)
+            {
+                Mediator.Message(MapEditMessages.UnhighlightCursor, this);
             }
         }
 

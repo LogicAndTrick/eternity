@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 using Eternity.Controls;
-using Eternity.Controls.Animations;
-using Eternity.Controls.Easings;
 using Eternity.Controls.Layouts;
 using Eternity.DataStructures.Primitives;
 using Eternity.Game.TurnBasedWarsGame.Controls.MainMenu;
@@ -14,23 +11,22 @@ using Eternity.Game.TurnBasedWarsGame.Controls.MapScreen;
 using Eternity.Game.TurnBasedWarsGame.WarsGame;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.Armies;
 using Eternity.Game.TurnBasedWarsGame.WarsGame.COs;
-using Eternity.Game.TurnBasedWarsGame.WarsGame.Rules;
+using Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles;
 using Eternity.Graphics;
 using Eternity.Graphics.Sprites;
 using Eternity.Graphics.Textures;
 using Eternity.Input;
 using Eternity.Messaging;
 using Eternity.Resources;
-using OpenTK.Graphics.OpenGL;
 using Point = Eternity.DataStructures.Primitives.Point;
-using Size = Eternity.DataStructures.Primitives.Size;
 
 namespace Eternity.Game.TurnBasedWarsGame
 {
     public class MapEditMode : IGameMode
     {
         private LayoutControl _root;
-        private CircleMenuCursor _cursor;
+        private SquareCursor _selectionCursor;
+        private MenuCursor _hoverCursor;
         private Map _map;
         private readonly List<Army> _armies;
 
@@ -111,28 +107,46 @@ namespace Eternity.Game.TurnBasedWarsGame
         {
             var control = (Control) parameters[0];
 
-            if (_cursor == null) _cursor = new CircleMenuCursor();
-            if (_cursor.Parent != null) _cursor.Parent.Remove(_cursor);
-            _cursor.ResizeSafe(control.Box);
-            control.AddOverlay(_cursor);
-            _cursor.Reset();
-            return;
+            if (_selectionCursor == null) _selectionCursor = new SquareCursor();
+            if (_selectionCursor.Parent != null) _selectionCursor.Parent.Remove(_selectionCursor);
+            _selectionCursor.ResizeSafe(control.Box);
+            control.AddOverlay(_selectionCursor);
+        }
 
-            var pos = control.GetLocationInTree() - _root.GetLocationInTree();
+        [Subscribe(MapEditMessages.HighlightCursor)]
+        private void HighlightCursor(params object[] parameters)
+        {
+            var control = (Control)parameters[0];
 
-            var st = _cursor.Margin.Top;
-            var sl = _cursor.Margin.Left;
-            var ft = pos.Y - 4;
-            var fl = pos.X - 4;
-            var ss = _cursor.Box.Size;
-            var fs = control.Box.Size + new Size(pos.X + 4, pos.Y + 4);
-            _root.AddAnimation(
-                new Animation<int>(0, 100, 200, new EasingOut(new QuintEasing()),
-                                   x =>
-                                   {
-                                       _cursor.Margin = new Insets((int)(st + (ft - st) * x / 100f), 0, 0, (int)(sl + (fl - sl) * x / 100f));
-                                       _cursor.Box = new Box(Point.Zero, new Size((int)(ss.Width + (fs.Width - ss.Width) * x / 100f), (int)(ss.Height + (fs.Height - ss.Height) * x / 100f)));
-                                   }));
+            if (_hoverCursor == null) _hoverCursor = new MenuCursor();
+            if (_hoverCursor.Parent != null) _hoverCursor.Parent.Remove(_hoverCursor);
+            _hoverCursor.ResizeSafe(control.Box);
+            control.AddOverlay(_hoverCursor);
+        }
+
+        [Subscribe(MapEditMessages.UnhighlightCursor)]
+        private void UnhighlightCursor(params object[] parameters)
+        {
+            var control = (Control)parameters[0];
+
+            if (_hoverCursor == null) return;
+            if (_hoverCursor.Parent != null && _hoverCursor.Parent == control) _hoverCursor.Parent.Remove(_hoverCursor);
+        }
+
+        private TileType _activeTerrain;
+
+        [Subscribe(MapEditMessages.ChangeTerrain)]
+        private void SetActiveTerrain(params object[] parameters)
+        {
+            if (parameters.Length > 0 && parameters[0] is TileType) _activeTerrain = (TileType)parameters[0];
+        }
+
+        [Subscribe(MapEditMessages.ApplyTerrain)]
+        private void ApplyTerrain(params object[] parameters)
+        {
+            if (parameters.Length == 0 || !(parameters[0] is TileControl)) return;
+            var tc = (TileControl) parameters[0];
+            TerrainController.ChangeTerrainType(tc.Tile, _activeTerrain);
         }
 
         public void ShutDown()

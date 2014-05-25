@@ -14,7 +14,7 @@ namespace Eternity.Graphics
         public int ScreenHeight { get; set; }
 
         private Stack<Rectangle> _scissorStack;
-        private Point _translation;
+        private Vector2d _translation;
 
         public GLRenderContext(int screenWidth, int screenHeight)
         {
@@ -22,7 +22,7 @@ namespace Eternity.Graphics
             ScreenHeight = screenHeight;
 
             _scissorStack = new Stack<Rectangle>();
-            _translation = Point.Empty;
+            _translation = Vector2d.Zero;
         }
 
         public void Clear()
@@ -157,9 +157,9 @@ namespace Eternity.Graphics
             return new GLTexture(id, name, w, h);
         }
 
-        public void Translate(int x, int y)
+        public void Translate(double x, double y)
         {
-            _translation = new Point(_translation.X + x, _translation.Y + y);
+            _translation = new Vector2d(_translation.X + x, _translation.Y + y);
             GL.Translate(x, y, 0);
         }
 
@@ -168,7 +168,7 @@ namespace Eternity.Graphics
         {
             if (_scissorStack.Count == 0) GL.Enable(EnableCap.ScissorTest);
 
-            var rec = new Rectangle(_translation.X + x, ScreenHeight - (_translation.Y + y + height), width, height);
+            var rec = new Rectangle((int)_translation.X + x, ScreenHeight - ((int)_translation.Y + y + height), width, height);
             _scissorStack.Push(rec);
 
             Scissor();

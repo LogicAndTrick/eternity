@@ -47,8 +47,8 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                 .Queue(_ => AddAnimation(_), () => _day.Box.X, () => _dayNumber.Box.X + Parent.Box.Width, 100, new LinearEasing(), x => UpdateBox(x, _day));
             AddAnimation(d);
 
-            d = Animation<int>.Delay(200);
-            d.Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => 80, 200, new QuadEasing().Out(), x => UpdateBox(x, _dayNumber))
+            d = Animation<int>.Delay(100);
+            d.Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => 100, 200, new QuadEasing().Out(), x => UpdateBox(x, _dayNumber))
                 .Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => _dayNumber.Box.X + 20, 1800, new LinearEasing(), x => UpdateBox(x, _dayNumber))
                 .Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => _dayNumber.Box.X + Parent.Box.Width, 100, new LinearEasing(), x => UpdateBox(x, _dayNumber));
             AddAnimation(d);
@@ -71,13 +71,13 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
         private void CalculateLabels()
         {
             _day.Box = new Box(_day.Box.X, (int)(Box.Height * 0.3), _day.Box.Width, _day.Box.Height);
-            _dayNumber.Box = new Box(_dayNumber.Box.X, (int)(Box.Height * 0.5), _dayNumber.Box.Width, _dayNumber.Box.Height);
+            _dayNumber.Box = new Box(_dayNumber.Box.X, (int)(Box.Height * 0.3) + 40, _dayNumber.Box.Width, _dayNumber.Box.Height);
             _fight.Box = new Box(_fight.Box.X, (int)(Box.Height * 0.7), _fight.Box.Width, _fight.Box.Height);
         }
 
         public override void OnRender(IRenderContext context)
         {
-            context.SetScissor(Parent.Box.X, Parent.Box.Y, Parent.Box.Width, Parent.Box.Height);
+            context.SetScissor(Box.X, Box.Y, Box.Width, Box.Height);
         }
 
         public override void OnAfterRender(IRenderContext context)
