@@ -25,8 +25,8 @@ namespace Eternity.Controls.Layouts
         private Size CalculatePreferredSize(Control parent, IEnumerable<Control> children, Dictionary<Control, object> constraints, IDictionary<Control, Size> preferred, bool skipcenter)
         {
             var insets = parent.TotalInsets;
-            int t = insets.Top, b = insets.Bottom, l = insets.Left, r = insets.Right;
-            int cw = 0, ch = 0;
+            double t = insets.Top, b = insets.Bottom, l = insets.Left, r = insets.Right;
+            double cw = 0, ch = 0;
             foreach (var child in children)
             {
                 var ps = preferred[child];

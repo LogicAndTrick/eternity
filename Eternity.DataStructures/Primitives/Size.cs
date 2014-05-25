@@ -4,12 +4,12 @@ namespace Eternity.DataStructures.Primitives
 {
     public class Size
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
 
         public static readonly Size Zero = new Size(0, 0);
 
-        public Size(int width, int height)
+        public Size(double width, double height)
         {
             Width = width;
             Height = height;
@@ -43,7 +43,7 @@ namespace Eternity.DataStructures.Primitives
 
         protected bool Equals(Size other)
         {
-            return Width == other.Width && Height == other.Height;
+            return Width.Equals(other.Width) && Height.Equals(other.Height);
         }
 
         public override bool Equals(object obj)
@@ -58,7 +58,7 @@ namespace Eternity.DataStructures.Primitives
         {
             unchecked
             {
-                return (Width * 397) ^ Height;
+                return (Width.GetHashCode() * 397) ^ Height.GetHashCode();
             }
         }
 

@@ -24,12 +24,12 @@ namespace Eternity.Input
             Handled = false;
         }
 
-        public void Translate(int x, int y)
+        public void Translate(double x, double y)
         {
-            X -= x;
-            Y -= y;
-            LastX -= x;
-            LastY -= y;
+            X -= (int) x;
+            Y -= (int) y;
+            LastX -= (int) x;
+            LastY -= (int) y;
         }
 
         public EternityEvent Clone()

@@ -228,7 +228,7 @@ namespace Eternity.Controls
             return Children.Union(Overlays);
         }
 
-        public Control GetChildAt(int x, int y)
+        public Control GetChildAt(double x, double y)
         {
             var p = new Point(x, y);
             return Children.LastOrDefault(control => control.Box.Contains(p));

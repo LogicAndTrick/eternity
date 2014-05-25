@@ -32,7 +32,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
 
         public override void OnRender(IRenderContext context)
         {
-            int x = 1, y = 0, w = ActualSize.Width - 1, h = ActualSize.Height - 1;
+            double x = 1, y = 0, w = ActualSize.Width - 1, h = ActualSize.Height - 1;
             context.ClearTexture();
             context.StartLines();
 

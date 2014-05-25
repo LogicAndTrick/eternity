@@ -60,7 +60,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
                 var left = c.Point.X == 0;
                 var top = c.Point.Y == 0;
 
-                int start = c.Box.X, end = start + Parent.Box.Width;
+                double start = c.Box.X, end = start + Parent.Box.Width;
                 var x = true;
                 Point newPoint;
                 if (top && left)
@@ -90,13 +90,13 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapEdit
                     x = false;
                     newPoint = new Point(0, 0);
                 }
-                AddAnimation(new Animation<int>(() => start, () => end, 300, new QuadEasing(),
+                AddAnimation(new Animation<double>(() => start, () => end, 300, new QuadEasing(),
                     v => AnimationCallback(c, x, v), _ => c.Point = newPoint));
             }
-            AddAnimation(Animation<int>.Delay(800, _ => StartAnimation()));
+            AddAnimation(Animation<double>.Delay(800, _ => StartAnimation()));
         }
 
-        private void AnimationCallback(Control c, bool x, int val)
+        private void AnimationCallback(Control c, bool x, double val)
         {
             var p = new Point(x ? val : c.Box.X, x ? c.Box.Y : val);
             c.ResizeSafe(new Box(p, c.Box.Size));

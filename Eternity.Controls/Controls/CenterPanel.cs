@@ -14,8 +14,8 @@ namespace Eternity.Controls.Controls
         {
             public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
             {
-                var x = 0;
-                var y = 0;
+                var x = 0d;
+                var y = 0d;
                 foreach (var ps in children.Select(c => c.GetPreferredSize()))
                 {
                     x = Math.Max(ps.Width, x);

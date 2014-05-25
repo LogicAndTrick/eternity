@@ -42,8 +42,8 @@ namespace Eternity.DataStructures.Primitives
                 return false;
             }
 
-            var ua = numerator / (decimal) denom;
-            var ub = numerator2 / (decimal) denom;
+            var ua = numerator / denom;
+            var ub = numerator2 / denom;
 
             if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
             {

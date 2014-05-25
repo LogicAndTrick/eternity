@@ -4,12 +4,12 @@ namespace Eternity.DataStructures.Primitives
 {
     public class Point
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public double X { get; private set; }
+        public double Y { get; private set; }
 
         public static readonly Point Zero = new Point(0, 0);
 
-        public Point(int x, int y)
+        public Point(double x, double y)
         {
             X = x;
             Y = y;
@@ -46,23 +46,16 @@ namespace Eternity.DataStructures.Primitives
             return new Point(-p.X, -p.Y);
         }
 
-        public static bool Equals(Point p1, Point p2)
+        protected bool Equals(Point other)
         {
-            return Object.Equals(p1, p2);
-        }
-
-        public bool Equals(Point other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return other.X == X && other.Y == Y;
+            return X.Equals(other.X) && Y.Equals(other.Y);
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (Point)) return false;
+            if (obj.GetType() != this.GetType()) return false;
             return Equals((Point) obj);
         }
 
@@ -70,7 +63,7 @@ namespace Eternity.DataStructures.Primitives
         {
             unchecked
             {
-                return (X * 397) ^ Y;
+                return (X.GetHashCode() * 397) ^ Y.GetHashCode();
             }
         }
     }

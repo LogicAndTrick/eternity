@@ -79,7 +79,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame
             Tiles.ForEach(x => x.CalculateOverlays());
         }
 
-        public Tile GetTile(int x, int y)
+        public Tile GetTile(double x, double y)
         {
             return GetTile(new Point(x, y));
         }

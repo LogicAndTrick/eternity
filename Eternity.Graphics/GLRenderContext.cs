@@ -164,11 +164,11 @@ namespace Eternity.Graphics
         }
 
 
-        public void SetScissor(int x, int y, int width, int height)
+        public void SetScissor(double x, double y, double width, double height)
         {
             if (_scissorStack.Count == 0) GL.Enable(EnableCap.ScissorTest);
 
-            var rec = new Rectangle((int)_translation.X + x, ScreenHeight - ((int)_translation.Y + y + height), width, height);
+            var rec = new Rectangle((int) (_translation.X + x), (int) (ScreenHeight - (_translation.Y + y + height)), (int) width, (int) height);
             _scissorStack.Push(rec);
 
             Scissor();

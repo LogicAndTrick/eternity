@@ -55,7 +55,7 @@ namespace Eternity.Controls.Controls
         private void UpdateRenderer()
         {
             if (_renderer != null) _renderer.Dispose();
-            _renderer = new TextRenderer(_text, Box.Width, Box.Height);
+            _renderer = new TextRenderer(_text, (int) Box.Width, (int) Box.Height);
             using (var brush = new SolidBrush(Color))
             {
                 _renderer.DrawString(Text, _font, brush);

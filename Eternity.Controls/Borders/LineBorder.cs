@@ -30,7 +30,7 @@ namespace Eternity.Controls.Borders
             Colour = colour;
         }
 
-        private void Rectangle(int x, int y, int w, int h, IRenderContext context)
+        private void Rectangle(double x, double y, double w, double h, IRenderContext context)
         {
             context.Point2(x, y);
             context.Point2(x + w, y);

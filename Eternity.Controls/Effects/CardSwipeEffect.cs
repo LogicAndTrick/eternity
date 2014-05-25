@@ -29,21 +29,21 @@ namespace Eternity.Controls.Effects
             _callback = callback;
             if (_enter == null && _exit == null) throw new Exception();
 
-            if (_exit != null) _animations.Add(new Animation<int>(_exit.Box.X, _exit.Box.X - _exit.Box.Width, speed, easing, ExitProgress, ExitComplete));
-            if (_enter != null) _animations.Add(new Animation<int>(_enter.Box.X, _enter.Box.X - _enter.Box.Width, speed, easing, EnterProgress));
+            if (_exit != null) _animations.Add(new Animation<double>(_exit.Box.X, _exit.Box.X - _exit.Box.Width, speed, easing, ExitProgress, ExitComplete));
+            if (_enter != null) _animations.Add(new Animation<double>(_enter.Box.X, _enter.Box.X - _enter.Box.Width, speed, easing, EnterProgress));
         }
 
-        private void EnterProgress(int obj)
+        private void EnterProgress(double obj)
         {
             _enter.ResizeSafe(new Box(obj, _enter.Box.Y, _enter.Box.Width, _enter.Box.Height));
         }
 
-        private void ExitProgress(int obj)
+        private void ExitProgress(double obj)
         {
             _exit.ResizeSafe(new Box(obj, _exit.Box.Y, _exit.Box.Width, _exit.Box.Height));
         }
 
-        private void ExitComplete(int obj)
+        private void ExitComplete(double obj)
         {
             if (_callback != null)
             {

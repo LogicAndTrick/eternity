@@ -41,19 +41,19 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
 
             CalculateLabels();
 
-            var d = Animation<int>.Delay(0);
-            d.Queue(_ => AddAnimation(_), () => _day.Box.X, () => 50, 200, new QuadEasing().Out(), x => UpdateBox(x, _day))
+            var d = Animation<double>.Delay(0);
+            d.Queue(_ => AddAnimation(_), () => _day.Box.X, () => 50, 100, new QuadEasing().Out(), x => UpdateBox(x, _day))
                 .Queue(_ => AddAnimation(_), () => _day.Box.X, () => _day.Box.X + 20, 2000, new LinearEasing(), x => UpdateBox(x, _day))
                 .Queue(_ => AddAnimation(_), () => _day.Box.X, () => _dayNumber.Box.X + Parent.Box.Width, 100, new LinearEasing(), x => UpdateBox(x, _day));
             AddAnimation(d);
 
-            d = Animation<int>.Delay(100);
-            d.Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => 100, 200, new QuadEasing().Out(), x => UpdateBox(x, _dayNumber))
-                .Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => _dayNumber.Box.X + 20, 1800, new LinearEasing(), x => UpdateBox(x, _dayNumber))
+            d = Animation<double>.Delay(100);
+            d.Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => 100, 100, new QuadEasing().Out(), x => UpdateBox(x, _dayNumber))
+                .Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => _dayNumber.Box.X + 30, 1900, new LinearEasing(), x => UpdateBox(x, _dayNumber))
                 .Queue(_ => AddAnimation(_), () => _dayNumber.Box.X, () => _dayNumber.Box.X + Parent.Box.Width, 100, new LinearEasing(), x => UpdateBox(x, _dayNumber));
             AddAnimation(d);
 
-            d = Animation<int>.Delay(1000);
+            d = Animation<double>.Delay(900);
             d.Queue(_ => AddAnimation(_), () => _fight.Box.X, () => 150, 200, new QuadEasing().Out(), x => UpdateBox(x, _fight))
                 .Queue(_ => AddAnimation(_), () => _fight.Box.X, () => _fight.Box.X + 20, 1000, new LinearEasing(), x => UpdateBox(x, _fight))
                 .Queue(_ => AddAnimation(_), () => _fight.Box.X, () => _dayNumber.Box.X + Parent.Box.Width, 100, new LinearEasing(), x => UpdateBox(x, _fight));
@@ -62,7 +62,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             AddAnimation(Animation<int>.Delay(2400, x => Hide()));
         }
 
-        private void UpdateBox(int x, Control label)
+        private void UpdateBox(double x, Control label)
         {
             if (Disposed) return;
             label.Box = new Box(x, label.Box.Y, label.Box.Width, label.Box.Height);

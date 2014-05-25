@@ -99,7 +99,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
             var ib = InnerBox;
             foreach (var child in Children)
             {
-                int x, y;
+                double x, y;
 
                 if (child.Box.Width > ib.Width) x = ib.X - _controlPosition.X;
                 else x = ib.X + (ib.Width - child.Box.Width) / 2;

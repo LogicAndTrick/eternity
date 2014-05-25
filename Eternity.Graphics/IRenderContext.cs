@@ -37,7 +37,7 @@ namespace Eternity.Graphics
 
         void Translate(double x, double y);
 
-        void SetScissor(int x, int y, int width, int height);
+        void SetScissor(double x, double y, double width, double height);
         void RemoveScissor();
     }
 }

@@ -39,7 +39,7 @@ namespace Eternity.Controls.Controls
         protected LayoutControl Child { get; private set; }
 
         private Size _preferred;
-        private int _offset;
+        private double _offset;
 
         public VerticalScrollPanel(Size maximumSize, LayoutControl child) : base(null)
         {

@@ -18,8 +18,8 @@ namespace Eternity.Controls.Layouts
 
         public Size GetPreferredSize(Control parent, List<Control> children, Dictionary<Control, object> constraints)
         {
-            var x = 0;
-            var y = 0;
+            var x = 0d;
+            var y = 0d;
             foreach (var ps in children.Select(child => child.GetPreferredSize()))
             {
                 x = Math.Max(x, ps.Width);

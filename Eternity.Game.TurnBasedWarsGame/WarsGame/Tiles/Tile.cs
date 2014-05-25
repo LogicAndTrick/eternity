@@ -423,7 +423,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Tiles
             else if (esea && ssea && sesea) OverlayGroups.AddLayer("TerrainOverlays", "OceanOverlay", "BlueOverlayR4");
         }
 
-        public int DistanceFrom(Tile other)
+        public double DistanceFrom(Tile other)
         {
             return Math.Abs(Location.X - other.Location.X) + Math.Abs(Location.Y - other.Location.Y);
         }

@@ -51,7 +51,7 @@ namespace Eternity.Graphics.Sprites
             // Bottom Right
             var bx2 = textureWidth;
             var by2 = textureHeight;
-            int bx1, by1;
+            double bx1, by1;
 
             if (DockX == Dock.Center)
             {

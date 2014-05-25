@@ -38,7 +38,7 @@ namespace Eternity.Graphics
         public TextRenderer(string text, Font font = null)
         {
             var size = GetPreferredSize(text, font);
-            Init(size.Width, size.Height);
+            Init((int) size.Width, (int) size.Height);
             //DrawString(text, font);
         }
 

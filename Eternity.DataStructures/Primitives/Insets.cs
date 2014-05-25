@@ -2,15 +2,15 @@
 {
     public class Insets
     {
-        public int Top { get; private set; }
-        public int Left { get; private set; }
-        public int Right { get; private set; }
-        public int Bottom { get; private set; }
+        public double Top { get; private set; }
+        public double Left { get; private set; }
+        public double Right { get; private set; }
+        public double Bottom { get; private set; }
 
-        public int TotalX { get { return Left + Right; } }
-        public int TotalY { get { return Top + Bottom; } }
+        public double TotalX { get { return Left + Right; } }
+        public double TotalY { get { return Top + Bottom; } }
 
-        public Insets(int top, int right, int bottom, int left)
+        public Insets(double top, double right, double bottom, double left)
         {
             Top = top;
             Left = left;
@@ -18,7 +18,7 @@
             Bottom = bottom;
         }
 
-        public static Insets All(int val)
+        public static Insets All(double val)
         {
             return new Insets(val, val, val, val);
         }

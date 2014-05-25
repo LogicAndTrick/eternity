@@ -31,7 +31,7 @@ namespace Eternity.Game.TurnBasedWarsGame.WarsGame.Interactions.UnitActions.Comm
                 var tile = Board.GetTileControl(t.Key.Location);
                 if (tile == null) continue;
                 SpritePool.DrawSprite(context, "Overlays", t.Value,
-                                      tile.Box.Offset((int)(tile.Box.Width * 0.75), -tile.Box.Height / 2),
+                                      tile.Box.Offset(tile.Box.Width * 0.75, -tile.Box.Height / 2),
                                       new SpriteDrawingOptions { DockX = SpriteDrawingOptions.Dock.Left });
             }
         }

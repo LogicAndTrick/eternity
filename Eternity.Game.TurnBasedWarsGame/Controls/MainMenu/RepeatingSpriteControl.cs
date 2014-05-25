@@ -46,7 +46,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MainMenu
             }
         }
 
-        private void DrawVertical(IRenderContext context, int x)
+        private void DrawVertical(IRenderContext context, double x)
         {
             var ib = InnerBox;
             var offset = RepeatY ? OffsetY - Sprite.Height : OffsetY;
@@ -57,7 +57,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MainMenu
             }
         }
 
-        private void Draw(IRenderContext context, int x, int y)
+        private void Draw(IRenderContext context, double x, double y)
         {
             SpritePool.DrawSprite(context, Sprite, new Box(x, y, Sprite.Width, Sprite.Height), DrawingOptions);
         }

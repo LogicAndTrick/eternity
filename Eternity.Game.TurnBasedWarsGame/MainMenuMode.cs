@@ -102,13 +102,13 @@ namespace Eternity.Game.TurnBasedWarsGame
             var fs = e.Control.Box.Size + new Size(pos.X + 4, pos.Y + 4);
             //_root.StopAnimations();
             _root.AddAnimation(
-                new Animation<int>(0, 100, 200, new EasingOut(new QuintEasing()),
+                new Animation<double>(0, 100, 200, new EasingOut(new QuintEasing()),
                                    x =>
                                        {
                                            _cursor.Margin = new Insets((int)(st + (ft - st) * x / 100f), 0, 0, (int)(sl + (fl - sl) * x / 100f));
                                            _cursor.Box = new Box(Point.Zero, new Size((int)(ss.Width + (fs.Width - ss.Width) * x / 100f), (int)(ss.Height + (fs.Height - ss.Height) * x / 100f)));
                                        }));
-            _root.AddAnimation(new Animation<int>(_heartbeat.Margin.Top,
+            _root.AddAnimation(new Animation<double>(_heartbeat.Margin.Top,
                                                        pos.Y + (e.Control.Box.Height - _heartbeat.Sprite.Height) / 2,
                                                        600, new EasingOut(new QuintEasing()),
                                                        t => _heartbeat.Margin = new Insets(t, 0, 0, 0)));

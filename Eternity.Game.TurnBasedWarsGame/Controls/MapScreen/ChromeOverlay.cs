@@ -72,7 +72,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                 var newHor = isVertical ? currentHor : (currentHor == Direction.Left ? Direction.Right : Direction.Left);
 
                 AddAnimationSequential(
-                    new Animation<int>(
+                    new Animation<double>(
                         isVertical ? startY : startX,
                         isVertical ? midY : midX,
                         100,
@@ -83,7 +83,7 @@ namespace Eternity.Game.TurnBasedWarsGame.Controls.MapScreen
                                 constraints.CurrentDirection = newHor; // todo.
                                 control.ResizeSafe(new Box(newStartX, newStartY, width, height));
                             }),
-                    new Animation<int>(
+                    new Animation<double>(
                         isVertical ? newStartY : newStartX,
                         isVertical ? finalY : finalX,
                         100,

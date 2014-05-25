@@ -15,17 +15,17 @@ namespace Eternity.DataStructures.Primitives
         public Line Right { get; private set; }
         public Line Bottom { get; private set; }
 
-        public int X { get; private set; }
-        public int Y { get; private set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public double X { get; private set; }
+        public double Y { get; private set; }
+        public double Width { get; private set; }
+        public double Height { get; private set; }
 
         public Size Size
         {
             get { return new Size(Width, Height); }
         }
 
-        public Box(int x, int y, int width, int height)
+        public Box(double x, double y, double width, double height)
             : this(new Point(x, y), new Point(width + x, height + y))
         {
             
@@ -71,7 +71,7 @@ namespace Eternity.DataStructures.Primitives
             return (TopLeft + BottomRight) / 2;
         }
 
-        public Box Offset(int x, int y)
+        public Box Offset(double x, double y)
         {
             return new Box(X + x, Y + y, Width, Height);
         }
